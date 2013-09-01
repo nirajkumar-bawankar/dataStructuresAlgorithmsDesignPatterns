@@ -1,9 +1,7 @@
 package DataStructures;
 
 /**
- * Array-based singly linked list implementation.
- *
- * To view an interactive web page about array-based list implementation visit:
+ * To view an interactive web page about linked list implementation visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/ListArray.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
