@@ -25,6 +25,7 @@ public class MaxHeap {
     private int numberOfNodes; // number of nodes in current heap
 
     public MaxHeap(int[] heap, int capacity, int numberOfNodes) {
+	// TODO: add exceptions
 	this.heap = heap;
 	this.capacity = capacity;
 	this.numberOfNodes = numberOfNodes;
@@ -179,5 +180,11 @@ public class MaxHeap {
 
     public int getNumberOfNodes() {
 	return this.numberOfNodes;
+    }
+
+    public int getHeapHeight() {
+	double approximateHeight = Math.log(this.numberOfNodes)/Math.log(2);
+	int actualHeight = (int) (Math.floor(approximateHeight) + 1);
+	return actualHeight;
     }
 }
