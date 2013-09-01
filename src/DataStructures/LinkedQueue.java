@@ -17,14 +17,14 @@ public class LinkedQueue<E> implements QueueInterface<E> {
     }
 
     private void init() {
-	this.front = new Link<E>(null);
-	this.rear = new Link<E>(null);
+	// only one object is constructed
+	this.front = this.rear = new Link<E>(null);
 	this.size = 0;
     }
 
     @Override
-    public void enqueue(E item) {
-	this.rear.setNextNode(new Link<E>(item, null));
+    public void enqueue(E value) {
+	this.rear.setNextNode(new Link<E>(value, null));
 	this.rear = this.rear.getNextNode();
 	this.size++;
     }
@@ -32,7 +32,7 @@ public class LinkedQueue<E> implements QueueInterface<E> {
     @Override
     public E dequeue() {
 	if (this.size == 0) {
-	    throw new IllegalArgumentException("In method dequeue of class "
+	    throw new IllegalStateException("In method dequeue of class "
 		    + "LinkedQueue the linked queue is empty can cannot"
 		    + " be dequeued");
 	}
@@ -50,7 +50,7 @@ public class LinkedQueue<E> implements QueueInterface<E> {
     @Override
     public E frontValue() {
 	if (this.size == 0) {
-	    throw new IllegalArgumentException("In method frontValue of class "
+	    throw new IllegalStateException("In method frontValue of class "
 		    + "LinkedQueue the linked queue is empty");
 	}
 	return this.front.getNextNode().getValue();
@@ -73,10 +73,12 @@ public class LinkedQueue<E> implements QueueInterface<E> {
      * Example: < 1 2 3 4 5 6 >
      */
     public String toString() {
-	StringBuffer linkedQueueAsString = new StringBuffer((this.length() + 1) * 4);
+	StringBuilder linkedQueueAsString = new StringBuilder();
 	linkedQueueAsString.append("< ");
+	System.out.println("front.getNextNode: " + this.front.getNextNode());
 	for (Link<E> node = this.front.getNextNode(); node != null; node = node.getNextNode()) {
 	    linkedQueueAsString.append(node.getValue());
+	    System.out.println(node.getValue() + ",");
 	    linkedQueueAsString.append(" ");
 	}
 	linkedQueueAsString.append(">");
