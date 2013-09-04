@@ -34,7 +34,7 @@ public class MaxHeap {
     }
 
     public void insert(int nodeValue) {
-	if (this.capacity >= this.numberOfNodes) {
+	if (this.capacity <= this.numberOfNodes) {
 	    throw new IllegalArgumentException("In method insert of class "
 		    + "MaxHeap the value: " + nodeValue
 		    + " could not be inserted because the max-heap is full");

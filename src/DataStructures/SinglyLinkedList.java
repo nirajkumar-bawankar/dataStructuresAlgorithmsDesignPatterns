@@ -79,9 +79,9 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
     }
 
     @Override
-    public void previous() {
+    public boolean previous() {
 	if (this.currentNode == this.head) {
-	    return;
+	    return false;
 	}
 	Link<E> tempNode = this.head;
 	// iterate through singly linked list until you find the
@@ -90,12 +90,16 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	    tempNode = tempNode.getNextNode();
 	}
 	this.currentNode = tempNode;
+	return true;
     }
 
     @Override
-    public void next() {
+    public boolean next() {
 	if (this.currentNode != this.tail) {
 	    this.currentNode = this.currentNode.getNextNode();
+	    return true;
+	} else {
+	    return false;
 	}
     }
 
@@ -137,18 +141,47 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
     }
 
     /**
+     * @return Correct position within linked list or -1 if value is not found
+     *         within linked list.
+     */
+    public int findValuePosition(E item) {
+	// move the current position of the linked list back to the original
+	// position before this method was called
+	int currentPosition = this.currentPosition();
+
+	// counter to track where the found value is within the linked list
+	int foundValuePosition = 0;
+
+	// begin searching for item within the linked list from the beginning
+	this.moveToStart();
+
+	do {
+	    if (this.getValue() == item) {
+		this.moveCurrentNodeToPosition(currentPosition);
+		return foundValuePosition;
+	    } else {
+		foundValuePosition++;
+	    }
+	} while (this.next() != false);
+
+	this.moveCurrentNodeToPosition(currentPosition);
+	return -1;
+    }
+
+    /**
      * Creates a easy to read String representation of the singly linked lists
      * contents.
      *
      * Example 1: < 1 2 3 4 | 5 6 >
      *
      * The vertical bar = the link immediately after the current node.
+     *
      * @author Clifford A. Shaffer
      */
     public String toString() {
 	int oldPosition = this.currentPosition();
 	int length = this.length();
-	StringBuffer linkedListAsString = new StringBuffer((length() + 1)*4);
+	StringBuffer linkedListAsString = new StringBuffer((length() + 1) * 4);
 
 	this.moveToStart();
 	linkedListAsString.append("<");

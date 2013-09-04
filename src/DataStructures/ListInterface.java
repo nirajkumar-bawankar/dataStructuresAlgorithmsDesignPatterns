@@ -33,13 +33,13 @@ public interface ListInterface<E> {
      * Move the current position one element before. No change if already at the
      * beginning.
      */
-    public void previous();
+    public boolean previous();
 
     /**
      * Move the current position one element after. No change if already at the
      * end.
      */
-    public void next();
+    public boolean next();
 
     /**
      * @return The number of items in the list.
