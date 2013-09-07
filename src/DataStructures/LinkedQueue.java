@@ -12,6 +12,9 @@ public class LinkedQueue<E> implements QueueInterface<E> {
     private Link<E> rear;
     private int size;
 
+    /**
+     * Create a new LinkedQueue object.
+     */
     public LinkedQueue() {
 	this.init();
     }

@@ -32,8 +32,8 @@ import realtimeweb.earthquakeservice.regular.EarthquakeService;
  * the discussion or modifies any computer file during the discussion. I have
  * violated neither the spirit nor letter of this restriction
  *
- * Please visit http://mickey.cs.vt.edu/cs3114-earthquake/ for more documentation
- * on the below code.
+ * Please visit http://mickey.cs.vt.edu/cs3114-earthquake/ for more
+ * documentation on the below code.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 3, 2013
@@ -80,13 +80,15 @@ public class eqsimple {
 	    ArrayList<String> nextCommands = watcherService.getNextCommands();
 	    // process next commands ...
 
+	    System.out.println(nextCommands.toString());
+
 	    // no commands
 	    if (nextCommands.size() == 0) {
 
 	    } else { // 1 or more commands
-		System.out.println(nextCommands.toString());
+		//System.out.println(nextCommands.toString());
 		processCommands(nextCommands);
-		System.out.println("--------------------------------");
+		//System.out.println("--------------------------------");
 	    }
 
 	    Report latestQuakes = earthquakeService.getEarthquakes(
@@ -118,15 +120,23 @@ public class eqsimple {
 	    if (command.contains("add")) {
 		String watcherName = getWatcherName(command);
 		processWatcherAddRequest(watcherName);
+	    } else if (command.contains("delete")) {
+		String watcherName = getWatcherName(command);
+		processWatcherDeleteRequest(watcherName);
+	    } else if (command.contains("query")) {
+		reportEarthquakesToRelevantWatchers();
 	    }
 	}
+    }
 
+    public static void reportEarthquakesToRelevantWatchers() {
+	// TODO: implement
     }
 
     /**
      * Precondition: command parameter must have a watcherName.
      */
-    private static String getWatcherName(String command) {
+    public static String getWatcherName(String command) {
 	String[] splitCommand = command.split(" ");
 
 	// watcherName will always be either in the 1st index or 3rd index

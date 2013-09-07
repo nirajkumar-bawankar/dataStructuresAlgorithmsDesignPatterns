@@ -20,8 +20,10 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 
     @Override
     public void insert(E item) {
-	this.currentNode.setNextNode(new Link<E>(item, this.currentNode
-		.getNextNode()));
+	this.currentNode.setNextNode(new Link<E>(this.currentNode.getValue(),
+		this.currentNode.getNextNode()));
+	this.currentNode.setValue(item);
+
 	if (this.tail == this.currentNode) {
 	    this.tail = this.currentNode.getNextNode();
 	}
@@ -30,8 +32,8 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 
     @Override
     public void append(E item) {
-	this.tail.setNextNode(new Link<E>(item, null));
-
+	this.tail.setNextNode(new Link<E>(null));
+	this.tail.setValue(item);
 	// the current tail is no longer the tail so the
 	// current tail must be changed to the link that was
 	// just appended
@@ -55,6 +57,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	    this.tail = this.currentNode;
 	}
 
+	// removes the node after the current node
 	this.currentNode.setNextNode(this.currentNode.getNextNode()
 		.getNextNode());
 	this.size--;

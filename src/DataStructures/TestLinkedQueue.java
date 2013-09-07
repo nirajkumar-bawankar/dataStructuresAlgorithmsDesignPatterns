@@ -30,7 +30,6 @@ public class TestLinkedQueue extends junit.framework.TestCase {
 		    + "LinkedQueue the linked queue is empty can cannot"
 		    + " be dequeued", expected.getMessage());
 	}
-
     }
 
     public void test_frontValue() {

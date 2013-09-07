@@ -4,7 +4,7 @@ package DataStructures;
  * List abstract data type.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Sep 1, 2013
+ * @version Sep 5, 2013
  */
 public interface ListInterface<E> {
     /**
@@ -16,7 +16,8 @@ public interface ListInterface<E> {
     public void append(E item);
 
     /**
-     * Remove and return the current element.
+     * Remove the element after the current element and return the value of the
+     * removed element.
      */
     public E remove();
 

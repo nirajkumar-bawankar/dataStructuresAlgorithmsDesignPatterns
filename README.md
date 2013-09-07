@@ -1,11 +1,16 @@
 DataStructuresAndAlgorithms
 ===========================
 
-This repo hold common data structures and algorithms I have implemented. Here is a list. Enjoy!
+This repository hold common data structures and algorithms I have implemented. Below is a list. Enjoy!
 
 - src/Algorithms
     + tower of hanoi
 
 - src/Data Structures
-    +  max heap
-    +  singly linked list
+    + link
+    + linked queue
+    + max heap
+    + singly linked list
+
+===============================================
+e-mail me at quinnliu@vt.edu for any questions!
