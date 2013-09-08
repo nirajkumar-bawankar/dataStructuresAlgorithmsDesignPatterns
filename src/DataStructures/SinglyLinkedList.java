@@ -187,7 +187,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	StringBuffer linkedListAsString = new StringBuffer((length() + 1) * 4);
 
 	this.moveToStart();
-	linkedListAsString.append("<");
+	linkedListAsString.append("< ");
 	for (int i = 0; i < oldPosition; i++) {
 	    linkedListAsString.append(this.getValue());
 	    linkedListAsString.append(" ");

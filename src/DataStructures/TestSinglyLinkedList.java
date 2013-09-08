@@ -15,15 +15,15 @@ public class TestSinglyLinkedList extends junit.framework.TestCase {
 
     public void test_insert() {
 	this.linkedList.insert(0);
-	assertEquals("<| 0 >", this.linkedList.toString());
+	assertEquals("< | 0 >", this.linkedList.toString());
 	this.linkedList.insert(1);
-	assertEquals("<| 1 0 >", this.linkedList.toString());
+	assertEquals("< | 1 0 >", this.linkedList.toString());
     }
 
     public void test_append() {
 	this.linkedList.insert(0);
 	this.linkedList.append(1);
-	assertEquals("<| 0 1 >", this.linkedList.toString());
+	assertEquals("< | 0 1 >", this.linkedList.toString());
     }
 
     public void test_remove() {
@@ -33,9 +33,9 @@ public class TestSinglyLinkedList extends junit.framework.TestCase {
 	this.linkedList.append(1);
 	this.linkedList.append(2);
 	this.linkedList.append(3);
-	assertEquals("<| 0 1 2 3 >", this.linkedList.toString());
+	assertEquals("< | 0 1 2 3 >", this.linkedList.toString());
 	this.linkedList.remove();
-	assertEquals("<| 0 2 3 >", this.linkedList.toString());
+	assertEquals("< | 0 2 3 >", this.linkedList.toString());
     }
 
     public void test_clear() {
@@ -105,14 +105,27 @@ public class TestSinglyLinkedList extends junit.framework.TestCase {
     }
 
     public void test_getValue() {
-
+	assertNull(this.linkedList.getValue());
+	this.linkedList.insert(2);
+	assertEquals(2, (int) this.linkedList.getValue());
     }
 
     public void test_findValuePosition() {
-
+	this.linkedList.insert(1); // position 2
+	assertEquals(-1, this.linkedList.findValuePosition(2));
+	this.linkedList.insert(2); // position 1
+	this.linkedList.insert(3); // position 0
+	assertEquals(1, this.linkedList.findValuePosition(2));
     }
 
     public void test_toString() {
-
+	this.linkedList.append(1);
+	this.linkedList.append(2);
+	this.linkedList.append(3);
+	this.linkedList.append(4);
+	this.linkedList.append(5);
+	this.linkedList.append(6);
+	this.linkedList.moveCurrentNodeToPosition(4);
+	assertEquals("< 1 2 3 4 | 5 6 >", this.linkedList.toString());
     }
 }
