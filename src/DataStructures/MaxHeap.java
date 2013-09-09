@@ -1,5 +1,6 @@
 package DataStructures;
 
+import java.lang.Comparable;
 /**
  * A heap is defined by the following 2 properties: 1) It is a complete binary
  * tree. 2) The values stored in a heaps nodes are partially ordered.
@@ -18,13 +19,12 @@ package DataStructures;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sept 8, 2013
  */
-public class MaxHeap {
-    private int[] heap;
+public class MaxHeap<E extends Comparable<? super E>> {
+    private E[] heap;
     private int capacity; // maximum size of heap
     private int numberOfNodes; // number of nodes in current heap
 
-    public MaxHeap(int[] heap, int capacity, int numberOfNodes) {
-	// TODO: add exceptions
+    public MaxHeap(E[] heap, int capacity, int numberOfNodes) {
 	this.heap = heap;
 	this.capacity = capacity;
 	this.numberOfNodes = numberOfNodes;
@@ -38,7 +38,7 @@ public class MaxHeap {
 	}
     }
 
-    public void insert(int nodeValue) {
+    public void insert(E nodeValue) {
 	if (this.capacity <= this.numberOfNodes) {
 	    throw new IllegalArgumentException("In method insert of class "
 		    + "MaxHeap the value: " + nodeValue
@@ -51,8 +51,8 @@ public class MaxHeap {
 	// start at the end of most bottom right leaf node and shift up
 	// until the nodeValue has a parent with a greater or equal value
 	while ((currentNodePosition != 0)
-		&& (this.heap[currentNodePosition] > this.heap[this
-			.getParentIndex(currentNodePosition)])) {
+		&& (this.heap[currentNodePosition].compareTo(this.heap[this
+			.getParentIndex(currentNodePosition)]) > 0)) {
 	    this.swap(currentNodePosition,
 		    this.getParentIndex(currentNodePosition));
 	    currentNodePosition = this.getParentIndex(currentNodePosition);
@@ -63,7 +63,7 @@ public class MaxHeap {
      * Remove the node at arrayIndex within the MaxHeap and return the node
      * value that the removed node is replaced with.
      */
-    public int remove(int arrayIndex) {
+    public E remove(int arrayIndex) {
 	if ((arrayIndex < 0) || (arrayIndex >= this.numberOfNodes)) {
 	    throw new IllegalArgumentException("In method remove of class "
 		    + "MaxHeap the input node postion to be removed is invalid");
@@ -79,8 +79,8 @@ public class MaxHeap {
 
 	    // if swapped node is large, shift it up the tree
 	    while ((arrayIndex > 0)
-		    && (this.heap[arrayIndex] > this.heap[this
-			    .getParentIndex(arrayIndex)])) {
+		    && (this.heap[arrayIndex].compareTo(this.heap[this
+			    .getParentIndex(arrayIndex)]) > 0)) {
 		this.swap(arrayIndex, this.getParentIndex(arrayIndex));
 		arrayIndex = this.getParentIndex(arrayIndex);
 	    }
@@ -95,7 +95,7 @@ public class MaxHeap {
     /**
      * @return maximum node value in max-heap.
      */
-    public int removeMaximumValue() {
+    public E removeMaximumValue() {
 	if (this.numberOfNodes <= 0) {
 	    throw new IllegalStateException(
 		    "In method removeMaximumValue of class "
@@ -127,11 +127,11 @@ public class MaxHeap {
 	while (!this.isLeafNode(arrayIndex)) {
 	    int childIndex = this.getLeftChildIndex(arrayIndex);
 	    if ((childIndex < (this.numberOfNodes - 1))
-		    && (this.heap[childIndex] < this.heap[childIndex + 1])) {
+		    && (this.heap[childIndex].compareTo(this.heap[childIndex + 1]) < 0)) {
 		childIndex++; // childIndex is not at index of child with
 			      // greater node value
 	    }
-	    if (this.heap[arrayIndex] >= this.heap[childIndex]) {
+	    if (this.heap[arrayIndex].compareTo(this.heap[childIndex]) >= 0) {
 		return;
 	    }
 	    this.swap(arrayIndex, childIndex);
@@ -149,7 +149,7 @@ public class MaxHeap {
 		    "In method swap of class "
 			    + "MaxHeap the input arrayIndex2 is not a valid node position");
 	}
-	int tempNodeValue = this.heap[arrayIndex1];
+	E tempNodeValue = this.heap[arrayIndex1];
 	this.heap[arrayIndex1] = this.heap[arrayIndex2];
 	this.heap[arrayIndex2] = tempNodeValue;
     }
