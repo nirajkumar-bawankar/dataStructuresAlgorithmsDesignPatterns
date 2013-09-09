@@ -4,7 +4,7 @@ package DataStructures;
  * Tests all methods within class SinglyLinkedList.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Sep 5, 2013
+ * @version Sep 8, 2013
  */
 public class TestSinglyLinkedList extends junit.framework.TestCase {
     private SinglyLinkedList<Integer> linkedList;
