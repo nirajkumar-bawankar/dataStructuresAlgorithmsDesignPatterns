@@ -1,6 +1,7 @@
 package DataStructures;
 
 import java.lang.Comparable;
+
 /**
  * A heap is defined by the following 2 properties: 1) It is a complete binary
  * tree. 2) The values stored in a heaps nodes are partially ordered.
@@ -19,7 +20,7 @@ import java.lang.Comparable;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sept 8, 2013
  */
-public class MaxHeap<E extends Comparable<? super E>> {
+public class MaxHeap<E extends Comparable> {
     private E[] heap;
     private int capacity; // maximum size of heap
     private int numberOfNodes; // number of nodes in current heap
@@ -92,6 +93,8 @@ public class MaxHeap<E extends Comparable<? super E>> {
 	return this.heap[arrayIndex];
     }
 
+
+
     /**
      * @return maximum node value in max-heap.
      */
@@ -127,7 +130,8 @@ public class MaxHeap<E extends Comparable<? super E>> {
 	while (!this.isLeafNode(arrayIndex)) {
 	    int childIndex = this.getLeftChildIndex(arrayIndex);
 	    if ((childIndex < (this.numberOfNodes - 1))
-		    && (this.heap[childIndex].compareTo(this.heap[childIndex + 1]) < 0)) {
+		    && (this.heap[childIndex]
+			    .compareTo(this.heap[childIndex + 1]) < 0)) {
 		childIndex++; // childIndex is not at index of child with
 			      // greater node value
 	    }

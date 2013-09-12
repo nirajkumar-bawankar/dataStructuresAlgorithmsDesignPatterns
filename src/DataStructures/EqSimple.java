@@ -38,9 +38,9 @@ import realtimeweb.earthquakeservice.regular.EarthquakeService;
  * documentation on the below code.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Sep 3, 2013
+ * @version Sep 12, 2013
  */
-public class eqsimple {
+public class EqSimple {
     private static SinglyLinkedList<String> linkedListWatcher;
     private static LinkedQueue<Earthquake> linkedQueueOfRecentEarthquakes;
     private static MaxHeap maxHeapOfRecentEarthquakes;
@@ -48,21 +48,25 @@ public class eqsimple {
     private static EarthquakeService earthquakeService;
     private static WatcherService watcherService;
 
-    public static void main(String[] args) throws IOException,
+    /**
+     * If true, then a message is output for every earthquake processed on top
+     * of everything else. If false, only output notifications messages and
+     * messages related to the user request stream.
+     */
+    private static boolean allParameterGiven = false;
+
+    /**
+     * If true, use the real-time data stream. If false, use the given local
+     * file to simulate the real-time data stream.
+     */
+    private static boolean liveParameterGiven = false;
+
+    public static void main(String[] commandLineArguments) throws IOException,
 	    WatcherParseException, EarthquakeException {
-	// store watchers in the order that they arrive.
-	linkedListWatcher = new SinglyLinkedList<String>();
 
-	// store the list of recent earthquake records in order of arrival
-	linkedQueueOfRecentEarthquakes = new LinkedQueue<Earthquake>();
+	checkForAllAndLiveCommandLineArguments(commandLineArguments);
 
-	int heapCapacity = 1000; // no testing of this program will require more
-				 // than 10000 earthquakes
-	int[] heap = new int[heapCapacity];
-
-	// also stores the list of recent earthquakes ordered by earthquake
-	// magnitude
-	maxHeapOfRecentEarthquakes = new MaxHeap(heap, heapCapacity, 0);
+	setUpDataStructures();
 
 	// -----------------------2 Input Streams-----------------------------
 	// this can be live or a file with earthquake data
@@ -73,6 +77,7 @@ public class eqsimple {
 	InputStream watcherCommandFile = new FileInputStream(
 		"./src/DataStructures/watcher.txt");
 	watcherService = WatcherService.getInstance(watcherCommandFile);
+	// -------------------------------------------------------------------
 
 	// Poll the earthquake and watcher service while there are still
 	// commands
@@ -82,49 +87,75 @@ public class eqsimple {
 	    ArrayList<String> nextCommands = watcherService.getNextCommands();
 
 	    // process next commands ...
-	    // no commands
-	    if (nextCommands.size() == 0) {
-
-	    } else { // 1 or more commands
-		     // System.out.println(nextCommands.toString());
-		     // processCommands(nextCommands);
-	    }
+	    processCommands(nextCommands);
 
 	    Report latestQuakesInfo = earthquakeService.getEarthquakes(
 		    Threshold.ALL, History.HOUR);
 
+	    removeExpiredEarthquakesInQueueAndMaxHeap();
+
 	    // earthquakes that have occurred in the recent hour time step
-	    List<Earthquake> latestQuakes = latestQuakesInfo.getEarthquakes();
-	    List<Earthquake> newQuakes = getNewEarthquakes(latestQuakes);
+	    List<Earthquake> latestEarthquakes = latestQuakesInfo
+		    .getEarthquakes();
+	    List<Earthquake> newEarthquakes = getNewEarthquakes(latestEarthquakes);
+
+	    // list of wrapper classes to hold earthquake indexes within the
+	    // heap
+	    List<NodeAwareOfHeapIndex> earthquakesWithHeapIndexes;
 
 	    // add new earthquakes to rear of the earthquakeQueue
 	    // and maxHeap based on magnitude
-	    for (int i = 0; i < newQuakes.size(); i++) {
-		linkedQueueOfRecentEarthquakes.enqueue(newQuakes.get(i));
-		// TODO: add to maxHeap
+	    for (int i = 0; i < newEarthquakes.size(); i++) {
+		linkedQueueOfRecentEarthquakes.enqueue(newEarthquakes.get(i));
 
-		// TODO: as earthquake records arrive or expire, they are added
-		// to or removed from both the queue or max heap
+		NodeAwareOfHeapIndex earthquakeWithHeapIndex = new NodeAwareOfHeapIndex(
+			newEarthquakes.get(i));
+		maxHeapOfRecentEarthquakes.insert(earthquakeWithHeapIndex);
 
-		// TODO: efficient way to find records from heap, can't do
-		// sequential search
+		// TODO: Update each node in the max heap of it's
+		// correct position within the heap
 
-		// TODO: when a new earthquake comes in and is added to the
-		// MaxHeap, print a line for each watcher that is within the
-		// appropriate distance
+		updateCloseByWatchersOfNewEarthquake(newEarthquakes.get(i));
 	    }
+	    System.out.println("-------------------------------");
 	}
     }
 
-    public static List<Earthquake> getNewEarthquakes(
-	    List<Earthquake> latestQuakes) {
-	List<Earthquake> newQuakes = new ArrayList<Earthquake>();
-	// TODO: check latestQuakes and deduce if any are actually new
-	// earthquakes
-	return newQuakes;
+    private static void checkForAllAndLiveCommandLineArguments(
+	    String[] commandLineArguments) {
+	// args = { --all, watcher.txt, normal.earthquakes } OR
+	// args = { watcher.txt, normal.earthquakes }
+
+	if (commandLineArguments.length == 3
+		&& commandLineArguments[0] == "--all") {
+	    allParameterGiven = true;
+	} else if (commandLineArguments[1] == "live"
+		|| commandLineArguments[2] == "live") {
+	    liveParameterGiven = true;
+	}
+    }
+
+    private static void setUpDataStructures() {
+	// store watchers in the order that they arrive.
+	linkedListWatcher = new SinglyLinkedList<String>();
+
+	// store the list of recent earthquake records in order of arrival
+	linkedQueueOfRecentEarthquakes = new LinkedQueue<Earthquake>();
+
+	int heapCapacity = 1000; // no testing of this program will require more
+				 // than 10000 earthquakes
+	NodeAwareOfHeapIndex[] heap = new NodeAwareOfHeapIndex[heapCapacity];
+
+	// also stores the list of recent earthquakes ordered by earthquake
+	// magnitude
+	maxHeapOfRecentEarthquakes = new MaxHeap<NodeAwareOfHeapIndex>(heap,
+		heapCapacity, 0);
     }
 
     public static void processCommands(ArrayList<String> commands) {
+	if (commands.size() == 0) {
+	    return; // since no commands to process
+	}
 	// commands = [add 81 274 Tristan, query]
 	for (int i = 0; i < commands.size(); i++) {
 	    String command = commands.get(i);
@@ -138,6 +169,37 @@ public class eqsimple {
 		reportEarthquakesToRelevantWatchers();
 	    }
 	}
+    }
+
+    /**
+     * As earthquake records arrive or expire, they are added to or removed from
+     * both the queue or max heap.
+     */
+    public static void removeExpiredEarthquakesInQueueAndMaxHeap() {
+	// TODO: implement
+
+    }
+
+    /**
+     * When a new earthquake comes in and is added to the MaxHeap, print a line
+     * for each watcher that is within the appropriate distance.
+     */
+    public static void updateCloseByWatchersOfNewEarthquake(
+	    Earthquake earthquake) {
+	// TODO: implement
+    }
+
+    /**
+     * All expired earthquakes have already been removed from the queue and
+     * maxheap.
+     */
+    public static List<Earthquake> getNewEarthquakes(
+	    List<Earthquake> latestQuakes) {
+	List<Earthquake> newQuakes = new ArrayList<Earthquake>();
+	// TODO: check latestQuakes and deduce if any are actually new
+	// earthquakes
+
+	return newQuakes;
     }
 
     public static void reportEarthquakesToRelevantWatchers() {
@@ -170,8 +232,10 @@ public class eqsimple {
     public static void processWatcherDeleteRequest(String watcherName) {
 	// remove watcher from linkedListWatcher
 	int valuePosition = linkedListWatcher.findValuePosition(watcherName);
-	linkedListWatcher.moveCurrentNodeToPosition(valuePosition);
-	linkedListWatcher.remove();
+	if (valuePosition == -1) {
+	    linkedListWatcher.moveCurrentNodeToPosition(valuePosition);
+	    linkedListWatcher.remove();
+	}
 
 	System.out.println(watcherName + " is removed from the watchers list");
     }

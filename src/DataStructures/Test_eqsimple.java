@@ -1,10 +1,10 @@
 package DataStructures;
 
 public class Test_eqsimple extends junit.framework.TestCase {
-    private eqsimple eq;
+    private EqSimple eq;
 
     public void setUp() {
-	this.eq = new eqsimple();
+	this.eq = new EqSimple();
     }
 
     public void test_processCommands() {

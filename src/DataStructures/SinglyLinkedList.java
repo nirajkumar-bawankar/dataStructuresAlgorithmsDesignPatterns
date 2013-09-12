@@ -1,11 +1,17 @@
 package DataStructures;
 
 /**
+ * If you have a good idea of how many elements will be in your list that does
+ * not change very much you should instead use an array based singly linked
+ * list. On the other hand, if you have no idea how many elements you will add
+ * to your list and removed from your list used a linked list of nodes as
+ * implemented in this file.
+ *
  * To view an interactive web page about linked list implementation visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/ListArray.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Sep 1, 2013
+ * @version Sep 12, 2013
  */
 public class SinglyLinkedList<E> implements ListInterface<E> {
     private Link<E> head;
