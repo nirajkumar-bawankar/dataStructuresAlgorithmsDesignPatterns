@@ -1,4 +1,4 @@
-package DataStructures;
+package DataStructures.EarthquakeWatcherService;
 
 import realtimeweb.earthquakeservice.domain.Earthquake;
 

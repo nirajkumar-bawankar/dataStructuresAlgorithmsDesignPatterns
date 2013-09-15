@@ -1,6 +1,6 @@
-package DataStructures;
+package DataStructures.EarthquakeWatcherService;
 
-public class Test_eqsimple extends junit.framework.TestCase {
+public class Test_EqSimple extends junit.framework.TestCase {
     private EqSimple eq;
 
     public void setUp() {

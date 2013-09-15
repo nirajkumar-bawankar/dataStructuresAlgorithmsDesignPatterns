@@ -1,4 +1,6 @@
-package DataStructures;
+package DataStructures.EarthquakeWatcherService;
+
+import java.util.Date;
 
 import realtimeweb.earthquakeservice.domain.Earthquake;
 
@@ -42,8 +44,8 @@ import realtimeweb.earthquakeservice.regular.EarthquakeService;
  */
 public class EqSimple {
     private static SinglyLinkedList<String> linkedListWatcher;
-    private static LinkedQueue<Earthquake> linkedQueueOfRecentEarthquakes;
-    private static MaxHeap maxHeapOfRecentEarthquakes;
+    private static LinkedQueue<NodeAwareOfHeapIndex> linkedQueueOfRecentEarthquakes;
+    private static MaxHeap<NodeAwareOfHeapIndex> maxHeapOfRecentEarthquakes;
 
     private static EarthquakeService earthquakeService;
     private static WatcherService watcherService;
@@ -61,10 +63,14 @@ public class EqSimple {
      */
     private static boolean liveParameterGiven = false;
 
+    private static final long secondsInSixHours = 21600;
+
+    private static long unixTimeOfEarliestQuake = -1;
+
     public static void main(String[] commandLineArguments) throws IOException,
 	    WatcherParseException, EarthquakeException {
 
-	checkForAllAndLiveCommandLineArguments(commandLineArguments);
+	checkForOptionalCommandLineArguments(commandLineArguments);
 
 	setUpDataStructures();
 
@@ -106,7 +112,9 @@ public class EqSimple {
 	    // add new earthquakes to rear of the earthquakeQueue
 	    // and maxHeap based on magnitude
 	    for (int i = 0; i < newEarthquakes.size(); i++) {
-		linkedQueueOfRecentEarthquakes.enqueue(newEarthquakes.get(i));
+		NodeAwareOfHeapIndex newEarthquakeNode = new NodeAwareOfHeapIndex(
+			newEarthquakes.get(i));
+		linkedQueueOfRecentEarthquakes.enqueue(newEarthquakeNode);
 
 		NodeAwareOfHeapIndex earthquakeWithHeapIndex = new NodeAwareOfHeapIndex(
 			newEarthquakes.get(i));
@@ -121,7 +129,7 @@ public class EqSimple {
 	}
     }
 
-    private static void checkForAllAndLiveCommandLineArguments(
+    private static void checkForOptionalCommandLineArguments(
 	    String[] commandLineArguments) {
 	// args = { --all, watcher.txt, normal.earthquakes } OR
 	// args = { watcher.txt, normal.earthquakes }
@@ -140,7 +148,7 @@ public class EqSimple {
 	linkedListWatcher = new SinglyLinkedList<String>();
 
 	// store the list of recent earthquake records in order of arrival
-	linkedQueueOfRecentEarthquakes = new LinkedQueue<Earthquake>();
+	linkedQueueOfRecentEarthquakes = new LinkedQueue<NodeAwareOfHeapIndex>();
 
 	int heapCapacity = 1000; // no testing of this program will require more
 				 // than 10000 earthquakes
@@ -176,8 +184,29 @@ public class EqSimple {
      * both the queue or max heap.
      */
     public static void removeExpiredEarthquakesInQueueAndMaxHeap() {
-	// TODO: implement
+	// assume this boolean variable is initially the case
+	boolean timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = true;
+	while (linkedQueueOfRecentEarthquakes.length() > 0
+		&& timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours) {
+	    // the front of the queue is holding the oldest earthquakes
+	    Earthquake earthquakeToCheckToBeRemoved = linkedQueueOfRecentEarthquakes
+		    .frontValue().getEarthquake();
+	    // unix time definition can be found at:
+	    // http://en.wikipedia.org/wiki/Unix_time
+	    long unixTimeOfOldestQuake = earthquakeToCheckToBeRemoved.getTime() / 1000;
 
+	    // if this old earthquake is greater than 6 hours compared to
+	    // the earliest quake in the queue then remove the outdated
+	    // earthquake
+	    if ((unixTimeOfEarliestQuake - unixTimeOfOldestQuake) > secondsInSixHours) {
+		int sameQuakeHeapIndex = linkedQueueOfRecentEarthquakes.dequeue()
+			.getIndexWithinHeapArray();
+		linkedQueueOfRecentEarthquakes.dequeue();
+		maxHeapOfRecentEarthquakes.remove(sameQuakeHeapIndex);
+	    } else {
+		timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = false;
+	    }
+	}
     }
 
     /**
