@@ -7,7 +7,7 @@ package DataStructures.EarthquakeWatcherService;
  * @version Sep 8, 2013
  */
 public class TestMaxHeap extends junit.framework.TestCase {
-    private MaxHeap maxHeap;
+    private EQMaxHeap maxHeap;
 
     public void setUp() {
 	int numberOfNodes = 10;
@@ -16,7 +16,7 @@ public class TestMaxHeap extends junit.framework.TestCase {
 	for (int i = 0; i < numberOfNodes; i++) {
 	    heap[i] = i;
 	}
-	this.maxHeap = new MaxHeap(heap, capacity, numberOfNodes);
+	this.maxHeap = new EQMaxHeap(heap, capacity, numberOfNodes);
     }
 
     public void test_insert() {

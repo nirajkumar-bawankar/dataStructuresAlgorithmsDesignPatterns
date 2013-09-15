@@ -1,11 +1,7 @@
 package DataStructures.EarthquakeWatcherService;
 
-import java.util.Date;
-
 import realtimeweb.earthquakeservice.domain.Earthquake;
-
 import java.util.List;
-
 import java.util.ArrayList;
 import realtimeweb.earthquakeservice.exceptions.EarthquakeException;
 import realtimeweb.earthquakeservice.domain.History;
@@ -44,8 +40,8 @@ import realtimeweb.earthquakeservice.regular.EarthquakeService;
  */
 public class EqSimple {
     private static SinglyLinkedList<String> linkedListWatcher;
-    private static LinkedQueue<NodeAwareOfHeapIndex> linkedQueueOfRecentEarthquakes;
-    private static MaxHeap<NodeAwareOfHeapIndex> maxHeapOfRecentEarthquakes;
+    private static LinkedQueue<EarthquakeNodeAwareOfHeapIndex> linkedQueueOfRecentEarthquakes;
+    private static EQMaxHeap<EarthquakeNodeAwareOfHeapIndex> maxHeapOfRecentEarthquakes;
 
     private static EarthquakeService earthquakeService;
     private static WatcherService watcherService;
@@ -105,23 +101,20 @@ public class EqSimple {
 		    .getEarthquakes();
 	    List<Earthquake> newEarthquakes = getNewEarthquakes(latestEarthquakes);
 
-	    // list of wrapper classes to hold earthquake indexes within the
-	    // heap
-	    List<NodeAwareOfHeapIndex> earthquakesWithHeapIndexes;
-
 	    // add new earthquakes to rear of the earthquakeQueue
 	    // and maxHeap based on magnitude
 	    for (int i = 0; i < newEarthquakes.size(); i++) {
-		NodeAwareOfHeapIndex newEarthquakeNode = new NodeAwareOfHeapIndex(
-			newEarthquakes.get(i));
+		EarthquakeNodeAwareOfHeapIndex newEarthquakeNode = new EarthquakeNodeAwareOfHeapIndex(
+			newEarthquakes.get(i), -1);
+		long unixTimeOfQuake = newEarthquakeNode.getEarthquake()
+			.getTime() / 1000;
+		if (unixTimeOfQuake > unixTimeOfEarliestQuake) {
+		    unixTimeOfEarliestQuake = unixTimeOfQuake;
+		}
+
 		linkedQueueOfRecentEarthquakes.enqueue(newEarthquakeNode);
 
-		NodeAwareOfHeapIndex earthquakeWithHeapIndex = new NodeAwareOfHeapIndex(
-			newEarthquakes.get(i));
-		maxHeapOfRecentEarthquakes.insert(earthquakeWithHeapIndex);
-
-		// TODO: Update each node in the max heap of it's
-		// correct position within the heap
+		maxHeapOfRecentEarthquakes.insert(newEarthquakeNode);
 
 		updateCloseByWatchersOfNewEarthquake(newEarthquakes.get(i));
 	    }
@@ -148,16 +141,16 @@ public class EqSimple {
 	linkedListWatcher = new SinglyLinkedList<String>();
 
 	// store the list of recent earthquake records in order of arrival
-	linkedQueueOfRecentEarthquakes = new LinkedQueue<NodeAwareOfHeapIndex>();
+	linkedQueueOfRecentEarthquakes = new LinkedQueue<EarthquakeNodeAwareOfHeapIndex>();
 
 	int heapCapacity = 1000; // no testing of this program will require more
-				 // than 10000 earthquakes
-	NodeAwareOfHeapIndex[] heap = new NodeAwareOfHeapIndex[heapCapacity];
+				 // than 1000 earthquakes
+	EarthquakeNodeAwareOfHeapIndex[] heap = new EarthquakeNodeAwareOfHeapIndex[heapCapacity];
 
 	// also stores the list of recent earthquakes ordered by earthquake
 	// magnitude
-	maxHeapOfRecentEarthquakes = new MaxHeap<NodeAwareOfHeapIndex>(heap,
-		heapCapacity, 0);
+	maxHeapOfRecentEarthquakes = new EQMaxHeap<EarthquakeNodeAwareOfHeapIndex>(
+		heap, heapCapacity, 0);
     }
 
     public static void processCommands(ArrayList<String> commands) {
@@ -175,64 +168,9 @@ public class EqSimple {
 		processWatcherDeleteRequest(watcherName);
 	    } else if (command.contains("query")) {
 		reportEarthquakesToRelevantWatchers();
+		getLargestRecentEarthquake();
 	    }
 	}
-    }
-
-    /**
-     * As earthquake records arrive or expire, they are added to or removed from
-     * both the queue or max heap.
-     */
-    public static void removeExpiredEarthquakesInQueueAndMaxHeap() {
-	// assume this boolean variable is initially the case
-	boolean timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = true;
-	while (linkedQueueOfRecentEarthquakes.length() > 0
-		&& timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours) {
-	    // the front of the queue is holding the oldest earthquakes
-	    Earthquake earthquakeToCheckToBeRemoved = linkedQueueOfRecentEarthquakes
-		    .frontValue().getEarthquake();
-	    // unix time definition can be found at:
-	    // http://en.wikipedia.org/wiki/Unix_time
-	    long unixTimeOfOldestQuake = earthquakeToCheckToBeRemoved.getTime() / 1000;
-
-	    // if this old earthquake is greater than 6 hours compared to
-	    // the earliest quake in the queue then remove the outdated
-	    // earthquake
-	    if ((unixTimeOfEarliestQuake - unixTimeOfOldestQuake) > secondsInSixHours) {
-		int sameQuakeHeapIndex = linkedQueueOfRecentEarthquakes.dequeue()
-			.getIndexWithinHeapArray();
-		linkedQueueOfRecentEarthquakes.dequeue();
-		maxHeapOfRecentEarthquakes.remove(sameQuakeHeapIndex);
-	    } else {
-		timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = false;
-	    }
-	}
-    }
-
-    /**
-     * When a new earthquake comes in and is added to the MaxHeap, print a line
-     * for each watcher that is within the appropriate distance.
-     */
-    public static void updateCloseByWatchersOfNewEarthquake(
-	    Earthquake earthquake) {
-	// TODO: implement
-    }
-
-    /**
-     * All expired earthquakes have already been removed from the queue and
-     * maxheap.
-     */
-    public static List<Earthquake> getNewEarthquakes(
-	    List<Earthquake> latestQuakes) {
-	List<Earthquake> newQuakes = new ArrayList<Earthquake>();
-	// TODO: check latestQuakes and deduce if any are actually new
-	// earthquakes
-
-	return newQuakes;
-    }
-
-    public static void reportEarthquakesToRelevantWatchers() {
-	// TODO: implement
     }
 
     /**
@@ -269,12 +207,78 @@ public class EqSimple {
 	System.out.println(watcherName + " is removed from the watchers list");
     }
 
-    public static void getLargestRecentEarthquake() {
-	// output a copy of the information for the largest earthquake
-	// currently in the root of the max heap.
-	System.out.println("Location of largest earthquake in past 6 hours:");
-	// earthquake location description
+    public static void reportEarthquakesToRelevantWatchers() {
+	// TODO: implement
+    }
 
-	// if maxheap is empty printout: No record on MaxHeap
+    /**
+     * As earthquake records arrive or expire, they are added to or removed from
+     * both the queue or max heap.
+     */
+    public static void removeExpiredEarthquakesInQueueAndMaxHeap() {
+	// assume this boolean variable is initially the case
+	boolean timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = true;
+	while (linkedQueueOfRecentEarthquakes.length() > 0
+		&& timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours) {
+	    // the front of the queue is holding the oldest earthquakes
+	    Earthquake earthquakeToCheckToBeRemoved = linkedQueueOfRecentEarthquakes
+		    .frontValue().getEarthquake();
+	    // unix time definition can be found at:
+	    // http://en.wikipedia.org/wiki/Unix_time
+	    long unixTimeOfOldestQuake = earthquakeToCheckToBeRemoved.getTime() / 1000;
+
+	    // if this old earthquake is greater than 6 hours compared to
+	    // the earliest quake in the queue then remove the outdated
+	    // earthquake
+	    if ((unixTimeOfEarliestQuake - unixTimeOfOldestQuake) > secondsInSixHours) {
+		int sameQuakeHeapIndex = linkedQueueOfRecentEarthquakes
+			.dequeue().getIndexWithinHeapArray();
+		linkedQueueOfRecentEarthquakes.dequeue();
+		maxHeapOfRecentEarthquakes.remove(sameQuakeHeapIndex);
+	    } else {
+		timeRangeBetweenFrontAndRearEarthquakeInQueueGreaterThan6Hours = false;
+	    }
+	}
+    }
+
+    /**
+     * All expired earthquakes have already been removed from the queue and
+     * maxheap.
+     */
+    public static List<Earthquake> getNewEarthquakes(
+	    List<Earthquake> latestQuakes) {
+	List<Earthquake> newQuakes = new ArrayList<Earthquake>();
+	// TODO: check latestQuakes and deduce if any are actually new
+	// earthquakes
+
+	return newQuakes;
+    }
+
+    public static boolean isDuplicateInQueueAndHeap(
+	    EarthquakeNodeAwareOfHeapIndex newEarthquakeNode) {
+	// TODO: implement
+	return true;
+    }
+
+    /**
+     * When a new earthquake comes in and is added to the MaxHeap, print a line
+     * for each watcher that is within the appropriate distance.
+     */
+    public static void updateCloseByWatchersOfNewEarthquake(
+	    Earthquake earthquake) {
+	// TODO: implement
+    }
+
+    public static void getLargestRecentEarthquake() {
+	if (maxHeapOfRecentEarthquakes.getNumberOfNodes() == 0) {
+	    System.out.println("No record on MaxHeap");
+	} else {
+	    // greatest magnitude earthquake in past 6 hours
+	    Earthquake biggestEarthquake = maxHeapOfRecentEarthquakes
+		    .getMaximumValue().getEarthquake();
+	    System.out
+		    .println("Location of largest earthquake in past 6 hours:");
+	    System.out.println(biggestEarthquake.getLocation().toString());
+	}
     }
 }

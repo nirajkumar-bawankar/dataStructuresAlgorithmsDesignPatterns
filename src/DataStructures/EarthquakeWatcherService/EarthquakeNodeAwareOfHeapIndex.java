@@ -4,21 +4,23 @@ import realtimeweb.earthquakeservice.domain.Earthquake;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Sep 9, 2013
+ * @version Sep 15, 2013
  */
-public class NodeAwareOfHeapIndex implements Comparable<Earthquake> {
+public class EarthquakeNodeAwareOfHeapIndex implements Comparable<Earthquake>, NodeAwareOfIndex {
     private int indexWithinHeapArray;
     private Earthquake earthquake;
 
-    public NodeAwareOfHeapIndex(Earthquake earthquake) {
-	this.indexWithinHeapArray = -1; // uninitialized index within heap array state
+    public EarthquakeNodeAwareOfHeapIndex(Earthquake earthquake, int indexWithinHeapArray) {
+	this.indexWithinHeapArray = indexWithinHeapArray;
 	this.earthquake = earthquake;
     }
 
+    @Override
     public void setIndexWithinHeapArray(int indexWithinHeapArray) {
 	this.indexWithinHeapArray = indexWithinHeapArray;
     }
 
+    @Override
     public int getIndexWithinHeapArray() {
 	return this.indexWithinHeapArray;
     }

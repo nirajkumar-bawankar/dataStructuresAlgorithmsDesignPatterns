@@ -1,5 +1,6 @@
 package DataStructures.EarthquakeWatcherService;
 
+import realtimeweb.earthquakeservice.domain.Earthquake;
 import java.lang.Comparable;
 
 /**
@@ -18,14 +19,14 @@ import java.lang.Comparable;
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Heaps.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Sept 8, 2013
+ * @version Sept 15, 2013
  */
-public class MaxHeap<E extends Comparable> {
+public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
     private E[] heap;
     private int capacity; // maximum size of heap
     private int numberOfNodes; // number of nodes in current heap
 
-    public MaxHeap(E[] heap, int capacity, int numberOfNodes) {
+    public EQMaxHeap(E[] heap, int capacity, int numberOfNodes) {
 	this.heap = heap;
 	this.capacity = capacity;
 	this.numberOfNodes = numberOfNodes;
@@ -47,6 +48,11 @@ public class MaxHeap<E extends Comparable> {
 	}
 
 	int currentNodePosition = this.numberOfNodes++;
+
+	if (nodeValue instanceof EarthquakeNodeAwareOfHeapIndex) {
+	    nodeValue.setIndexWithinHeapArray(currentNodePosition);
+	}
+
 	this.heap[currentNodePosition] = nodeValue;
 
 	// start at the end of most bottom right leaf node and shift up
@@ -93,13 +99,11 @@ public class MaxHeap<E extends Comparable> {
 	return this.heap[arrayIndex];
     }
 
-
-
     /**
      * @return maximum node value in max-heap.
      */
     public E removeMaximumValue() {
-	if (this.numberOfNodes <= 0) {
+	if (this.numberOfNodes == 0) {
 	    throw new IllegalStateException(
 		    "In method removeMaximumValue of class "
 			    + "MaxHeap the value you cannot remove a value from an "
@@ -112,6 +116,16 @@ public class MaxHeap<E extends Comparable> {
 	    // if not the last element
 	    this.correctNodeIndexByShifting(0);
 	}
+	return this.heap[this.numberOfNodes];
+    }
+
+    public E getMaximumValue() {
+	if (this.numberOfNodes == 0) {
+	    throw new IllegalStateException(
+		    "In method getMaximumValue of class "
+			    + "MaxHeap the max-heap is currently empty");
+	}
+
 	return this.heap[this.numberOfNodes];
     }
 
@@ -154,6 +168,14 @@ public class MaxHeap<E extends Comparable> {
 			    + "MaxHeap the input arrayIndex2 is not a valid node position");
 	}
 	E tempNodeValue = this.heap[arrayIndex1];
+
+	// before earthquakeNodes are actually moved, their new indexes
+	// are set
+	if (tempNodeValue instanceof EarthquakeNodeAwareOfHeapIndex) {
+	    this.heap[arrayIndex1].setIndexWithinHeapArray(arrayIndex2);
+	    this.heap[arrayIndex2].setIndexWithinHeapArray(arrayIndex1);
+	}
+
 	this.heap[arrayIndex1] = this.heap[arrayIndex2];
 	this.heap[arrayIndex2] = tempNodeValue;
     }
