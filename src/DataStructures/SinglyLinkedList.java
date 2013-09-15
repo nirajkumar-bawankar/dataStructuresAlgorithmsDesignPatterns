@@ -4,7 +4,7 @@ package DataStructures;
  * If you have a good idea of how many elements will be in your list that does
  * not change very much you should instead use an array based singly linked
  * list. On the other hand, if you have no idea how many elements you will add
- * to your list and removed from your list used a linked list of nodes as
+ * to your list and removed from your list use a linked list of nodes as
  * implemented in this file.
  *
  * To view an interactive web page about linked list implementation visit:
