@@ -1,10 +1,11 @@
 package DataStructures;
 
 /**
- * List abstract data type.
+ * List abstract data type. To learn more about this interface please visit:
+ * http://algoviz.org/OpenDSA/Books/CS3114PM/html/ListADT.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Sep 5, 2013
+ * @version Sep 15, 2013
  */
 public interface ListInterface<E> {
     /**
