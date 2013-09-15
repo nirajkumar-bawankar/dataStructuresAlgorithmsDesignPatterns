@@ -1,4 +1,4 @@
-package DataStructures;
+package DataStructures.Interfaces;
 
 /**
  * List abstract data type. To learn more about this interface please visit:

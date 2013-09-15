@@ -1,4 +1,4 @@
-package DataStructures;
+package DataStructures.Interfaces;
 
 /**
  * Queue abstract data type.

@@ -1,5 +1,7 @@
 package DataStructures;
 
+import DataStructures.Interfaces.ListInterface;
+
 /**
  *
  * @author Quinn Liu (quinnliu@vt.edu)

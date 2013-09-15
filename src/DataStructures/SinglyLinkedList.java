@@ -1,5 +1,7 @@
 package DataStructures;
 
+import DataStructures.Interfaces.ListInterface;
+
 /**
  * If you have a good idea of how many elements will be in your list that does
  * not change very much you should instead use an array based singly linked
