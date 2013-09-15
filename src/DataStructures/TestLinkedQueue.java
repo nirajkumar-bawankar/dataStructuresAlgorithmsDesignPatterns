@@ -49,6 +49,8 @@ public class TestLinkedQueue extends junit.framework.TestCase {
 
     public void test_length() {
 	assertEquals(3, this.queue.length());
+	this.queue.dequeue();
+	assertEquals(2, this.queue.length());
     }
 
     public void test_toString() {
