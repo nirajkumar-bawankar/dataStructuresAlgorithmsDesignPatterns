@@ -116,7 +116,14 @@ public class EqSimple {
 
 		maxHeapOfRecentEarthquakes.insert(newEarthquakeNode);
 
-		updateCloseByWatchersOfNewEarthquake(newEarthquakes.get(i));
+		if (allParameterGiven) {
+		    System.out.println("Earthquake "
+			    + newEarthquakeNode.getEarthquake()
+				    .getLocationDescription()
+			    + " is inserted into the Heap");
+		}
+
+		updateRelevantWatchersOfNewEarthquake(newEarthquakes.get(i));
 	    }
 	    System.out.println("-------------------------------");
 	}
@@ -167,7 +174,6 @@ public class EqSimple {
 		String watcherName = getWatcherName(command);
 		processWatcherDeleteRequest(watcherName);
 	    } else if (command.contains("query")) {
-		reportEarthquakesToRelevantWatchers();
 		getLargestRecentEarthquake();
 	    }
 	}
@@ -207,8 +213,17 @@ public class EqSimple {
 	System.out.println(watcherName + " is removed from the watchers list");
     }
 
-    public static void reportEarthquakesToRelevantWatchers() {
-	// TODO: implement
+    public static void getLargestRecentEarthquake() {
+        if (maxHeapOfRecentEarthquakes.getNumberOfNodes() == 0) {
+            System.out.println("No record on MaxHeap");
+        } else {
+            // greatest magnitude earthquake in past 6 hours
+            Earthquake biggestEarthquake = maxHeapOfRecentEarthquakes
+        	    .getMaximumValue().getEarthquake();
+            System.out.println("Largest earthquake in past 6 hours:");
+            System.out.println("Magnitude " + biggestEarthquake.getMagnitude()
+        	    + " at " + biggestEarthquake.getLocation().toString());
+        }
     }
 
     /**
@@ -250,35 +265,30 @@ public class EqSimple {
 	List<Earthquake> newQuakes = new ArrayList<Earthquake>();
 	// TODO: check latestQuakes and deduce if any are actually new
 	// earthquakes
-
+	for (Earthquake earthquake : latestQuakes) {
+	    if (isDuplicateInQueueAndHeap(earthquake)) {
+		// do not add earthquake to newQuakes ArrayList
+	    } else {
+		newQuakes.add(earthquake);
+	    }
+	}
 	return newQuakes;
     }
 
-    public static boolean isDuplicateInQueueAndHeap(
-	    EarthquakeNodeAwareOfHeapIndex newEarthquakeNode) {
-	// TODO: implement
-	return true;
+    public static boolean isDuplicateInQueueAndHeap(Earthquake newEarthquake) {
+        // TODO: implement
+	// begin checking against earthquakes in the queue since the earthquakes
+	// are ordered by time.
+
+
+        return true;
     }
 
-    /**
-     * When a new earthquake comes in and is added to the MaxHeap, print a line
-     * for each watcher that is within the appropriate distance.
-     */
-    public static void updateCloseByWatchersOfNewEarthquake(
-	    Earthquake earthquake) {
-	// TODO: implement
-    }
+    public static void updateRelevantWatchersOfNewEarthquake(
+            Earthquake newEarthquake) {
+        // TODO: implement
+        // compare watchers to earthquakes that were added after the watcher was
 
-    public static void getLargestRecentEarthquake() {
-	if (maxHeapOfRecentEarthquakes.getNumberOfNodes() == 0) {
-	    System.out.println("No record on MaxHeap");
-	} else {
-	    // greatest magnitude earthquake in past 6 hours
-	    Earthquake biggestEarthquake = maxHeapOfRecentEarthquakes
-		    .getMaximumValue().getEarthquake();
-	    System.out
-		    .println("Location of largest earthquake in past 6 hours:");
-	    System.out.println(biggestEarthquake.getLocation().toString());
-	}
+        // how do you know that a earthquake was added after a watcher ?
     }
 }
