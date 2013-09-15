@@ -1,5 +1,7 @@
 package DataStructures;
 
+import DataStructures.LinkedQueue;
+
 /**
  * Tests all methods within class LinkedQueue.
  *

@@ -6,7 +6,7 @@ This repository hold common data structures and algorithms I have implemented. B
 - src/Algorithms
     + tower of hanoi
 
-- src/Data Structures
+- src/DataStructures Structures
     + link
     + linked queue
     + max heap

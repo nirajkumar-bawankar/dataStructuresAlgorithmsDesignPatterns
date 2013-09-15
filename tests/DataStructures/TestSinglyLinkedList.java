@@ -1,5 +1,7 @@
 package DataStructures;
 
+import DataStructures.SinglyLinkedList;
+
 /**
  * Tests all methods within class SinglyLinkedList.
  *

@@ -1,5 +1,7 @@
 package DataStructures;
 
+import DataStructures.MaxHeap;
+
 /**
  * Tests all methods within class SinglyLinkedList.
  *
