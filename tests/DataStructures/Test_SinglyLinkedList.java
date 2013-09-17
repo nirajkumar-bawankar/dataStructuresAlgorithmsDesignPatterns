@@ -1,4 +1,6 @@
-package DataStructures.EarthquakeWatcherService;
+package DataStructures;
+
+import DataStructures.SinglyLinkedList;
 
 /**
  * Tests all methods within class SinglyLinkedList.
@@ -6,7 +8,7 @@ package DataStructures.EarthquakeWatcherService;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 8, 2013
  */
-public class TestSinglyLinkedList extends junit.framework.TestCase {
+public class Test_SinglyLinkedList extends junit.framework.TestCase {
     private SinglyLinkedList<Integer> linkedList;
 
     public void setUp() {

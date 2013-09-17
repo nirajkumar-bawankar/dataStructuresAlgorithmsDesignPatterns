@@ -1,14 +1,12 @@
-package DataStructures;
-
-import DataStructures.LinkedQueue;
+package DataStructures.EarthquakeWatcherService;
 
 /**
- * Tests all methods within class LinkedQueue.
+ * Tests all logic within class LinkedQueue.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 1, 2013
  */
-public class TestLinkedQueue extends junit.framework.TestCase {
+public class Test_LinkedQueue extends junit.framework.TestCase {
     private LinkedQueue<Integer> queue;
 
     public void setUp() {

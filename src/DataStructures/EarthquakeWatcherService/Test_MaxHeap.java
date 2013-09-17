@@ -1,12 +1,12 @@
 package DataStructures.EarthquakeWatcherService;
 
 /**
- * Tests all methods within class SinglyLinkedList.
+ * Tests all logic within class SinglyLinkedList.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 8, 2013
  */
-public class TestMaxHeap extends junit.framework.TestCase {
+public class Test_MaxHeap extends junit.framework.TestCase {
     private EQMaxHeap maxHeap;
 
     public void setUp() {

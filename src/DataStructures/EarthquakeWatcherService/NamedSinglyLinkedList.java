@@ -13,13 +13,14 @@ package DataStructures.EarthquakeWatcherService;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 12, 2013
  */
-public class SinglyLinkedList<E> implements ListInterface<E> {
+public class NamedSinglyLinkedList<E extends HasName> implements
+	ListInterface<E> {
     private Link<E> head;
     private Link<E> tail;
     protected Link<E> currentNode;
     private int size;
 
-    public SinglyLinkedList() {
+    public NamedSinglyLinkedList() {
 	this.head = this.tail = this.currentNode = new Link<E>(null);
 	this.size = 0;
     }
@@ -47,6 +48,9 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	this.size++;
     }
 
+    /**
+     * Removes and returns current current node.
+     */
     @Override
     public E remove() {
 	if (this.currentNode.getNextNode() == null) {
@@ -55,7 +59,8 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	}
 
 	// save value before deleting to be returned at end of method
-	E item = this.currentNode.getNextNode().getValue();
+	E item = this.currentNode.getValue();
+	this.currentNode.setValue(this.currentNode.getNextNode().getValue());
 
 	// in the case where the node to be removed is immediately
 	// before the tail node
@@ -165,7 +170,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	this.moveToStart();
 
 	do {
-	    if (this.getValue() == item) {
+	    if (this.currentNode.getValue().getName().equals(item.getName())) {
 		this.moveCurrentNodeToPosition(currentPosition);
 		return foundValuePosition;
 	    } else {
@@ -195,13 +200,13 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	this.moveToStart();
 	linkedListAsString.append("< ");
 	for (int i = 0; i < oldPosition; i++) {
-	    linkedListAsString.append(this.getValue());
+	    linkedListAsString.append(this.getValue().getName());
 	    linkedListAsString.append(" ");
 	    this.next();
 	}
 	linkedListAsString.append("| ");
 	for (int i = oldPosition; i < length; i++) {
-	    linkedListAsString.append(this.getValue());
+	    linkedListAsString.append(this.getValue().getName());
 	    linkedListAsString.append(" ");
 	    this.next();
 	}

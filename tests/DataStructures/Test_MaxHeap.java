@@ -8,7 +8,7 @@ import DataStructures.MaxHeap;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 8, 2013
  */
-public class TestMaxHeap extends junit.framework.TestCase {
+public class Test_MaxHeap extends junit.framework.TestCase {
     private MaxHeap maxHeap;
 
     public void setUp() {
