@@ -14,6 +14,7 @@ public interface ListInterface<E> {
      * list's capacity is not exceeded.
      *
      * @param item
+     *            Item to be inserted.
      */
     public void insert(E item);
 
@@ -21,6 +22,7 @@ public interface ListInterface<E> {
      * Insert an element after the last element in the list.
      *
      * @param item
+     *            Item to be appended.
      */
     public void append(E item);
 
