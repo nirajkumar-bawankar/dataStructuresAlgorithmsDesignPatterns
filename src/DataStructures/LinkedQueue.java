@@ -8,6 +8,7 @@ import DataStructures.Interfaces.QueueInterface;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 1, 2013
+ * @param <E>
  */
 public class LinkedQueue<E> implements QueueInterface<E> {
     private Link<E> front;

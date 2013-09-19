@@ -130,7 +130,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
     }
 
     @Override
-    public void moveCurrentNodeToPosition(int position) {
+    public void moveCurrentToPosition(int position) {
 	if (position < 0 || position > this.size) {
 	    throw new IllegalArgumentException(
 		    "In method moveToPosition of class "
@@ -168,14 +168,14 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 
 	do {
 	    if (this.getValue() == item) {
-		this.moveCurrentNodeToPosition(currentPosition);
+		this.moveCurrentToPosition(currentPosition);
 		return foundValuePosition;
 	    } else {
 		foundValuePosition++;
 	    }
 	} while (this.next() != false);
 
-	this.moveCurrentNodeToPosition(currentPosition);
+	this.moveCurrentToPosition(currentPosition);
 	return -1;
     }
 
@@ -208,7 +208,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	    this.next();
 	}
 	linkedListAsString.append(">");
-	this.moveCurrentNodeToPosition(oldPosition);
+	this.moveCurrentToPosition(oldPosition);
 
 	return linkedListAsString.toString();
     }

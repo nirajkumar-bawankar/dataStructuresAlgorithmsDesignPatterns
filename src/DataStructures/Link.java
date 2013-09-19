@@ -6,16 +6,26 @@ package DataStructures;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 1, 2013
+ * @param <E>
  */
 class Link<E> {
     private E value; // for this node
     private Link<E> nextNode;
 
+    /**
+     * Create a new Link object.
+     * @param value
+     * @param nextNode
+     */
     Link(E value, Link<E> nextNode) {
 	this.value = value;
 	this.nextNode = nextNode;
     }
 
+    /**
+     * Create a new Link object.
+     * @param nextNode
+     */
     Link(Link<E> nextNode) {
 	this.value = null;
 	this.nextNode = nextNode;

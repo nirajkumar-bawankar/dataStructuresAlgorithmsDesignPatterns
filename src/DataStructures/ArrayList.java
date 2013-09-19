@@ -70,7 +70,7 @@ public class ArrayList<E> implements ListInterface<E> {
     }
 
     @Override
-    public void moveCurrentNodeToPosition(int position) {
+    public void moveCurrentToPosition(int position) {
 	// TODO Auto-generated method stub
 
     }
