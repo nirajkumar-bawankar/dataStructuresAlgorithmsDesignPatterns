@@ -29,18 +29,22 @@ public class Test_MaxHeap extends junit.framework.TestCase {
 	    this.maxHeap.insert(12);
 	    fail("should've thrown an exception!");
 	} catch (IllegalArgumentException expected) {
-	    assertEquals("In method insert of class " + "MaxHeap the value: 12"
+	    assertEquals("In method insert of class "
+		    + "MaxHeap the element: 12"
 		    + " could not be inserted because the max-heap is full",
 		    expected.getMessage());
 	}
     }
 
     public void test_remove() {
-	assertEquals("9 8 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 	assertEquals(1, this.maxHeap.remove(9));
-	assertEquals("9 8 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 	assertEquals(3, this.maxHeap.remove(3));
-	assertEquals("9 8 6 3 4 5 2 0 7 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 3 4 5 2 0 7 1 null ",
+		this.maxHeap.printMaxHeapArray());
 
 	try {
 	    this.maxHeap.remove(-1);
@@ -54,9 +58,11 @@ public class Test_MaxHeap extends junit.framework.TestCase {
     }
 
     public void test_removeMaximumValue() {
-	assertEquals("9 8 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 	assertEquals(9, this.maxHeap.removeMaximumValue());
-	assertEquals("8 7 6 3 4 5 2 0 1 9 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("8 7 6 3 4 5 2 0 1 9 null ",
+		this.maxHeap.printMaxHeapArray());
 	for (int i = 0; i < 9; i++) {
 	    this.maxHeap.removeMaximumValue();
 	}
@@ -72,11 +78,14 @@ public class Test_MaxHeap extends junit.framework.TestCase {
     }
 
     public void test_correctNodeIndexByShifting() {
-	assertEquals("9 8 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 	this.maxHeap.swap(0, 2);
-	assertEquals("6 8 9 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("6 8 9 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 	this.maxHeap.correctNodeIndexByShifting(0);
-	assertEquals("9 8 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 
 	try {
 	    this.maxHeap.correctNodeIndexByShifting(-1);
@@ -91,9 +100,11 @@ public class Test_MaxHeap extends junit.framework.TestCase {
     }
 
     public void test_swap() {
-	assertEquals("9 8 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 	this.maxHeap.swap(0, 1);
-	assertEquals("8 9 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("8 9 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
 
 	try {
 	    this.maxHeap.swap(12, 1);
@@ -167,6 +178,7 @@ public class Test_MaxHeap extends junit.framework.TestCase {
     }
 
     public void test_printMaxHeapArray() {
-	assertEquals("9 8 6 7 4 5 2 0 3 1 null ", this.maxHeap.printMaxHeapArray());
+	assertEquals("9 8 6 7 4 5 2 0 3 1 null ",
+		this.maxHeap.printMaxHeapArray());
     }
 }

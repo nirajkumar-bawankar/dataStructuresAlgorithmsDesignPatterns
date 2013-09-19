@@ -13,7 +13,8 @@ class Link<E> {
     private Link<E> nextNode;
 
     /**
-     * Create a new Link object.
+     * Create a new Link object with a value and reference to next node.
+     *
      * @param value
      * @param nextNode
      */
@@ -23,7 +24,8 @@ class Link<E> {
     }
 
     /**
-     * Create a new Link object.
+     * Create a new Link object without a value and reference to next node.
+     *
      * @param nextNode
      */
     Link(Link<E> nextNode) {
@@ -31,18 +33,32 @@ class Link<E> {
 	this.nextNode = nextNode;
     }
 
+    /**
+     * @return The value for this node.
+     */
     E getValue() {
 	return this.value;
     }
 
+    /**
+     * @param value
+     *            The new value for this node.
+     */
     void setValue(E value) {
 	this.value = value;
     }
 
+    /**
+     * @return The node after this node.
+     */
     Link<E> getNextNode() {
 	return this.nextNode;
     }
 
+    /**
+     * @param nextNode
+     *            The new next node for this current node.
+     */
     void setNextNode(Link<E> nextNode) {
 	this.nextNode = nextNode;
     }

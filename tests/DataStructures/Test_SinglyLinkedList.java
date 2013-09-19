@@ -91,7 +91,7 @@ public class Test_SinglyLinkedList extends junit.framework.TestCase {
 	this.linkedList.insert(2); // position 1
 	this.linkedList.insert(3); // position 0
 	try {
-	    this.linkedList.moveCurrentNodeToPosition(5);
+	    this.linkedList.moveCurrentToPosition(5);
 	    fail("should've thrown an exception!");
 	} catch (IllegalArgumentException expected) {
 	    assertEquals("In method moveToPosition of class "
@@ -99,10 +99,10 @@ public class Test_SinglyLinkedList extends junit.framework.TestCase {
 		    + "removed is out of bounds", expected.getMessage());
 	}
 
-	this.linkedList.moveCurrentNodeToPosition(3);
+	this.linkedList.moveCurrentToPosition(3);
 	assertEquals(0, (int) this.linkedList.getValue());
 
-	this.linkedList.moveCurrentNodeToPosition(1);
+	this.linkedList.moveCurrentToPosition(1);
 	assertEquals(2, (int) this.linkedList.getValue());
     }
 
@@ -127,7 +127,7 @@ public class Test_SinglyLinkedList extends junit.framework.TestCase {
 	this.linkedList.append(4);
 	this.linkedList.append(5);
 	this.linkedList.append(6);
-	this.linkedList.moveCurrentNodeToPosition(4);
+	this.linkedList.moveCurrentToPosition(4);
 	assertEquals("< 1 2 3 4 | 5 6 >", this.linkedList.toString());
     }
 }

@@ -1,7 +1,8 @@
 package DataStructures.Interfaces;
 
 /**
- * Queue abstract data type.
+ * To learn more about this interface please visit:
+ * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Queue.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 1, 2013

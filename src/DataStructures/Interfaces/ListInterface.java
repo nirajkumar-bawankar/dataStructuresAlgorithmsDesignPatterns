@@ -1,7 +1,7 @@
 package DataStructures.Interfaces;
 
 /**
- * List abstract data type. To learn more about this interface please visit:
+ * To learn more about this interface please visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/ListADT.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)

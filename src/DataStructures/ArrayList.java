@@ -6,6 +6,7 @@ import DataStructures.Interfaces.ListInterface;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 13, 2013
+ * @param <E>
  */
 public class ArrayList<E> implements ListInterface<E> {
 

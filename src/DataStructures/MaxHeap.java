@@ -19,12 +19,20 @@ import java.lang.Comparable;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sept 8, 2013
+ * @param <E>
  */
-public class MaxHeap<E extends Comparable> {
+public class MaxHeap<E extends Comparable<E>> {
     private E[] heap;
     private int capacity; // maximum size of heap
     private int numberOfNodes; // number of nodes in current heap
 
+    /**
+     * Create a new MaxHeap object.
+     *
+     * @param heap
+     * @param capacity
+     * @param numberOfNodes
+     */
     public MaxHeap(E[] heap, int capacity, int numberOfNodes) {
 	this.heap = heap;
 	this.capacity = capacity;
@@ -33,16 +41,25 @@ public class MaxHeap<E extends Comparable> {
 	this.buildHeap();
     }
 
-    public void buildHeap() {
+    /**
+     * Put all nodes within the max heap in the correct position.
+     */
+    void buildHeap() {
 	for (int i = (this.numberOfNodes / 2 - 1); i >= 0; i--) {
 	    this.correctNodeIndexByShifting(i);
 	}
     }
 
+    /**
+     * Insert a new node at the current position within the max-heap.
+     *
+     * @param nodeValue
+     *            The node to be inserted.
+     */
     public void insert(E nodeValue) {
 	if (this.capacity <= this.numberOfNodes) {
 	    throw new IllegalArgumentException("In method insert of class "
-		    + "MaxHeap the value: " + nodeValue
+		    + "MaxHeap the element: " + nodeValue
 		    + " could not be inserted because the max-heap is full");
 	}
 
@@ -63,37 +80,43 @@ public class MaxHeap<E extends Comparable> {
     /**
      * Remove the node at arrayIndex within the MaxHeap and return the node
      * value that the removed node is replaced with.
+     *
+     * @param arrayIndex
+     *            Index of the node within the array based max-heap to be
+     *            removed.
+     * @return The element that was removed.
      */
     public E remove(int arrayIndex) {
-	if ((arrayIndex < 0) || (arrayIndex >= this.numberOfNodes)) {
+	int changingArrayIndex = arrayIndex;
+	if ((changingArrayIndex < 0)
+		|| (changingArrayIndex >= this.numberOfNodes)) {
 	    throw new IllegalArgumentException("In method remove of class "
 		    + "MaxHeap the input node postion to be removed is invalid");
 	}
 
 	// if the most bottom right node is being removed there is no work to be
 	// done
-	if (arrayIndex == (this.numberOfNodes - 1)) {
+	if (changingArrayIndex == (this.numberOfNodes - 1)) {
 	    this.numberOfNodes--;
 	} else {
 	    // swap node to be removed with most bottom right node
-	    this.swap(arrayIndex, --this.numberOfNodes);
+	    this.swap(changingArrayIndex, --this.numberOfNodes);
 
 	    // if swapped node is large, shift it up the tree
-	    while ((arrayIndex > 0)
-		    && (this.heap[arrayIndex].compareTo(this.heap[this
-			    .getParentIndex(arrayIndex)]) > 0)) {
-		this.swap(arrayIndex, this.getParentIndex(arrayIndex));
-		arrayIndex = this.getParentIndex(arrayIndex);
+	    while ((changingArrayIndex > 0)
+		    && (this.heap[changingArrayIndex].compareTo(this.heap[this
+			    .getParentIndex(changingArrayIndex)]) > 0)) {
+		this.swap(changingArrayIndex,
+			this.getParentIndex(changingArrayIndex));
+		changingArrayIndex = this.getParentIndex(changingArrayIndex);
 	    }
 	    if (this.numberOfNodes != 0) {
 		// if swapped node is small, shift it down the tree
-		this.correctNodeIndexByShifting(arrayIndex);
+		this.correctNodeIndexByShifting(changingArrayIndex);
 	    }
 	}
-	return this.heap[arrayIndex];
+	return this.heap[changingArrayIndex];
     }
-
-
 
     /**
      * @return maximum node value in max-heap.
@@ -118,28 +141,33 @@ public class MaxHeap<E extends Comparable> {
     /**
      * Place given node position in the correct position within the complete
      * binary tree.
+     *
+     * @param arrayIndex
+     *            Index of node to be correctly shifted to the correct position.
      */
     void correctNodeIndexByShifting(int arrayIndex) {
-	if ((arrayIndex < 0) || (arrayIndex >= this.numberOfNodes)) {
+	int changingArrayIndex = arrayIndex;
+	if ((changingArrayIndex < 0)
+		|| (changingArrayIndex >= this.numberOfNodes)) {
 	    throw new IllegalArgumentException(
 		    "In method shiftDown of class "
 			    + "MaxHeap the value: "
-			    + arrayIndex
+			    + changingArrayIndex
 			    + " represents a node that does not exist in the current heap");
 	}
-	while (!this.isLeafNode(arrayIndex)) {
-	    int childIndex = this.getLeftChildIndex(arrayIndex);
+	while (!this.isLeafNode(changingArrayIndex)) {
+	    int childIndex = this.getLeftChildIndex(changingArrayIndex);
 	    if ((childIndex < (this.numberOfNodes - 1))
 		    && (this.heap[childIndex]
 			    .compareTo(this.heap[childIndex + 1]) < 0)) {
 		childIndex++; // childIndex is not at index of child with
 			      // greater node value
 	    }
-	    if (this.heap[arrayIndex].compareTo(this.heap[childIndex]) >= 0) {
+	    if (this.heap[changingArrayIndex].compareTo(this.heap[childIndex]) >= 0) {
 		return;
 	    }
-	    this.swap(arrayIndex, childIndex);
-	    arrayIndex = childIndex; // node shifted down
+	    this.swap(changingArrayIndex, childIndex);
+	    changingArrayIndex = childIndex; // node shifted down
 	}
     }
 
