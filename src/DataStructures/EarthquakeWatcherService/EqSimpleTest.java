@@ -1,7 +1,7 @@
+package DataStructures.EarthquakeWatcherService;
+import java.util.ArrayList;
 import realtimeweb.earthquakeservice.domain.Coordinate;
-
 import realtimeweb.earthquakeservice.domain.Earthquake;
-
 import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,9 +14,10 @@ import realtimeweb.earthquakewatchers.WatcherParseException;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 17, 2013
  */
-public class Test_EqSimple extends junit.framework.TestCase {
+public class EqSimpleTest extends junit.framework.TestCase {
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream outContent =
+	    new ByteArrayOutputStream();
 
     public void setUp() {
 	new EqSimple();
@@ -27,7 +28,22 @@ public class Test_EqSimple extends junit.framework.TestCase {
     }
 
     /**
-     * Place a description of your method here.
+     * Test different outputs to console.
+     *
+     * @throws IOException
+     * @throws WatcherParseException
+     * @throws EarthquakeException
+     */
+    public void test_main() throws IOException, WatcherParseException,
+	    EarthquakeException {
+	// check for the following 2 different possible commands
+	String[] args1 = { "--all", "watcher.txt", "normal.earthquakes.json" };
+
+	EqSimple.main(args1);
+    }
+
+    /**
+     * Check all different possible command line arguments.
      *
      * @throws IOException
      * @throws WatcherParseException
@@ -55,6 +71,10 @@ public class Test_EqSimple extends junit.framework.TestCase {
 	assertFalse(EqSimple.allParameterGiven);
     }
 
+    /**
+     * Test retrieval of earthquake file name for different formats of command
+     * line arguments.
+     */
     public void test_getEarthquakeFileName() {
 	String[] args1 = { "--all", "watcher.txt", "live" };
 	try {
@@ -73,7 +93,7 @@ public class Test_EqSimple extends junit.framework.TestCase {
 
 	String[] args3 = { "watcher.txt", "normal.earthquakes" };
 	assertEquals("normal.earthquakes",
-		EqSimple.getEarthquakeFileName(args2));
+		EqSimple.getEarthquakeFileName(args3));
 
 	String[] args4 = { "watcher.txt", "live" };
 	try {
@@ -97,18 +117,22 @@ public class Test_EqSimple extends junit.framework.TestCase {
 	}
     }
 
+    /**
+     * Test retrieval of watcher file name for different formats of command line
+     * arguments.
+     */
     public void test_getWatcherFileName() {
 	String[] args1 = { "--all", "watcher.txt", "live" };
 	assertEquals("watcher.txt", EqSimple.getWatcherFileName(args1));
 
 	String[] args2 = { "--all", "watcher.txt", "normal.earthquakes" };
-	assertEquals("watcher.txt", EqSimple.getWatcherFileName(args1));
+	assertEquals("watcher.txt", EqSimple.getWatcherFileName(args2));
 
 	String[] args3 = { "watcher.txt", "normal.earthquakes" };
-	assertEquals("watcher.txt", EqSimple.getWatcherFileName(args1));
+	assertEquals("watcher.txt", EqSimple.getWatcherFileName(args3));
 
 	String[] args4 = { "watcher.txt", "live" };
-	assertEquals("watcher.txt", EqSimple.getWatcherFileName(args1));
+	assertEquals("watcher.txt", EqSimple.getWatcherFileName(args4));
 
 	String[] args5 = { "--all", "watcher.txt", "normal.earthquakes",
 		"extraCommand" };
@@ -121,12 +145,34 @@ public class Test_EqSimple extends junit.framework.TestCase {
 	}
     }
 
-    public static void test_processCommands() {
-	// TODO: implement
+    /**
+     * Test different add, query and delete commands.
+     */
+    public void test_processCommands() {
+	ArrayList<String> commands1 = new ArrayList<String>();
+	commands1.add("add	81	174	Tristen");
+	commands1.add("query");
+
+	ArrayList<String> commands2 = new ArrayList<String>();
+	commands2.add("delete	Tristen");
+
+	EqSimple.processCommands(commands1);
+
+	assertEquals("\nTristen is added to the watchers list"
+		+ "\nNo record on MaxHeap", outContent.toString());
+
+	EqSimple.processCommands(commands2);
+	assertEquals("\nTristen is added to the watchers list"
+		+ "\nNo record on MaxHeap"
+		+ "\nTristen is removed from the watchers list",
+		outContent.toString());
+
+	// clean up stream
+	System.setOut(null);
     }
 
     /**
-     * Place a description of your method here.
+     * Test retrieving watcher name on all different possibilities of commands.
      */
     public void test_getWatcherName() {
 	String command1 = "add	278	216	Riley";
@@ -147,7 +193,7 @@ public class Test_EqSimple extends junit.framework.TestCase {
     }
 
     /**
-     * Place a description of your method here.
+     * Test retrieving longitude on all different possibilities of commands.
      */
     public void test_getLongitude() {
 	String command1 = "add	278	216	Riley";
@@ -175,7 +221,7 @@ public class Test_EqSimple extends junit.framework.TestCase {
     }
 
     /**
-     * Place a description of your method here.
+     * Test retrieving latitude on all different possibilities of commands.
      */
     public void test_getLatitude() {
 	String command1 = "add	278	216	Riley";
@@ -202,16 +248,22 @@ public class Test_EqSimple extends junit.framework.TestCase {
 	}
     }
 
+    /**
+     * Assert correct output was printed to console.
+     */
     public void test_processWatcherAddRequest() {
 	Watcher watcher = new Watcher("Sam", 5, 8);
 	EqSimple.processWatcherAddRequest(watcher);
-	assertEquals("\nSam is added to the watchers list",
+	assertEquals("Sam is added to the watchers list",
 		outContent.toString());
 
 	// clean up stream
 	System.setOut(null);
     }
 
+    /**
+     * Assert correct output was printed to console.
+     */
     public void test_processWatcherDeleteRequest() {
 	Watcher watcher1 = new Watcher("Byron", 5, 8);
 	Watcher watcher2 = new Watcher("Jeff Hawkins", 13, 21);
@@ -239,11 +291,13 @@ public class Test_EqSimple extends junit.framework.TestCase {
 	System.setOut(null);
     }
 
+    /**
+     * Assert correct output was printed to console.
+     */
     public void test_printLargestRecentEarthquake() {
 	EqSimple.printLargestRecentEarthquake();
 	assertEquals("\nNo record on MaxHeap", outContent.toString());
 
-	// TODO: implement
 	// add a few earthquakes with different magnitudes
 	Earthquake earthquakeWithMagnitude10 = new Earthquake(new Coordinate(
 		1.0, 1.0, 1.0), 10.0, "San Fran", 1000, "www.walnutiq.com", 1,
@@ -265,15 +319,20 @@ public class Test_EqSimple extends junit.framework.TestCase {
 		1.0, 1.0, 1.0), 50.0, "San Fran", 1000, "www.walnutiq.com", 1,
 		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
 
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode1 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode1 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude10, 0);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode2 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode2 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude20, 1);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode3 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode3 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude30, 2);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode4 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode4 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude40, 3);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode5 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode5 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquakeWithMagnitude50, 4);
 	EqSimple.maxHeapOfRecentEarthquakes.insert(earthquakeNode1);
 	EqSimple.maxHeapOfRecentEarthquakes.insert(earthquakeNode2);
@@ -285,36 +344,105 @@ public class Test_EqSimple extends junit.framework.TestCase {
 
 	assertEquals("\nNo record on MaxHeap"
 		+ "\nLargest earthquake in past 6 hours:"
-		+ "\nMagnitude 50.0 at Coordinate[1.0, 1.0, 1.0]",
+		+ "\nMagnitude 50.0 at San Fran", outContent.toString());
+
+	for (int i = 0; i < 5; i++) {
+	    EqSimple.maxHeapOfRecentEarthquakes.removeMaximumValue();
+	}
+
+	EqSimple.printLargestRecentEarthquake();
+
+	assertEquals("\nNo record on MaxHeap"
+		+ "\nLargest earthquake in past 6 hours:"
+		+ "\nMagnitude 50.0 at San Fran" + "\nNo record on MaxHeap",
 		outContent.toString());
 
 	// clean up stream
 	System.setOut(null);
     }
 
+    /**
+     * Assert correct output was printed to console.
+     */
     public void test_removeExpiredEarthquakesInQueueAndMaxHeap() {
-	Earthquake earthquake1 = new Earthquake(new Coordinate(
-		1.0, 1.0, 1.0), 10.0, "San Fran", 10000, "www.walnutiq.com", 1,
-		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
+	Earthquake earthquake1 = new Earthquake(new Coordinate(1.0, 1.0, 1.0),
+		10.0, "San Fran", 10000, "www.walnutiq.com", 1, 1.0, 2.0,
+		"red", "event", 1, "id", 3.0, 4.0, 5.0);
 
-	Earthquake earthquake2 = new Earthquake(new Coordinate(
-		1.0, 1.0, 1.0), 20.0, "San Fran", 31600, "www.walnutiq.com", 1,
-		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode1 = new EarthquakeNodeAwareOfHeapIndex(
+	Earthquake earthquake2 = new Earthquake(new Coordinate(1.0, 1.0, 1.0),
+		20.0, "San Fran", 31600, "www.walnutiq.com", 1, 1.0, 2.0,
+		"red", "event", 1, "id", 3.0, 4.0, 5.0);
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode1 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquake1, 0);
-	EarthquakeNodeAwareOfHeapIndex earthquakeNode2 = new EarthquakeNodeAwareOfHeapIndex(
+	EarthquakeNodeAwareOfHeapIndex earthquakeNode2 =
+		new EarthquakeNodeAwareOfHeapIndex(
 		earthquake2, 1);
+	EqSimple.maxHeapOfRecentEarthquakes.insert(earthquakeNode1);
+	EqSimple.maxHeapOfRecentEarthquakes.insert(earthquakeNode2);
+	EqSimple.removeExpiredEarthquakesInQueueAndMaxHeap();
+	assertEquals(20.0, EqSimple.maxHeapOfRecentEarthquakes
+		.getMaximumValue().getEarthquake().getMagnitude());
     }
 
-    public void test_getNewEarthquakes() {
-	// TODO: implement
+    /**
+     * Assert that checking for duplicates in queue and max-heap method is
+     * correct.
+     */
+    public void test_isNewEarthquakeInQueueAndHeap() {
+	Earthquake earthquake1 = new Earthquake(new Coordinate(1.0, 1.0, 1.0),
+		10.0, "San Fran", 10000, "www.walnutiq.com", 1, 1.0, 2.0,
+		"red", "event", 1, "id", 3.0, 4.0, 5.0);
+
+	Earthquake earthquake2 = new Earthquake(new Coordinate(1.0, 1.0, 1.0),
+		20.0, "San Fran", 31600, "www.walnutiq.com", 1, 1.0, 2.0,
+		"red", "event", 1, "id", 3.0, 4.0, 5.0);
+
+	assertTrue(EqSimple.isNewEarthquakeInQueueAndHeap(earthquake1));
+	assertEquals(10000, EqSimple.unixTimeOfEarliestQuake);
+	assertFalse(EqSimple.isNewEarthquakeInQueueAndHeap(earthquake1));
+
+	assertTrue(EqSimple.isNewEarthquakeInQueueAndHeap(earthquake2));
+	assertEquals(31600, EqSimple.unixTimeOfEarliestQuake);
     }
 
-    public void test_isDuplicateInQueueAndHeap() {
-	// TODO: implement
-    }
-
+    /**
+     * Assert correct output was printed to console for when a new earthquake is
+     * close to a watcher and when it is not close to a watcher.
+     */
     public void test_updateRelevantWatchersOfNewEarthquakes() {
-	// TODO: implement
+	// add 2 watchers to linked list where one is close enough
+	// to the new earthquake to be alerted while the other is not
+	Watcher closeByWatcher = new Watcher("Quinn", 10, 10);
+	Watcher farAwayWatcher = new Watcher("AJ", 150, 100);
+
+	EqSimple.linkedListWatcher.append(farAwayWatcher);
+	EqSimple.linkedListWatcher.append(closeByWatcher);
+
+	Earthquake earthquakeWithMagnitude4 = new Earthquake(new Coordinate(
+		20.0, 30.0, 1.0), 4, "San Fran", 10000, "www.walnutiq.com", 1,
+		1.0, 2.0, "red", "event", 1, "id", 3.0, 4.0, 5.0);
+
+	EqSimple.updateRelevantWatchersOfNewEarthquake(earthquakeWithMagnitude4);
+
+	// distance = ((longitude_earthquake - longitude_watcher)^2 +
+	// (latitude_earthquake
+	// - latitude_watcher)^2)^0.5 < 2 * Magnitude^3
+
+	// if distance < 2 * Magnitude^3 is true check for closeBy print
+	// statement
+
+	// for closeByWatcher named Quinn
+	// distance = (10^2 + 20^2)^0.5 < 2 * 4^3
+	// = 22.3607 < 124
+
+	// for farAwayWatcher name AJ
+	// distance = (130^2 + 70^2)^0.5 < 2 * 4^3
+	// = 147.6482 < 124
+	assertEquals("\nEarthquake San Fran is close to Quinn",
+		outContent.toString());
+
+	// clean up stream
+	System.setOut(null);
     }
 }

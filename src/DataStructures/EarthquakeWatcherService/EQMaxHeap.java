@@ -1,6 +1,4 @@
-
-
-import realtimeweb.earthquakeservice.domain.Earthquake;
+package DataStructures.EarthquakeWatcherService;
 import java.lang.Comparable;
 
 /**
@@ -20,33 +18,51 @@ import java.lang.Comparable;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sept 15, 2013
+ * @param <E>
+ *            Nodes within the max-heap.
  */
-public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
+public class EQMaxHeap<E extends Comparable<E> & NodeAwareOfIndex> {
     private E[] heap;
     private int capacity; // maximum size of heap
     private int numberOfNodes; // number of nodes in current heap
 
-    public EQMaxHeap(E[] heap, int capacity, int numberOfNodes) {
-	this.heap = heap;
+    /**
+     * Create a new EQMaxHeap object.
+     *
+     * @param heap2
+     * @param capacity
+     * @param numberOfNodes
+     */
+    public EQMaxHeap(E[] heap2, int capacity, int numberOfNodes) {
+	this.heap = heap2;
 	this.capacity = capacity;
 	this.numberOfNodes = numberOfNodes;
 
 	this.buildHeap();
     }
 
+    /**
+     * Place every node in your heap in the correct position.
+     */
     public void buildHeap() {
 	for (int i = (this.numberOfNodes / 2 - 1); i >= 0; i--) {
 	    this.correctNodeIndexByShifting(i);
 	}
     }
 
+    /**
+     * Insert given node into the correct position within the max-heap.
+     *
+     * @param nodeValue
+     *            Node to be inserted.
+     */
     public void insert(E nodeValue) {
 	if (this.capacity <= this.numberOfNodes) {
 	    throw new IllegalArgumentException("In method insert of class "
-		    + "MaxHeap the value: " + nodeValue
+		    + "MaxHeap at heap index: "
+		    + nodeValue.getIndexWithinHeapArray()
 		    + " could not be inserted because the max-heap is full");
 	}
-
 	int currentNodePosition = this.numberOfNodes++;
 
 	if (nodeValue instanceof EarthquakeNodeAwareOfHeapIndex) {
@@ -69,44 +85,53 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
     /**
      * Remove the node at arrayIndex within the MaxHeap and return the node
      * value that the removed node is replaced with.
+     *
+     * @param arrayIndex
+     *            Index of node to be removed.
+     * @return The node that was removed at arrayIndex.
      */
     public E remove(int arrayIndex) {
-	if ((arrayIndex < 0) || (arrayIndex >= this.numberOfNodes)) {
+	int changingArrayIndex = arrayIndex;
+	if ((changingArrayIndex < 0)
+		|| (changingArrayIndex >= this.numberOfNodes)) {
 	    throw new IllegalArgumentException("In method remove of class "
 		    + "MaxHeap the input node postion to be removed is invalid");
 	}
 
 	// if the most bottom right node is being removed there is no work to be
 	// done
-	if (arrayIndex == (this.numberOfNodes - 1)) {
+	if (changingArrayIndex == (this.numberOfNodes - 1)) {
 	    this.numberOfNodes--;
 	} else {
 	    // swap node to be removed with most bottom right node
-	    this.swap(arrayIndex, --this.numberOfNodes);
+	    this.swap(changingArrayIndex, --this.numberOfNodes);
 
 	    // if swapped node is large, shift it up the tree
-	    while ((arrayIndex > 0)
-		    && (this.heap[arrayIndex].compareTo(this.heap[this
-			    .getParentIndex(arrayIndex)]) > 0)) {
-		this.swap(arrayIndex, this.getParentIndex(arrayIndex));
-		arrayIndex = this.getParentIndex(arrayIndex);
+	    while ((changingArrayIndex > 0)
+		    && (this.heap[changingArrayIndex].compareTo(this.heap[this
+			    .getParentIndex(changingArrayIndex)]) > 0)) {
+		this.swap(changingArrayIndex,
+			this.getParentIndex(changingArrayIndex));
+		changingArrayIndex = this.getParentIndex(changingArrayIndex);
 	    }
 	    if (this.numberOfNodes != 0) {
 		// if swapped node is small, shift it down the tree
-		this.correctNodeIndexByShifting(arrayIndex);
+		this.correctNodeIndexByShifting(changingArrayIndex);
 	    }
 	}
-	return this.heap[arrayIndex];
+	return this.heap[changingArrayIndex];
     }
 
     /**
+     * Remove the node with the maximum value in the max-heap.
+     *
      * @return maximum node value in max-heap.
      */
     public E removeMaximumValue() {
 	if (this.numberOfNodes == 0) {
 	    throw new IllegalStateException(
-		    "In method removeMaximumValue of class "
-			    + "MaxHeap the value you cannot remove a value from an "
+		    "In method removeMaximumValue of class MaxHeap the "
+			    + "value you cannot remove a value from an "
 			    + "empty max-heap");
 	}
 	// swap maximum with last value
@@ -119,6 +144,11 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
 	return this.heap[this.numberOfNodes];
     }
 
+    /**
+     * Return the node with the maximum value in the max-heap.
+     *
+     * @return The node with the maximum value.
+     */
     public E getMaximumValue() {
 	if (this.numberOfNodes == 0) {
 	    throw new IllegalStateException(
@@ -132,40 +162,55 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
     /**
      * Place given node position in the correct position within the complete
      * binary tree.
+     *
+     * @param arrayIndex
+     *            The index with a node to be shifted into the correct position.
      */
     void correctNodeIndexByShifting(int arrayIndex) {
-	if ((arrayIndex < 0) || (arrayIndex >= this.numberOfNodes)) {
-	    throw new IllegalArgumentException(
-		    "In method shiftDown of class "
-			    + "MaxHeap the value: "
-			    + arrayIndex
-			    + " represents a node that does not exist in the current heap");
+	int changingArrayIndex = arrayIndex;
+	if ((changingArrayIndex < 0)
+		|| (changingArrayIndex >= this.numberOfNodes)) {
+	    throw new IllegalArgumentException("In method shiftDown of class "
+		    + "MaxHeap the value: " + changingArrayIndex
+		    + " represents a node that does not exist in "
+		    + "the current heap");
 	}
-	while (!this.isLeafNode(arrayIndex)) {
-	    int childIndex = this.getLeftChildIndex(arrayIndex);
+	while (!this.isLeafNode(changingArrayIndex)) {
+	    int childIndex = this.getLeftChildIndex(changingArrayIndex);
 	    if ((childIndex < (this.numberOfNodes - 1))
 		    && (this.heap[childIndex]
 			    .compareTo(this.heap[childIndex + 1]) < 0)) {
 		childIndex++; // childIndex is not at index of child with
 			      // greater node value
 	    }
-	    if (this.heap[arrayIndex].compareTo(this.heap[childIndex]) >= 0) {
+	    if (this.heap[changingArrayIndex].compareTo(this.heap[childIndex])
+		    >= 0) {
 		return;
 	    }
-	    this.swap(arrayIndex, childIndex);
-	    arrayIndex = childIndex; // node shifted down
+	    this.swap(changingArrayIndex, childIndex);
+	    changingArrayIndex = childIndex; // node shifted down
 	}
     }
 
+    /**
+     * Change the position of two nodes.
+     *
+     * @param arrayIndex1
+     *            Index of node 1 within max-heap array based implementation.
+     * @param arrayIndex2
+     *            Index of node 2 within max-heap array based implementation.
+     */
     void swap(int arrayIndex1, int arrayIndex2) {
 	if (arrayIndex1 < 0 || arrayIndex1 > this.numberOfNodes) {
 	    throw new IllegalArgumentException(
 		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex1 is not a valid node position");
+			    + "MaxHeap the input arrayIndex1 is not a valid " +
+			    "node position");
 	} else if (arrayIndex2 < 0 || arrayIndex2 > this.numberOfNodes) {
 	    throw new IllegalArgumentException(
 		    "In method swap of class "
-			    + "MaxHeap the input arrayIndex2 is not a valid node position");
+			    + "MaxHeap the input arrayIndex2 is not a valid " +
+			    "node position");
 	}
 	E tempNodeValue = this.heap[arrayIndex1];
 
@@ -180,6 +225,13 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
 	this.heap[arrayIndex2] = tempNodeValue;
     }
 
+    /**
+     * Return index of parent node.
+     *
+     * @param arrayIndex
+     *            Index of child node.
+     * @return The index of the parent node.
+     */
     public int getParentIndex(int arrayIndex) {
 	if (arrayIndex <= 0) {
 	    throw new IllegalArgumentException(
@@ -191,6 +243,13 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
 	}
     }
 
+    /**
+     * Return index of right child to node at given index.
+     *
+     * @param arrayIndex
+     *            Index of right child.
+     * @return the index of the right child.
+     */
     public int getRightChildIndex(int arrayIndex) {
 	if (arrayIndex >= (this.numberOfNodes / 2)) {
 	    throw new IllegalArgumentException("In method rightChild of class "
@@ -201,6 +260,13 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
 	}
     }
 
+    /**
+     * Return index of left child to node at given index.
+     *
+     * @param arrayIndex
+     *            Index of left child.
+     * @return The index of the left child.
+     */
     public int getLeftChildIndex(int arrayIndex) {
 	if (arrayIndex >= (this.numberOfNodes / 2)) {
 	    throw new IllegalArgumentException("In method leftChild of class "
@@ -211,6 +277,13 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
 	}
     }
 
+    /**
+     * Return if the node at the given index is a leaf node.
+     *
+     * @param arrayIndex
+     *            Index of node to check.
+     * @return True if this node has no children; otherwise return false.
+     */
     public boolean isLeafNode(int arrayIndex) {
 	if ((arrayIndex >= (this.numberOfNodes / 2))
 		&& (arrayIndex < this.numberOfNodes)) {
@@ -220,21 +293,37 @@ public class EQMaxHeap<E extends Comparable & NodeAwareOfIndex> {
 	}
     }
 
+    /**
+     * @return The number of nodes in this max-heap.
+     */
     public int getNumberOfNodes() {
 	return this.numberOfNodes;
     }
 
+    /**
+     * @return The height of the heap.
+     */
     public int getHeapHeight() {
 	double approximateHeight = Math.log(this.numberOfNodes) / Math.log(2);
 	int actualHeight = (int) (Math.floor(approximateHeight) + 1);
 	return actualHeight;
     }
 
-    public String printMaxHeapArray() {
+    /**
+     * @return The indices of elements in the max-heap.
+     */
+    public String printMaxHeapArrayIndexes() {
 	StringBuilder maxHeapArray = new StringBuilder();
-	for (int i = 0; i < this.heap.length; i++) {
-	    maxHeapArray.append(this.heap[i] + " ");
+	for (int i = 0; i < this.numberOfNodes; i++) {
+	    maxHeapArray.append(this.heap[i].getIndexWithinHeapArray() + " ");
 	}
 	return maxHeapArray.toString();
+    }
+
+    /**
+     * @return The current max-heap.
+     */
+    public E[] getHeap() {
+	return this.heap;
     }
 }
