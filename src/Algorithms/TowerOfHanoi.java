@@ -8,6 +8,18 @@ package Algorithms;
  * @version Aug 31, 2013
  */
 public class TowerOfHanoi {
+    /**
+     * Prints to the console instructions for how to move the disks from
+     * startPolePosition to goalPolePosition.
+     *
+     * @param numberOfDisks
+     * @param startPolePosition
+     *            For example use 1.
+     * @param goalPolePosition
+     *            For example use 3.
+     * @param temperaryPolePosition
+     *            For example use 2.
+     */
     public static void getSolution(int numberOfDisks, int startPolePosition,
 	    int goalPolePosition, int temperaryPolePosition) {
 	if (numberOfDisks == 0) {
