@@ -171,6 +171,12 @@ public class MaxHeap<E extends Comparable<E>> {
 	}
     }
 
+    /**
+     * Switch the node at arrayIndex1 into node at arrayIndex2.
+     *
+     * @param arrayIndex1
+     * @param arrayIndex2
+     */
     void swap(int arrayIndex1, int arrayIndex2) {
 	if (arrayIndex1 < 0 || arrayIndex1 > this.numberOfNodes) {
 	    throw new IllegalArgumentException(

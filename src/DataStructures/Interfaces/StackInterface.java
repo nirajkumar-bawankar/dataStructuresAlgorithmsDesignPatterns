@@ -16,7 +16,7 @@ public interface StackInterface<E> {
      * @param item
      *            Item to be pushed.
      */
-    public void push(E item);
+    public boolean push(E item);
 
     /**
      * Remove and return the element at the top of the stack.

@@ -20,16 +20,17 @@ public class TowerOfHanoi {
      * @param temperaryPolePosition
      *            For example use 2.
      */
-    public static void getSolution(int numberOfDisks, int startPolePosition,
-	    int goalPolePosition, int temperaryPolePosition) {
+    public static void printToConsoleSolution(int numberOfDisks,
+	    int startPolePosition, int goalPolePosition,
+	    int temperaryPolePosition) {
 	if (numberOfDisks == 0) {
 	    return;
 	}
-	getSolution(numberOfDisks - 1, startPolePosition,
+	printToConsoleSolution(numberOfDisks - 1, startPolePosition,
 		temperaryPolePosition, goalPolePosition);
 	System.out.println("Move disk from pole " + startPolePosition + " to "
 		+ "pole " + goalPolePosition);
-	getSolution(numberOfDisks - 1, temperaryPolePosition, goalPolePosition,
-		startPolePosition);
+	printToConsoleSolution(numberOfDisks - 1, temperaryPolePosition,
+		goalPolePosition, startPolePosition);
     }
 }
