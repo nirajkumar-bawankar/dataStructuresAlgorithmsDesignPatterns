@@ -4,13 +4,16 @@ DataStructuresAndAlgorithms
 This repository hold common data structures and algorithms I have implemented. Below is a list. Enjoy!
 
 - src/Algorithms
-    + tower of hanoi
+    + Factorial
+    + TowerOfHanoi
 
 - src/DataStructures Structures
-    + link
-    + linked queue
-    + max heap
-    + singly linked list
+    + ArrayStack
+    + Link
+    + LinkedQueue
+    + LinkedStack
+    + MaxHeap
+    + SinglyLinkedList
 
 ===============================================
 e-mail me at quinnliu@vt.edu for any questions!

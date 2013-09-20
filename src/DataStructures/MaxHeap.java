@@ -172,7 +172,7 @@ public class MaxHeap<E extends Comparable<E>> {
     }
 
     /**
-     * Switch the node at arrayIndex1 into node at arrayIndex2.
+     * Switch the node at arrayIndex1 into node at arrayIndex2 and vice versa.
      *
      * @param arrayIndex1
      * @param arrayIndex2
@@ -192,6 +192,12 @@ public class MaxHeap<E extends Comparable<E>> {
 	this.heap[arrayIndex2] = tempNodeValue;
     }
 
+    /**
+     * @param arrayIndex
+     *            Index of child node.
+     * @return Index of parent to given index of child.
+     *
+     */
     public int getParentIndex(int arrayIndex) {
 	if (arrayIndex <= 0) {
 	    throw new IllegalArgumentException(
@@ -203,6 +209,12 @@ public class MaxHeap<E extends Comparable<E>> {
 	}
     }
 
+    /**
+     * @param arrayIndex
+     *            Index of parent node.
+     * @return Index of right child within array based max-heap to given parent
+     *         node.
+     */
     public int getRightChildIndex(int arrayIndex) {
 	if (arrayIndex >= (this.numberOfNodes / 2)) {
 	    throw new IllegalArgumentException("In method rightChild of class "
@@ -213,6 +225,12 @@ public class MaxHeap<E extends Comparable<E>> {
 	}
     }
 
+    /**
+     * @param arrayIndex
+     *            Index of parent node.
+     * @return Index of left child within array based max-heap to given parent
+     *         node.
+     */
     public int getLeftChildIndex(int arrayIndex) {
 	if (arrayIndex >= (this.numberOfNodes / 2)) {
 	    throw new IllegalArgumentException("In method leftChild of class "
@@ -223,6 +241,12 @@ public class MaxHeap<E extends Comparable<E>> {
 	}
     }
 
+    /**
+     * @param arrayIndex
+     *            Index of node to be checked.
+     * @return True if node at given arrayIndex is a leaf node; otherwise return
+     *         false.
+     */
     public boolean isLeafNode(int arrayIndex) {
 	if ((arrayIndex >= (this.numberOfNodes / 2))
 		&& (arrayIndex < this.numberOfNodes)) {
@@ -232,16 +256,26 @@ public class MaxHeap<E extends Comparable<E>> {
 	}
     }
 
+    /**
+     * @return The number of nodes in this max-heap.
+     */
     public int getNumberOfNodes() {
 	return this.numberOfNodes;
     }
 
+    /**
+     * @return The height of the heap.
+     */
     public int getHeapHeight() {
 	double approximateHeight = Math.log(this.numberOfNodes) / Math.log(2);
 	int actualHeight = (int) (Math.floor(approximateHeight) + 1);
 	return actualHeight;
     }
 
+    /**
+     * @return String representation of elements in the array used to implement
+     *         the max-heap.
+     */
     public String printMaxHeapArray() {
 	StringBuilder maxHeapArray = new StringBuilder();
 	for (int i = 0; i < this.heap.length; i++) {

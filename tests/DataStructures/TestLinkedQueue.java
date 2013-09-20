@@ -3,12 +3,12 @@ package DataStructures;
 import DataStructures.LinkedQueue;
 
 /**
- * Tests all methods within class LinkedQueue.
+ * Tests all logic within class LinkedQueue.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 1, 2013
  */
-public class Test_LinkedQueue extends junit.framework.TestCase {
+public class TestLinkedQueue extends junit.framework.TestCase {
     private LinkedQueue<Integer> queue;
 
     public void setUp() {
@@ -18,7 +18,12 @@ public class Test_LinkedQueue extends junit.framework.TestCase {
 	this.queue.enqueue(3);
     }
 
+    /**
+     * Assert all 3 elements were dequeued correctly from the queue and the
+     * correct exception is thrown when dequeing an emtpy queue.
+     */
     public void test_dequeue() {
+	assertEquals(1, this.queue.frontValue().intValue());
 	this.queue.dequeue();
 	assertEquals(2, this.queue.frontValue().intValue());
 	this.queue.dequeue();
@@ -34,6 +39,11 @@ public class Test_LinkedQueue extends junit.framework.TestCase {
 	}
     }
 
+    /**
+     * Assert the front value method returns the correct front value on a
+     * non-empty queue and throws the correct exception when called on an empty
+     * queue.
+     */
     public void test_frontValue() {
 	assertEquals(1, this.queue.frontValue().intValue());
 	this.queue.dequeue();
@@ -49,12 +59,21 @@ public class Test_LinkedQueue extends junit.framework.TestCase {
 	}
     }
 
+    /**
+     * Assert length works correctly after dequeue and enqueue calls.
+     */
     public void test_length() {
 	assertEquals(3, this.queue.length());
 	this.queue.dequeue();
 	assertEquals(2, this.queue.length());
+	this.queue.enqueue(4);
+	assertEquals(3, this.queue.length());
     }
 
+    /**
+     * Assert correct String representation was generated on a queue with
+     * elements.
+     */
     public void test_toString() {
 	this.queue.toString();
 	assertEquals("< 1 2 3 >", this.queue.toString());

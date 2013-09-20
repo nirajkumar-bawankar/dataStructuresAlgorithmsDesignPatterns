@@ -15,6 +15,7 @@ public interface StackInterface<E> {
      *
      * @param item
      *            Item to be pushed.
+     * @return True if item is pushed onto stack; otherwise return false.
      */
     public boolean push(E item);
 

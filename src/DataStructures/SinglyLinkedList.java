@@ -14,13 +14,17 @@ import DataStructures.Interfaces.ListInterface;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 12, 2013
+ * @param <E>
  */
 public class SinglyLinkedList<E> implements ListInterface<E> {
     private Link<E> head;
     private Link<E> tail;
-    protected Link<E> currentNode;
+    private Link<E> currentNode;
     private int size;
 
+    /**
+     * Create a new SinglyLinkedList object.
+     */
     public SinglyLinkedList() {
 	this.head = this.tail = this.currentNode = new Link<E>(null);
 	this.size = 0;
@@ -152,6 +156,8 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
     }
 
     /**
+     * @param item
+     *            Item to be found within linked list.
      * @return Correct position within linked list or -1 if value is not found
      *         within linked list.
      */
