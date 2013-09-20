@@ -1,7 +1,8 @@
 DataStructuresAndAlgorithms
 ===========================
 
-This repository hold common data structures and algorithms I have implemented. Below is a list. Enjoy!
+This repository hold common data structures and algorithms I have implemented. 
+Below is a list. Enjoy!
 
 - src/Algorithms
     + Factorial
