@@ -3,82 +3,122 @@ package DataStructures;
 import DataStructures.Interfaces.ListInterface;
 
 /**
- *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 13, 2013
  * @param <E>
  */
 public class ArrayList<E> implements ListInterface<E> {
+    private static final int defaultMaxSize = 10;
+    private int maxSize;
+    private int size;
+    private int currentPosition;
+    private E[] array;
+
+    /**
+     * Create a new ArrayList object.
+     *
+     * @param maxSize
+     */
+    @SuppressWarnings("unchecked")
+    public ArrayList(int maxSize) {
+	this.maxSize = maxSize;
+	this.size = this.currentPosition = 0;
+	this.array = (E[]) new Object[this.maxSize];
+    }
+
+    /**
+     * Create a new ArrayList object.
+     */
+    public ArrayList() {
+	this(defaultMaxSize);
+    }
 
     @Override
     public void insert(E item) {
-	// TODO Auto-generated method stub
-
+	assert this.size < this.maxSize : "ArrayList capacity exceeded";
+	for (int i = this.size; i > this.currentPosition; i--) {
+	    // Shift elements up to make room
+	    this.array[i] = this.array[i - 1];
+	}
+	this.array[this.currentPosition] = item;
+	this.size++;
     }
 
     @Override
     public void append(E item) {
-	// TODO Auto-generated method stub
-
+	assert this.size < this.maxSize : "ArrayList capacity exceeded";
+	this.array[this.size++] = item;
     }
 
     @Override
     public E remove() {
-	// TODO Auto-generated method stub
-	return null;
+	if ((this.currentPosition < 0) || (this.currentPosition >= this.size)) {
+	    return null;
+	}
+	E item = this.array[this.currentPosition];
+	for (int i = this.currentPosition; i < this.size - 1; i++) {
+	    this.array[i] = this.array[i + 1];
+	}
+	this.size--;
+	return item;
     }
 
     @Override
     public void clear() {
-	// TODO Auto-generated method stub
-
+	this.size = this.currentPosition = 0;
     }
 
     @Override
     public void moveToStart() {
-	// TODO Auto-generated method stub
-
+	this.currentPosition = 0;
     }
 
     @Override
     public void moveToEnd() {
-	// TODO Auto-generated method stub
+	this.currentPosition = this.size;
 
     }
 
     @Override
     public boolean previous() {
-	// TODO Auto-generated method stub
-	return false;
+	if (this.currentPosition != 0) {
+	    this.currentPosition--;
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     @Override
     public boolean next() {
-	// TODO Auto-generated method stub
-	return false;
+	if (this.currentPosition < this.size) {
+	    this.currentPosition++;
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     @Override
     public int length() {
-	// TODO Auto-generated method stub
-	return 0;
+	return this.size;
     }
 
     @Override
     public int currentPosition() {
-	// TODO Auto-generated method stub
-	return 0;
+	return this.currentPosition;
     }
 
     @Override
     public void moveCurrentToPosition(int position) {
-	// TODO Auto-generated method stub
-
+	assert (position >= 0) && (position <= this.size) : "position is out of range";
+	this.currentPosition = position;
     }
 
     @Override
     public E getValue() {
-	// TODO Auto-generated method stub
-	return null;
+	assert (this.currentPosition >= 0) && (this.currentPosition < this.size) :
+	    "No current element";
+	return this.array[this.currentPosition];
     }
 }
