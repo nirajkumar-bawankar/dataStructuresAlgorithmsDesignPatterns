@@ -4,7 +4,7 @@ import DataStructures.Interfaces.ListInterface;
 
 /**
  * If you have a good idea of how many elements will be in your list that does
- * not change very much you should instead use an array based singly linked
+ * not change very much you should instead use an array based linked
  * list. On the other hand, if you have no idea how many elements you will add
  * to your list and removed from your list use a linked list of nodes as
  * implemented in this file.
@@ -26,7 +26,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
      * Create a new SinglyLinkedList object.
      */
     public SinglyLinkedList() {
-	this.head = this.tail = this.currentNode = new SinglyLinkedListNode<E>(null);
+	this.head = this.tail = this.currentNode = new SinglyLinkedListNode<E>(null, null);
 	this.size = 0;
     }
 
@@ -44,7 +44,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 
     @Override
     public void append(E item) {
-	this.tail.setNextNode(new SinglyLinkedListNode<E>(null));
+	this.tail.setNextNode(new SinglyLinkedListNode<E>(null, null));
 	this.tail.setValue(item);
 	// the current tail is no longer the tail so the
 	// current tail must be changed to the link that was
@@ -79,7 +79,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
     @Override
     public void clear() {
 	this.head.setNextNode(null);
-	this.currentNode = this.tail = this.head = new SinglyLinkedListNode<E>(null);
+	this.currentNode = this.tail = this.head = new SinglyLinkedListNode<E>(null, null);
 	this.size = 0;
     }
 
@@ -137,7 +137,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
     public void moveCurrentToPosition(int position) {
 	if (position < 0 || position > this.size) {
 	    throw new IllegalArgumentException(
-		    "In method moveToPosition of class "
+		    "In method moveCurrentToPosition of class "
 			    + "SinglyLinkedList the input node postion to be "
 			    + "removed is out of bounds");
 	}

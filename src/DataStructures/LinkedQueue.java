@@ -24,7 +24,7 @@ public class LinkedQueue<E> implements QueueInterface<E> {
 
     private void init() {
 	// only one object is constructed
-	this.front = this.rear = new SinglyLinkedListNode<E>(null);
+	this.front = this.rear = new SinglyLinkedListNode<E>(null, null);
 	this.size = 0;
     }
 
