@@ -22,7 +22,12 @@ public class Factorial {
      *
      */
     public static long iterativeFactorial(int numberLessThan21) {
-	if (numberLessThan21 < 0 || numberLessThan21 > 20) {
+	if (numberLessThan21 < 0) {
+	    throw new IllegalArgumentException(
+		    "In method iterativeFactorial of class "
+			    + "Factorial the factorial of " + numberLessThan21
+			    + " is undefined");
+	} else if (numberLessThan21 > 20) {
 	    throw new IllegalArgumentException(
 		    "In method iterativeFactorial of class "
 			    + "Factorial the factorial of "
@@ -52,7 +57,17 @@ public class Factorial {
      * @return The recursively calculated factorial of parameter n.
      */
     public static long recursiveFactorial(int n) {
-	// TODO: implement
-	return 1;
+	if (n < 0) {
+	    throw new IllegalArgumentException(
+		    "In method recursiveFactorial of class "
+			    + "Factorial the factorial of " + n
+			    + " is undefined");
+	}
+	// base case
+	if (n == 0 || n == 1) {
+	    return 1;
+	} else { // n! = n * (n - 1)!
+	    return n * recursiveFactorial(n - 1);
+	}
     }
 }

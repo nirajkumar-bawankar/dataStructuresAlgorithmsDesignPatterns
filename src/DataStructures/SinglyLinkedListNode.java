@@ -8,9 +8,9 @@ package DataStructures;
  * @version Sep 1, 2013
  * @param <E>
  */
-class Link<E> {
+class SinglyLinkedListNode<E> {
     private E value; // for this node
-    private Link<E> nextNode;
+    private SinglyLinkedListNode<E> nextNode;
 
     /**
      * Create a new Link object with a value and reference to next node.
@@ -18,7 +18,7 @@ class Link<E> {
      * @param value
      * @param nextNode
      */
-    Link(E value, Link<E> nextNode) {
+    SinglyLinkedListNode(E value, SinglyLinkedListNode<E> nextNode) {
 	this.value = value;
 	this.nextNode = nextNode;
     }
@@ -28,7 +28,7 @@ class Link<E> {
      *
      * @param nextNode
      */
-    Link(Link<E> nextNode) {
+    SinglyLinkedListNode(SinglyLinkedListNode<E> nextNode) {
 	this.value = null;
 	this.nextNode = nextNode;
     }
@@ -51,7 +51,7 @@ class Link<E> {
     /**
      * @return The node after this node.
      */
-    Link<E> getNextNode() {
+    SinglyLinkedListNode<E> getNextNode() {
 	return this.nextNode;
     }
 
@@ -59,7 +59,7 @@ class Link<E> {
      * @param nextNode
      *            The new next node for this current node.
      */
-    void setNextNode(Link<E> nextNode) {
+    void setNextNode(SinglyLinkedListNode<E> nextNode) {
 	this.nextNode = nextNode;
     }
 }

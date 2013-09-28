@@ -11,7 +11,7 @@ import DataStructures.Interfaces.StackInterface;
  * @param <E>
  */
 public class LinkedStack<E> implements StackInterface<E> {
-    private Link<E> top;
+    private SinglyLinkedListNode<E> top;
     private int length;
 
     /**
@@ -24,7 +24,7 @@ public class LinkedStack<E> implements StackInterface<E> {
 
     @Override
     public boolean push(E item) {
-	this.top = new Link<E>(item, this.top);
+	this.top = new SinglyLinkedListNode<E>(item, this.top);
 	this.length++;
 	return true;
     }

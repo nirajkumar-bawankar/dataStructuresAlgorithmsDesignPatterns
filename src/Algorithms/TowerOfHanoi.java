@@ -23,6 +23,12 @@ public class TowerOfHanoi {
     public static void printToConsoleSolution(int numberOfDisks,
 	    int startPolePosition, int goalPolePosition,
 	    int temperaryPolePosition) {
+	if (numberOfDisks < 0) {
+	    throw new IllegalArgumentException(
+		    "In method printToConsoleSolution of class "
+			    + "TowerOfHanoi you must have a positive number "
+			    + "of disks greater than 0");
+	}
 	if (numberOfDisks == 0) {
 	    return;
 	}

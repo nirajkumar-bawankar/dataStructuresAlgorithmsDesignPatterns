@@ -6,7 +6,6 @@ import DataStructures.Interfaces.StackInterface;
  * To learn more about the class please visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Stack.html
  *
- * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 13, 2013
  * @param <E>
  */

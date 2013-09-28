@@ -6,7 +6,6 @@ package DataStructures;
  * Although this may seem like a waste of space, we can store pointers to the
  * values in another array with keys are their fields for other purposes.
  *
- * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 13, 2013
  */
 public class KeyValuePair implements Comparable {

@@ -17,22 +17,22 @@ import DataStructures.Interfaces.ListInterface;
  * @param <E>
  */
 public class SinglyLinkedList<E> implements ListInterface<E> {
-    private Link<E> head;
-    private Link<E> tail;
-    private Link<E> currentNode;
+    private SinglyLinkedListNode<E> head;
+    private SinglyLinkedListNode<E> tail;
+    private SinglyLinkedListNode<E> currentNode;
     private int size;
 
     /**
      * Create a new SinglyLinkedList object.
      */
     public SinglyLinkedList() {
-	this.head = this.tail = this.currentNode = new Link<E>(null);
+	this.head = this.tail = this.currentNode = new SinglyLinkedListNode<E>(null);
 	this.size = 0;
     }
 
     @Override
     public void insert(E item) {
-	this.currentNode.setNextNode(new Link<E>(this.currentNode.getValue(),
+	this.currentNode.setNextNode(new SinglyLinkedListNode<E>(this.currentNode.getValue(),
 		this.currentNode.getNextNode()));
 	this.currentNode.setValue(item);
 
@@ -44,7 +44,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 
     @Override
     public void append(E item) {
-	this.tail.setNextNode(new Link<E>(null));
+	this.tail.setNextNode(new SinglyLinkedListNode<E>(null));
 	this.tail.setValue(item);
 	// the current tail is no longer the tail so the
 	// current tail must be changed to the link that was
@@ -79,7 +79,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
     @Override
     public void clear() {
 	this.head.setNextNode(null);
-	this.currentNode = this.tail = this.head = new Link<E>(null);
+	this.currentNode = this.tail = this.head = new SinglyLinkedListNode<E>(null);
 	this.size = 0;
     }
 
@@ -98,7 +98,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 	if (this.currentNode == this.head) {
 	    return false;
 	}
-	Link<E> tempNode = this.head;
+	SinglyLinkedListNode<E> tempNode = this.head;
 	// iterate through singly linked list until you find the
 	// previous node
 	while (tempNode.getNextNode() != this.currentNode) {
@@ -125,7 +125,7 @@ public class SinglyLinkedList<E> implements ListInterface<E> {
 
     @Override
     public int currentPosition() {
-	Link<E> tempNode = this.head;
+	SinglyLinkedListNode<E> tempNode = this.head;
 	int currentNodePostion;
 	for (currentNodePostion = 0; this.currentNode != tempNode; currentNodePostion++) {
 	    tempNode = tempNode.getNextNode();

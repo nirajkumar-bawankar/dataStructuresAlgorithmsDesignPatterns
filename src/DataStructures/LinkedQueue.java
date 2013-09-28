@@ -11,8 +11,8 @@ import DataStructures.Interfaces.QueueInterface;
  * @param <E>
  */
 public class LinkedQueue<E> implements QueueInterface<E> {
-    private Link<E> front;
-    private Link<E> rear;
+    private SinglyLinkedListNode<E> front;
+    private SinglyLinkedListNode<E> rear;
     private int size;
 
     /**
@@ -24,13 +24,13 @@ public class LinkedQueue<E> implements QueueInterface<E> {
 
     private void init() {
 	// only one object is constructed
-	this.front = this.rear = new Link<E>(null);
+	this.front = this.rear = new SinglyLinkedListNode<E>(null);
 	this.size = 0;
     }
 
     @Override
     public void enqueue(E value) {
-	this.rear.setNextNode(new Link<E>(value, null));
+	this.rear.setNextNode(new SinglyLinkedListNode<E>(value, null));
 	this.rear = this.rear.getNextNode();
 	this.size++;
     }
@@ -82,7 +82,7 @@ public class LinkedQueue<E> implements QueueInterface<E> {
 	StringBuilder linkedQueueAsString = new StringBuilder();
 	linkedQueueAsString.append("< ");
 	System.out.println("front.getNextNode: " + this.front.getNextNode());
-	for (Link<E> node = this.front.getNextNode(); node != null; node = node.getNextNode()) {
+	for (SinglyLinkedListNode<E> node = this.front.getNextNode(); node != null; node = node.getNextNode()) {
 	    linkedQueueAsString.append(node.getValue());
 	    System.out.println(node.getValue() + ",");
 	    linkedQueueAsString.append(" ");
