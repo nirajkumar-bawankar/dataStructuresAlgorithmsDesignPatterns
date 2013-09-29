@@ -8,7 +8,7 @@ import DataStructures.LinkedQueue;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 1, 2013
  */
-public class TestLinkedQueue extends junit.framework.TestCase {
+public class LinkedQueueTest extends junit.framework.TestCase {
     private LinkedQueue<Integer> queue;
 
     public void setUp() {

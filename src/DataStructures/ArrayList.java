@@ -1,12 +1,12 @@
 package DataStructures;
 
-import DataStructures.Interfaces.ListInterface;
+import DataStructures.Interfaces.List;
 
 /**
  * @version Sep 13, 2013
  * @param <E>
  */
-public class ArrayList<E> implements ListInterface<E> {
+public class ArrayList<E> implements List<E> {
     private static final int defaultMaxSize = 10;
     private int maxSize;
     private int size;

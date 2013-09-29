@@ -8,7 +8,7 @@ package DataStructures.Interfaces;
  * @version Sep 19, 2013
  * @param <E>
  */
-public interface StackInterface<E> {
+public interface Stack<E> {
 
     /**
      * Push item onto the top of the stack.

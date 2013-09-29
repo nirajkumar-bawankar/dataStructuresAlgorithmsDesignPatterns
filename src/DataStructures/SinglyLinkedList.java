@@ -1,6 +1,6 @@
 package DataStructures;
 
-import DataStructures.Interfaces.ListInterface;
+import DataStructures.Interfaces.List;
 
 /**
  * If you have a good idea of how many elements will be in your list that does
@@ -16,7 +16,7 @@ import DataStructures.Interfaces.ListInterface;
  * @version Sep 12, 2013
  * @param <E>
  */
-public class SinglyLinkedList<E> implements ListInterface<E> {
+public class SinglyLinkedList<E> implements List<E> {
     private SinglyLinkedListNode<E> head;
     private SinglyLinkedListNode<E> tail;
     private SinglyLinkedListNode<E> currentNode;

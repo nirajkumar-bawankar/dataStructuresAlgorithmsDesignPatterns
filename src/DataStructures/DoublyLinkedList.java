@@ -1,6 +1,6 @@
 package DataStructures;
 
-import DataStructures.Interfaces.ListInterface;
+import DataStructures.Interfaces.List;
 
 /**
  * If you have a good idea of how many elements will be in your list that does
@@ -16,7 +16,7 @@ import DataStructures.Interfaces.ListInterface;
  * @version Sep 28, 2013
  * @param <E>
  */
-public class DoublyLinkedList<E> implements ListInterface<E> {
+public class DoublyLinkedList<E> implements List<E> {
     private DoublyLinkedListNode<E> head;
     private DoublyLinkedListNode<E> tail;
     private DoublyLinkedListNode<E> currentNode;

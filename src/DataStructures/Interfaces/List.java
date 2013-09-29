@@ -8,7 +8,7 @@ package DataStructures.Interfaces;
  * @version Sep 15, 2013
  * @param <E>
  */
-public interface ListInterface<E> {
+public interface List<E> {
     /**
      * Insert an element behind the current position. Must check that the linked
      * list's capacity is not exceeded.

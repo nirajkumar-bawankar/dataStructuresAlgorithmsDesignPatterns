@@ -1,6 +1,6 @@
 package DataStructures;
 
-import DataStructures.Interfaces.StackInterface;
+import DataStructures.Interfaces.Stack;
 
 /**
  * To learn more about the class please visit:
@@ -9,7 +9,7 @@ import DataStructures.Interfaces.StackInterface;
  * @version Sep 13, 2013
  * @param <E>
  */
-public class ArrayStack<E> implements StackInterface<E> {
+public class ArrayStack<E> implements Stack<E> {
     private static final int defaultSize = 10;
     private int maxSize;
     private int top;

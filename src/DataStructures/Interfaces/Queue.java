@@ -8,7 +8,7 @@ package DataStructures.Interfaces;
  * @version Sep 1, 2013
  * @param <E>
  */
-public interface QueueInterface<E> {
+public interface Queue<E> {
     /**
      * Add an item to the rear of the queue.
      *

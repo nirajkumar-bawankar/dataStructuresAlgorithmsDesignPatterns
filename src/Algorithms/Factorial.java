@@ -1,6 +1,6 @@
 package Algorithms;
 
-import DataStructures.Interfaces.StackInterface;
+import DataStructures.Interfaces.Stack;
 import DataStructures.ArrayStack;
 
 /**
@@ -36,7 +36,7 @@ public class Factorial {
 			    + "integer between 0 and 20");
 	}
 
-	StackInterface<Long> stack = new ArrayStack<Long>();
+	Stack<Long> stack = new ArrayStack<Long>();
 
 	int number = numberLessThan21;
 	while (number > 1) {

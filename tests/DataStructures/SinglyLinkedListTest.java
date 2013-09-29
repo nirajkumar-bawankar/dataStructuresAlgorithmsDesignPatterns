@@ -8,7 +8,7 @@ import DataStructures.SinglyLinkedList;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 8, 2013
  */
-public class Test_SinglyLinkedList extends junit.framework.TestCase {
+public class SinglyLinkedListTest extends junit.framework.TestCase {
     private SinglyLinkedList<Integer> linkedList;
 
     public void setUp() {

@@ -1,6 +1,6 @@
 package DataStructures;
 
-import DataStructures.Interfaces.StackInterface;
+import DataStructures.Interfaces.Stack;
 
 /**
  * To learn more about the class please visit:
@@ -10,7 +10,7 @@ import DataStructures.Interfaces.StackInterface;
  * @version Sep 13, 2013
  * @param <E>
  */
-public class LinkedStack<E> implements StackInterface<E> {
+public class LinkedStack<E> implements Stack<E> {
     private SinglyLinkedListNode<E> top;
     private int length;
 
