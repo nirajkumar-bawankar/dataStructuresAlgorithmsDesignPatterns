@@ -1,5 +1,5 @@
-DataStructuresAlgorithmsAndDesignPatterns
-=========================================
+DataStructuresAlgorithmsDesignPatterns
+======================================
 
 This repository hold common data structures and algorithms I have implemented. 
 Below is a list. Enjoy!
