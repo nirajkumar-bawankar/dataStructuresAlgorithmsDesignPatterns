@@ -10,6 +10,9 @@ Below is a list. Enjoy!
     + TowerOfHanoi
 
 - src/DataStructures 
+    + Linked Queue
+    + Polynomial 
+    + Rational
     + ArrayList
     + ArrayStack
     + DoublyLinkedList
@@ -17,10 +20,9 @@ Below is a list. Enjoy!
     + LinkedStack
     + MaxHeap
     + SinglyLinkedList
-    + Polynomial (In C language)
-    + Rational (In C language)
     
 - src/DesignPatterns
+    + Flyweight
     + Visitor
 
 ===============================================
