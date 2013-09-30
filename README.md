@@ -23,6 +23,7 @@ Below is a list. Enjoy!
     
 - src/DesignPatterns
     + Flyweight
+    + Strategy
     + Visitor
 
 ===============================================
