@@ -135,7 +135,7 @@ public class SinglyLinkedListTest extends junit.framework.TestCase {
 	    this.linkedList.moveCurrentToPosition(5);
 	    fail("should've thrown an exception!");
 	} catch (IllegalArgumentException expected) {
-	    assertEquals("In method moveToPosition of class "
+	    assertEquals("In method moveCurrentToPosition of class "
 		    + "SinglyLinkedList the input node postion to be "
 		    + "removed is out of bounds", expected.getMessage());
 	}
