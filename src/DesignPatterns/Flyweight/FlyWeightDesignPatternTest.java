@@ -10,7 +10,7 @@ import java.awt.event.*;
 /**
  * @version Sept 29, 2013
  */
-public class FlyWeightTest extends JFrame {
+public class FlyWeightDesignPatternTest extends JFrame {
     JButton startDrawing;
 
     int windowWidth = 1750;
@@ -20,10 +20,10 @@ public class FlyWeightTest extends JFrame {
 	    Color.pink, Color.cyan, Color.magenta, Color.black, Color.gray };
 
     public static void main(String[] args) {
-	new FlyWeightTest();
+	new FlyWeightDesignPatternTest();
     }
 
-    public FlyWeightTest() {
+    public FlyWeightDesignPatternTest() {
 	this.setSize(windowWidth, windowHeight);
 	this.setLocationRelativeTo(null);
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

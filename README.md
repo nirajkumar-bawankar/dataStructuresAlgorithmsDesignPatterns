@@ -8,9 +8,11 @@ Below is a list. Enjoy!
     + BinarySearch
     + Factorial
     + TowerOfHanoi
+    + TODO: BreathFirstSearch
+    + TODO: DepthFirstSearch
 
 - src/DataStructures 
-    + Linked Queue
+    + LinkedQueue
     + Polynomial 
     + Rational
     + ArrayList
@@ -20,11 +22,15 @@ Below is a list. Enjoy!
     + LinkedStack
     + MaxHeap
     + SinglyLinkedList
+    + TODO: CircularLinkedQueue
+    + TODO: BinTree
+    + TODO: BinarySearchTree
     
 - src/DesignPatterns
     + Flyweight
     + Strategy
     + Visitor
+    + TODO: Composite
 
 ===============================================
 e-mail me at quinnliu@vt.edu for any questions!
