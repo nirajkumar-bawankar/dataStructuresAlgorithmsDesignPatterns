@@ -4,14 +4,14 @@ DataStructuresAlgorithmsDesignPatterns
 This repository hold common data structures and algorithms I have implemented. 
 Below is a list. Enjoy!
 
-- src/Algorithms
+- src/Algorithmss
     + BinarySearch
     + Factorial
     + TowerOfHanoi
     + TODO: BreathFirstSearch
     + TODO: DepthFirstSearch
 
-- src/DataStructures 
+- src/DataStructuress 
     + LinkedQueue
     + Polynomial 
     + Rational
