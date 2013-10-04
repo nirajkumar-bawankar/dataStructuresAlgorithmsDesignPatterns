@@ -21,6 +21,14 @@ public class BinarySearchTreeNode<Key, E> implements BinNode<E> {
 	this.rightChild = rightChild;
     }
 
+    public Key getKey() {
+	return this.key;
+    }
+
+    public void setKey(Key key) {
+	this.key = key;
+    }
+
     @Override
     public E getValue() {
 	return this.value;
@@ -32,13 +40,21 @@ public class BinarySearchTreeNode<Key, E> implements BinNode<E> {
     }
 
     @Override
-    public BinNode<E> getLeftChild() {
+    public BinarySearchTreeNode<Key, E> getLeftChild() {
 	return this.leftChild;
     }
 
+    public void setLeftChild(BinarySearchTreeNode<Key, E> leftChild) {
+	this.leftChild = leftChild;
+    }
+
     @Override
-    public BinNode<E> getRightChild() {
+    public BinarySearchTreeNode<Key, E> getRightChild() {
 	return this.rightChild;
+    }
+
+    public void setRightChild(BinarySearchTreeNode<Key, E> rightChild) {
+	this.rightChild = rightChild;
     }
 
     @Override
