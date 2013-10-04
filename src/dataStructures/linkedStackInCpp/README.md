@@ -1,6 +1,9 @@
 LinkedStackInC++
 ================
 
+TODO: make changes according to: http://codereview.stackexchange.com/questions/
+32210/can-someone-review-my-c-implementation-of-a-linked-stack
+
 Well hello there! Here are instructions for testing the linked stack implemented in this folder:
 
 1. ```# open up a terminal and navigate to the folder contianing these files```
