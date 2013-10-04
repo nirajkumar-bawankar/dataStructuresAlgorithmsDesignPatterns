@@ -1,36 +1,43 @@
 package DataStructures.Interfaces;
 
 /**
- * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 21, 2013
+ * @param <Key>
+ * @param <E>
  */
-public interface Dictionary {
+public interface Dictionary<Key, E> {
+    /**
+     * Reinitialize dictionary.
+     */
+    public void clear();
+
     /**
      * Insert a record.
      *
      * @param key
      * @param element
      */
-    public void insert(Comparable<?> key, Object element);
+    public void insert(Key key, E element);
 
     /**
      * Remove and return a record.
      *
      * @param key
      *            Key of record to be removed.
+     * @return The matching record; otherwise return null.
      */
-    public void remove(Comparable<?> key);
+    public E remove(Key key);
 
     /**
      * @return Remove and return a random record.
      */
-    public Object removeRandomElement();
+    public E removeRandomElement();
 
     /**
      * @param key
-     * @return An record with key value matching parameter.
+     * @return An record with key value matching parameter key.
      */
-    public Object find(Comparable<?> key);
+    public E find(Key key);
 
     /**
      * @return Number of records in dictionary.
