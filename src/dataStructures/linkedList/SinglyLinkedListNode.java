@@ -1,4 +1,4 @@
-package dataStructures;
+package dataStructures.linkedList;
 
 /**
  * To view an interactive web page about linked list implementation visit:
@@ -8,7 +8,7 @@ package dataStructures;
  * @version Sep 1, 2013
  * @param <E>
  */
-class SinglyLinkedListNode<E> {
+public class SinglyLinkedListNode<E> {
     private E value; // for this node
     private SinglyLinkedListNode<E> nextNode;
 
@@ -18,7 +18,7 @@ class SinglyLinkedListNode<E> {
      * @param value
      * @param nextNode
      */
-    SinglyLinkedListNode(E value, SinglyLinkedListNode<E> nextNode) {
+    public SinglyLinkedListNode(E value, SinglyLinkedListNode<E> nextNode) {
 	this.value = value;
 	this.nextNode = nextNode;
     }
@@ -26,7 +26,7 @@ class SinglyLinkedListNode<E> {
     /**
      * @return The value for this node.
      */
-    E getValue() {
+    public E getValue() {
 	return this.value;
     }
 
@@ -34,14 +34,14 @@ class SinglyLinkedListNode<E> {
      * @param value
      *            The new value for this node.
      */
-    void setValue(E value) {
+    public void setValue(E value) {
 	this.value = value;
     }
 
     /**
      * @return The node after this node.
      */
-    SinglyLinkedListNode<E> getNextNode() {
+    public SinglyLinkedListNode<E> getNextNode() {
 	return this.nextNode;
     }
 
@@ -49,7 +49,7 @@ class SinglyLinkedListNode<E> {
      * @param nextNode
      *            The new next node for this current node.
      */
-    void setNextNode(SinglyLinkedListNode<E> nextNode) {
+    public void setNextNode(SinglyLinkedListNode<E> nextNode) {
 	this.nextNode = nextNode;
     }
 }

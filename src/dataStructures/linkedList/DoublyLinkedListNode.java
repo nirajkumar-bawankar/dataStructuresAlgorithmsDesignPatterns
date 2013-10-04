@@ -1,4 +1,4 @@
-package dataStructures;
+package dataStructures.linkedList;
 
 /**
  * To view an interactive web page about doubly linked list node implementation

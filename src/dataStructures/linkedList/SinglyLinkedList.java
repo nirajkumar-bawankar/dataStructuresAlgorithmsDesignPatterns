@@ -1,4 +1,5 @@
-package dataStructures;
+package dataStructures.linkedList;
+
 
 import dataStructures.interfaces.List;
 

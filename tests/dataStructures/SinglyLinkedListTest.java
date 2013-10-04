@@ -1,6 +1,6 @@
 package dataStructures;
 
-import dataStructures.SinglyLinkedList;
+import dataStructures.linkedList.SinglyLinkedList;
 
 /**
  * Tests all logic within class SinglyLinkedList.

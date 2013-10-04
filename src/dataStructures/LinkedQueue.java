@@ -1,5 +1,6 @@
 package dataStructures;
 
+import dataStructures.linkedList.SinglyLinkedListNode;
 import dataStructures.interfaces.Queue;
 
 /**

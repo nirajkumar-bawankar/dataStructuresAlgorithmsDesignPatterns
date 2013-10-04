@@ -1,4 +1,4 @@
-package dataStructures;
+package dataStructures.arrayLists;
 
 /**
  * A stripped-down version of Java's ArrayList class.

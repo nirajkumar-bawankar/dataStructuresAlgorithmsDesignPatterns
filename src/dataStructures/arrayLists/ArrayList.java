@@ -1,4 +1,4 @@
-package dataStructures;
+package dataStructures.arrayLists;
 
 import dataStructures.interfaces.List;
 

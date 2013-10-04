@@ -1,4 +1,6 @@
-package dataStructures;
+package dataStructures.stack;
+
+import dataStructures.linkedList.SinglyLinkedListNode;
 
 import dataStructures.interfaces.Stack;
 
