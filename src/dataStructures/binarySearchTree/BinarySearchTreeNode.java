@@ -1,4 +1,4 @@
-package dataStructures.BinarySearchTree;
+package dataStructures.binarySearchTree;
 
 import dataStructures.interfaces.BinNode;
 

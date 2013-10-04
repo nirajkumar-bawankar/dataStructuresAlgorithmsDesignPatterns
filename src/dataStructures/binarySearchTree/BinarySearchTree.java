@@ -1,12 +1,17 @@
-package dataStructures.BinarySearchTree;
-
+package dataStructures.binarySearchTree;
 
 import dataStructures.interfaces.Dictionary;
 
 import java.lang.Comparable;
 
 /**
- * @version Oct 2, 2013
+ * This binary search tree will is implemented in the following way:
+ *
+ * 1) When you delete a node that has 2 non-empty children, the deleted node
+ * is replaced with the greatest valued node in the left subtree.
+ *
+ * @author Quinn Liu (quinnliu@vt.edu)
+ * @version Oct 4, 2013
  */
 public class BinarySearchTree<Key extends Comparable<? super Key>, E>
 	implements Dictionary<Key, E> {
