@@ -1,6 +1,8 @@
 package dataStructures.linkedList;
 
 
+import dataStructures.interfaces.ListIterator;
+
 import dataStructures.interfaces.List;
 
 /**
@@ -17,7 +19,7 @@ import dataStructures.interfaces.List;
  * @version Sep 12, 2013
  * @param <E>
  */
-public class SinglyLinkedList<E> implements List<E> {
+public class SinglyLinkedList<E> implements List<E>, ListIterator<E> {
     private SinglyLinkedListNode<E> head;
     private SinglyLinkedListNode<E> tail;
     private SinglyLinkedListNode<E> currentNode;

@@ -1,6 +1,8 @@
 package dataStructures.linkedList;
 
 
+import dataStructures.interfaces.ListIterator;
+
 import dataStructures.interfaces.List;
 
 /**
@@ -17,7 +19,7 @@ import dataStructures.interfaces.List;
  * @version Sep 28, 2013
  * @param <E>
  */
-public class DoublyLinkedList<E> implements List<E> {
+public class DoublyLinkedList<E> implements List<E>, ListIterator<E> {
     private DoublyLinkedListNode<E> head;
     private DoublyLinkedListNode<E> tail;
     private DoublyLinkedListNode<E> currentNode;

@@ -18,19 +18,19 @@ public class KeyValuePair implements Comparable {
 	this.value = value;
     }
 
-    @Override
-    public int compareTo(Object item) throws ClassCastException {
-	if (!(item instanceof KeyValuePair)) {
-	    throw new ClassCastException("A KeyValuePair object was expected");
-	}
-	return this.key.compareTo(((KeyValuePair) item).key);
-    }
-
     public Comparable getKey() {
 	return this.key;
     }
 
     public Object getValue() {
 	return this.value;
+    }
+
+    @Override
+    public int compareTo(Object item) throws ClassCastException {
+	if (!(item instanceof KeyValuePair)) {
+	    throw new ClassCastException("A KeyValuePair object was expected");
+	}
+	return this.key.compareTo(((KeyValuePair) item).key);
     }
 }
