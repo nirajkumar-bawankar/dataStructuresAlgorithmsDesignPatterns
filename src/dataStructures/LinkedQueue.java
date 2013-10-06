@@ -1,7 +1,7 @@
 package dataStructures;
 
 import dataStructures.linkedList.SinglyLinkedListNode;
-import dataStructures.interfaces.Queue;
+import dataStructures.interfaces.QueueInterface;
 
 /**
  * To view an interactive web page about linked queue implementation visit:
@@ -11,7 +11,7 @@ import dataStructures.interfaces.Queue;
  * @version Sep 1, 2013
  * @param <E>
  */
-public class LinkedQueue<E> implements Queue<E> {
+public class LinkedQueue<E> implements QueueInterface<E> {
     private SinglyLinkedListNode<E> front;
     private SinglyLinkedListNode<E> rear;
     private int size;
