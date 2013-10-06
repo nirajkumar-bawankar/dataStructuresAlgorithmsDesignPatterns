@@ -5,7 +5,7 @@ package dataStructures.interfaces;
  * @version Oct 4, 2013
  * @param <E>
  */
-public interface ListIterator<E> {
+public interface ListIteratorInterface<E> {
     /**
      * Remove the element after the current element and return the value of the
      * removed element.

@@ -3,13 +3,13 @@ package dataStructures.interfaces;
 /**
  * @version Oct 2, 2013
  */
-public interface BinNode<E> {
+public interface BinNodeInterface<E> {
     public E getValue();
     public void setValue(E value);
 
-    public BinNode<E> getLeftChild();
+    public BinNodeInterface<E> getLeftChild();
 
-    public BinNode<E> getRightChild();
+    public BinNodeInterface<E> getRightChild();
 
     public boolean isLeaf();
 }

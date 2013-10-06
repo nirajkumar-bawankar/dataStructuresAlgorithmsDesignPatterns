@@ -1,11 +1,11 @@
 package dataStructures.binarySearchTree;
 
-import dataStructures.interfaces.BinNode;
+import dataStructures.interfaces.BinNodeInterface;
 
 /**
  * @version Oct 2, 2013
  */
-public class BinarySearchTreeNode<Key, E> implements BinNode<E> {
+public class BinarySearchTreeNode<Key, E> implements BinNodeInterface<E> {
     private Key key;
     private E value;
 

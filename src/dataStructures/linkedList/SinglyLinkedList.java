@@ -1,9 +1,9 @@
 package dataStructures.linkedList;
 
 
-import dataStructures.interfaces.ListIterator;
+import dataStructures.interfaces.ListIteratorInterface;
 
-import dataStructures.interfaces.List;
+import dataStructures.interfaces.ListInterface;
 
 /**
  * If you have a good idea of how many elements will be in your list that does
@@ -19,7 +19,7 @@ import dataStructures.interfaces.List;
  * @version Sep 12, 2013
  * @param <E>
  */
-public class SinglyLinkedList<E> implements List<E>, ListIterator<E> {
+public class SinglyLinkedList<E> implements ListInterface<E>, ListIteratorInterface<E> {
     private SinglyLinkedListNode<E> head;
     private SinglyLinkedListNode<E> tail;
     private SinglyLinkedListNode<E> currentNode;

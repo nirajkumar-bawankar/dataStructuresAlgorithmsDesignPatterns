@@ -5,7 +5,7 @@ package dataStructures.interfaces;
  * @param <Key>
  * @param <E>
  */
-public interface Dictionary<Key, E> {
+public interface DictionaryInterface<Key, E> {
     /**
      * Reinitialize dictionary.
      */

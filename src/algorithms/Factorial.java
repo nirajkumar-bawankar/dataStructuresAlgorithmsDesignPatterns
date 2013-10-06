@@ -2,7 +2,7 @@ package algorithms;
 
 import dataStructures.stack.ArrayStack;
 
-import dataStructures.interfaces.Stack;
+import dataStructures.interfaces.StackInterface;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +38,7 @@ public class Factorial {
 			    + "integer between 0 and 20");
 	}
 
-	Stack<Long> stack = new ArrayStack<Long>();
+	StackInterface<Long> stack = new ArrayStack<Long>();
 
 	int number = numberLessThan21;
 	while (number > 1) {

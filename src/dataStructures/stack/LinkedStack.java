@@ -2,7 +2,7 @@ package dataStructures.stack;
 
 import dataStructures.linkedList.SinglyLinkedListNode;
 
-import dataStructures.interfaces.Stack;
+import dataStructures.interfaces.StackInterface;
 
 /**
  * To learn more about the class please visit:
@@ -12,7 +12,7 @@ import dataStructures.interfaces.Stack;
  * @version Sep 13, 2013
  * @param <E>
  */
-public class LinkedStack<E> implements Stack<E> {
+public class LinkedStack<E> implements StackInterface<E> {
     private SinglyLinkedListNode<E> top;
     private int length;
 

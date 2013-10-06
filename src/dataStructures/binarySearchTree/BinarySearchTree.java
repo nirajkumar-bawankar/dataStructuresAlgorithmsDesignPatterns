@@ -1,6 +1,6 @@
 package dataStructures.binarySearchTree;
 
-import dataStructures.interfaces.Dictionary;
+import dataStructures.interfaces.DictionaryInterface;
 import java.lang.Comparable;
 
 /**
@@ -13,7 +13,7 @@ import java.lang.Comparable;
  * @version Oct 4, 2013
  */
 public class BinarySearchTree<Key extends Comparable<? super Key>, E>
-	implements Dictionary<Key, E> {
+	implements DictionaryInterface<Key, E> {
 
     private BinarySearchTreeNode<Key, E> rootNode;
     private int numberOfNodes;
