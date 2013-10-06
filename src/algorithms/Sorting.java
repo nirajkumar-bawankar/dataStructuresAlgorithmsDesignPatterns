@@ -54,12 +54,12 @@ public class Sorting {
 	    int indexOfLargestValue = 0;
 
 	    // find the index of the largest value
-	    for (int j = 1; j < (array.length - 1); j++) {
+	    for (int j = 1; j < (array.length - i); j++) {
 		if (array[j].compareTo(array[indexOfLargestValue]) > 0) {
 		    indexOfLargestValue = j;
 		}
 	    }
-	    swap(array, indexOfLargestValue, array.length - i - 1);
+	    swap(array, indexOfLargestValue, array.length - (i + 1));
 	}
     }
 

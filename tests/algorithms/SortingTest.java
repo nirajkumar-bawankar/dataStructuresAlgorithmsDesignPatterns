@@ -10,7 +10,7 @@ public class SortingTest extends junit.framework.TestCase {
     private Student[] students;
 
     public void setUp() {
-	this.students = new Student[10];
+	this.students = new Student[100];
 	int ID = 100;
 	for (int i = 0; i < this.students.length; i++) {
 	    this.students[i] = new Student(ID + i);
