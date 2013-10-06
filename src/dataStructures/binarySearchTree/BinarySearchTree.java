@@ -1,7 +1,6 @@
 package dataStructures.binarySearchTree;
 
 import dataStructures.interfaces.Dictionary;
-
 import java.lang.Comparable;
 
 /**
