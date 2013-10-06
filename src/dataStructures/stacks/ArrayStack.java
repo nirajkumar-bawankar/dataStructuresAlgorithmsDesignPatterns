@@ -1,4 +1,4 @@
-package dataStructures.stack;
+package dataStructures.stacks;
 
 import dataStructures.interfaces.StackInterface;
 

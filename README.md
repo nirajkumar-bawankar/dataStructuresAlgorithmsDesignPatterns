@@ -1,36 +1,40 @@
 DataStructuresAlgorithmsDesignPatterns
 ======================================
 
-This repository hold common data structures and algorithms I have implemented. 
-Below is a list. Enjoy!
+This repository hold common data structures and algorithms I have implemented. Enjoy!
 
-- src/Algorithmss
-    + BinarySearch
-    + Factorial
-    + TowerOfHanoi
+- src/algorithms
+    + BinarySearch.java
+    + Factorial.java
+    + Fibonacci.java
+    + Sorting.java
+    + TowerOfHanoi.java
     + TODO: BreathFirstSearch
     + TODO: DepthFirstSearch
 
-- src/DataStructuress 
-    + LinkedQueue
-    + Polynomial 
-    + Rational
-    + ArrayList
-    + ArrayStack
-    + DoublyLinkedList
-    + LinkedQueue
-    + LinkedStack
-    + MaxHeap
-    + SinglyLinkedList
+- src/dataStructures
+    + arrayLists
+    + binarySearchTree
+    + interfaces
+    + linkedList
+    + linkedQueueInC
+    + linkedStackInC++
+    + polynomialInC
+    + rationalInC
+    + stacks
+    + Bag.java
+    + KeyValuePair.java
+    + LinkedQueue.java
+    + MaxHeap.java
     + TODO: CircularLinkedQueue
     + TODO: BinTree
-    + TODO: BinarySearchTree
+    + TODO: Treap
     
-- src/DesignPatterns
-    + Flyweight
-    + Strategy
-    + Visitor
-    + TODO: Composite
+- src/designPatterns
+    + flyweight
+    + strategy
+    + visitor
+    + TODO: composite
 
 ===============================================
 e-mail me at quinnliu@vt.edu for any questions!

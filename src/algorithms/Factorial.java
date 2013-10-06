@@ -1,6 +1,6 @@
 package algorithms;
 
-import dataStructures.stack.ArrayStack;
+import dataStructures.stacks.ArrayStack;
 
 import dataStructures.interfaces.StackInterface;
 import java.util.ArrayList;
