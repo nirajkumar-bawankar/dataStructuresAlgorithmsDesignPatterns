@@ -1,11 +1,6 @@
 package dataStructures;
 
 /**
- * If you need to sort a lot of elements, you can store them in an array where
- * every array element contains a key value and a pointer to the value itself.
- * Although this may seem like a waste of space, we can store pointers to the
- * values in another array with keys are their fields for other purposes.
- *
  * @version Sep 13, 2013
  * @param <Key>
  * @param <Value>
