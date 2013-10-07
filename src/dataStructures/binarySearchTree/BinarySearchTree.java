@@ -111,7 +111,7 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 		// node is replaced with the greatest valued node in the left
 		// subtree
 		BinarySearchTreeNode<Key, Element> nodeToRemove = this
-			.getNodeWithMinimumValue(rootNode.getRightChild());
+			.getNodeWithMaximumValue(rootNode.getLeftChild());
 		rootNode.setValue(nodeToRemove.getValue());
 		rootNode.setKey(nodeToRemove.getKey());
 		rootNode.setRightChild(this.deleteNodeWithMinimumValue(rootNode
@@ -121,12 +121,12 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	return rootNode;
     }
 
-    private BinarySearchTreeNode<Key, Element> getNodeWithMinimumValue(
+    private BinarySearchTreeNode<Key, Element> getNodeWithMaximumValue(
 	    BinarySearchTreeNode<Key, Element> rootNode) {
-	if (rootNode.getLeftChild() == null) {
+	if (rootNode.getRightChild() == null) {
 	    return rootNode;
 	}
-	return this.getNodeWithMinimumValue(rootNode.getLeftChild());
+	return this.getNodeWithMaximumValue(rootNode.getRightChild());
     }
 
     private BinarySearchTreeNode<Key, Element> deleteNodeWithMinimumValue(
