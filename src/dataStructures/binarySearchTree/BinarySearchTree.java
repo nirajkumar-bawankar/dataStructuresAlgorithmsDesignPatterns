@@ -140,4 +140,12 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
     }
 
     // TODO: add traversal functions
+    public String inorderTraversal() {
+	// each node is on a separate line, the name and coordinates of the watcher
+	// at that node is printed, and each line is preceeded by 2 periods for
+	// each level that the corresponding node is in the tree.
+
+	// if BST is empty print nothing.
+	return "";
+    }
 }
