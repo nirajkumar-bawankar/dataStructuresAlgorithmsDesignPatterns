@@ -8,36 +8,48 @@ package algorithms;
  */
 public class SortingTest extends junit.framework.TestCase {
     private Student[] students;
+    private final int numberOfStudents = 100;
 
     public void setUp() {
-	this.students = new Student[100];
-	int ID = 100;
+	this.students = new Student[this.numberOfStudents];
+	int ID = this.numberOfStudents;
 	for (int i = 0; i < this.students.length; i++) {
 	    this.students[i] = new Student(ID + i);
 	}
 
 	// make the array of students unsorted
 	for (int i = 0; i < this.students.length; i++) {
-	    int randomNumberFrom0To9 = (int) (Math.random() * 10);
-	    Sorting.swap(this.students, i, randomNumberFrom0To9);
+	    int randomNumber = (int) (Math.random() * this.numberOfStudents);
+	    Sorting.swap(this.students, i, randomNumber);
 	}
     }
 
     public void test_insertionSort() {
-	// array is initially a random unsorted array
+	// array of students is initially a random unsorted array
 	Sorting.insertionSort(this.students);
 
 	for (int i = 0; i < this.students.length; i++) {
-	    assertEquals(100 + i, this.students[i].getID());
+	    assertEquals(this.numberOfStudents + i, this.students[i].getID());
 	}
     }
 
     public void test_selectionSort() {
-	// array is initially a random unsorted array
+	// array of students is initially a random unsorted array
 	Sorting.selectionSort(this.students);
 
 	for (int i = 0; i < this.students.length; i++) {
-	    assertEquals(100 + i, this.students[i].getID());
+	    assertEquals(this.numberOfStudents + i, this.students[i].getID());
+	}
+    }
+
+    public void test_mergeSort() {
+	// array of students is initially a random unsorted array
+	Student[] temperaryArray = new Student[this.numberOfStudents];
+	Sorting.mergeSort(this.students, temperaryArray, 0,
+		this.students.length - 1);
+
+	for (int i = 0; i < this.students.length; i++) {
+	    assertEquals(this.numberOfStudents + i, this.students[i].getID());
 	}
     }
 }

@@ -116,7 +116,8 @@ public class Sorting {
      */
     public static void mergeSort(Comparable[] array,
 	    Comparable[] temperaryArray, int leftIndex, int rightIndex) {
-
+	checkIfValidIndex(leftIndex, array.length);
+	checkIfValidIndex(rightIndex, array.length);
 	if (leftIndex == rightIndex) {
 	    return; // the array has been recursively reduced to array.size()
 		    // subarrays
@@ -145,7 +146,7 @@ public class Sorting {
 	    if (currentIndexWithinLeftSubArray == middleIndex + 1) {
 		array[currentIndex] = temperaryArray[currentIndexWithinRightSubArray++];
 	    } else if (currentIndexWithinRightSubArray > rightIndex) {
-		// if true then all elements in righ t subarray have been merged
+		// if true then all elements in right subarray have been merged
 		// into the array
 		array[currentIndex] = temperaryArray[currentIndexWithinLeftSubArray++];
 	    } else if (temperaryArray[currentIndexWithinLeftSubArray]
