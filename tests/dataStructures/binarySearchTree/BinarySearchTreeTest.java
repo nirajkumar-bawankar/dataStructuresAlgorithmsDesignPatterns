@@ -7,8 +7,9 @@ package dataStructures.binarySearchTree;
  * @version Oct 4, 2013
  */
 public class BinarySearchTreeTest extends junit.framework.TestCase {
+    private BinarySearchTree<Comparable<? super Key>, Element> BST;
 
     public void setUp() {
-
+	this.BST = new BinarySearchTree<>();
     }
 }

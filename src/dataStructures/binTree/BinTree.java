@@ -1,4 +1,4 @@
-package dataStructures;
+package dataStructures.binTree;
 
 import dataStructures.interfaces.DictionaryInterface;
 
@@ -23,11 +23,14 @@ public class BinTree<Key extends Comparable<? super Key>, Element> implements
 
 	// TODO: when splitting an X coordinate of 180.0, the coordinate goes
 	// to the right side of the dividing line, not the left
+
+	// TODO: create a flyweight leaf node here to represent a single
+	// empty leaf node since on average, half of the leaf nodes in a
+	// Bintree are emtpy
     }
 
     @Override
     public void clear() {
-	// TODO Auto-generated method stub
 
     }
 
@@ -76,6 +79,9 @@ public class BinTree<Key extends Comparable<? super Key>, Element> implements
     @Override
     public Element find(Key key) {
 	// TODO: implement with recursion
+
+	// pass in the coordinates when the recursive call is made
+
 	// TODO: bintree search operation should visit no more nodes than
 	// neccessary
 

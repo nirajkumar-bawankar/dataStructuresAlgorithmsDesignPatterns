@@ -12,7 +12,7 @@ import dataStructures.interfaces.StackInterface;
 public class ArrayStack<E> implements StackInterface<E> {
     private static final int defaultSize = 10;
     private int maxSize;
-    private int top;
+    private int length;
     private E[] array;
 
     /**
@@ -23,7 +23,7 @@ public class ArrayStack<E> implements StackInterface<E> {
     @SuppressWarnings("unchecked")
     public ArrayStack(int maxSize) {
 	this.maxSize = maxSize;
-	this.top = 0;
+	this.length = 0;
 	this.array = (E[]) new Object[this.maxSize];
     }
 
@@ -36,39 +36,39 @@ public class ArrayStack<E> implements StackInterface<E> {
 
     @Override
     public boolean push(E item) {
-	if (this.top == this.maxSize) {
+	if (this.length == this.maxSize) {
 	    return false;
 	} else {
-	    this.array[this.top++] = item;
+	    this.array[this.length++] = item;
 	    return true;
 	}
     }
 
     @Override
     public E pop() {
-	if (this.top == 0) {
+	if (this.length == 0) {
 	    return null;
 	} else {
-	    return this.array[--this.top];
+	    return this.array[--this.length];
 	}
     }
 
     @Override
     public E topValue() {
-	if (this.top == 0) {
+	if (this.length == 0) {
 	    return null;
 	} else {
-	    return this.array[this.top - 1];
+	    return this.array[this.length - 1];
 	}
     }
 
     @Override
     public int length() {
-	return this.top;
+	return this.length;
     }
 
     @Override
     public void clear() {
-	this.top = 0;
+	this.length = 0;
     }
 }

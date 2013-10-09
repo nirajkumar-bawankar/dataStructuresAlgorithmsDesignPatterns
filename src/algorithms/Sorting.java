@@ -63,7 +63,27 @@ public class Sorting {
 	}
     }
 
+    static void swap(Comparable[] array, int index1, int index2) {
+	checkIfValidIndex(index1, array.length);
+	checkIfValidIndex(index2, array.length);
+
+	Comparable tempValue1 = array[index1];
+	array[index1] = array[index2];
+	array[index2] = tempValue1;
+    }
+
+    private static void checkIfValidIndex(int index, int arrayLength) {
+	if (index < 0 || index > arrayLength) {
+	    throw new IllegalArgumentException("In class Sorting method "
+		    + "checkIfValidIndex " + index + " must be between 0 and "
+		    + arrayLength);
+	}
+    }
+
     /**
+     * Time complexities: Best Case = O(n * log n) Average Case = O(n * log n)
+     * Worst Case = O(n * log n)
+     *
      * Use this sorting algorithm when: 1) When space is not an issue as a merge
      * sort of an array takes twice the amount of space as insertionSort and
      * selectionSort. 2) When sorting a singly linked list since merging does
@@ -96,6 +116,7 @@ public class Sorting {
      */
     public static void mergeSort(Comparable[] array,
 	    Comparable[] temperaryArray, int leftIndex, int rightIndex) {
+
 	if (leftIndex == rightIndex) {
 	    return; // the array has been recursively reduced to array.size()
 		    // subarrays
@@ -113,7 +134,9 @@ public class Sorting {
 	    temperaryArray[i] = array[i];
 	}
 
-	// do the merge operation back to array
+	// do the merge operation back to array by placing the elements
+	// previously copied into the temperaryArray into the correct positions
+	// back into array
 	int currentIndexWithinLeftSubArray = leftIndex;
 	int currentIndexWithinRightSubArray = middleIndex + 1;
 	for (int currentIndex = leftIndex; currentIndex <= rightIndex; currentIndex++) {
@@ -122,7 +145,7 @@ public class Sorting {
 	    if (currentIndexWithinLeftSubArray == middleIndex + 1) {
 		array[currentIndex] = temperaryArray[currentIndexWithinRightSubArray++];
 	    } else if (currentIndexWithinRightSubArray > rightIndex) {
-		// if true then all elements in right subarray have been merged
+		// if true then all elements in righ t subarray have been merged
 		// into the array
 		array[currentIndex] = temperaryArray[currentIndexWithinLeftSubArray++];
 	    } else if (temperaryArray[currentIndexWithinLeftSubArray]
@@ -136,20 +159,17 @@ public class Sorting {
 	}
     }
 
-    static void swap(Comparable[] array, int index1, int index2) {
-	checkIfValidIndex(index1, array.length);
-	checkIfValidIndex(index2, array.length);
-
-	Comparable tempValue1 = array[index1];
-	array[index1] = array[index2];
-	array[index2] = tempValue1;
-    }
-
-    private static void checkIfValidIndex(int index, int arrayLength) {
-	if (index < 0 || index > arrayLength) {
-	    throw new IllegalArgumentException("In class Sorting method "
-		    + "checkIfValidIndex " + index + " must be between 0 and "
-		    + arrayLength);
-	}
+    /**
+     * Time complexities:
+     *
+     * Use this sorting algorithm when: 1)
+     *
+     * Quick sort steps: 1. selects a value called the pivot
+     *
+     * To learn more about quick sort visit:
+     * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Quicksort.html
+     */
+    public static void quickSort() {
+	// TODO: implement
     }
 }

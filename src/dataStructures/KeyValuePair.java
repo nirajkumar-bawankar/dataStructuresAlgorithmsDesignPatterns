@@ -28,15 +28,10 @@ public class KeyValuePair<Key extends Comparable<Key>, Value> implements
     @Override
     public int compareTo(KeyValuePair<Key, Value> item) {
 	if (this.key == null) {
-	    if (item.key == null) {
-		return 0;
-	    } else {
-		// arbitrarily decides to sort null keys first.
-		return -1;
-	    }
-	} else {
-	    return this.key.compareTo(item.key);
-	}
+            return (item.getKey() == null) ? 0 : -1;
+        } else {
+            return this.key.compareTo(item.getKey());
+        }
     }
 
     /**

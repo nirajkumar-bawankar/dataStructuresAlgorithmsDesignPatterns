@@ -1,4 +1,4 @@
-package dataStructures;
+package dataStructures.binTree;
 
 public class BinTreeInternalNode {
  // TODO: cannot store bounding box coordinates in bintree nodes
@@ -7,5 +7,6 @@ public class BinTreeInternalNode {
     public BinTreeInternalNode() {
 	// left and right child point at
 	// flyweight object
+	// no data fields
     }
 }
