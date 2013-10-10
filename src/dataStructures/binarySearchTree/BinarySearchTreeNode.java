@@ -5,16 +5,16 @@ import dataStructures.interfaces.BinNodeInterface;
 /**
  * @version Oct 2, 2013
  */
-public class BinarySearchTreeNode<Key, E> implements BinNodeInterface<E> {
+public class BinarySearchTreeNode<Key, Element> implements BinNodeInterface<Element> {
     private Key key;
-    private E value;
+    private Element value;
 
-    private BinarySearchTreeNode<Key, E> leftChild;
-    private BinarySearchTreeNode<Key, E> rightChild;
+    private BinarySearchTreeNode<Key, Element> leftChild;
+    private BinarySearchTreeNode<Key, Element> rightChild;
 
-    public BinarySearchTreeNode(Key key, E value,
-	    BinarySearchTreeNode<Key, E> leftChild,
-	    BinarySearchTreeNode<Key, E> rightChild) {
+    public BinarySearchTreeNode(Key key, Element value,
+	    BinarySearchTreeNode<Key, Element> leftChild,
+	    BinarySearchTreeNode<Key, Element> rightChild) {
 	this.key = key;
 	this.value = value;
 	this.leftChild = leftChild;
@@ -30,30 +30,30 @@ public class BinarySearchTreeNode<Key, E> implements BinNodeInterface<E> {
     }
 
     @Override
-    public E getValue() {
+    public Element getValue() {
 	return this.value;
     }
 
     @Override
-    public void setValue(E value) {
+    public void setValue(Element value) {
 	this.value = value;
     }
 
     @Override
-    public BinarySearchTreeNode<Key, E> getLeftChild() {
+    public BinarySearchTreeNode<Key, Element> getLeftChild() {
 	return this.leftChild;
     }
 
-    public void setLeftChild(BinarySearchTreeNode<Key, E> leftChild) {
+    public void setLeftChild(BinarySearchTreeNode<Key, Element> leftChild) {
 	this.leftChild = leftChild;
     }
 
     @Override
-    public BinarySearchTreeNode<Key, E> getRightChild() {
+    public BinarySearchTreeNode<Key, Element> getRightChild() {
 	return this.rightChild;
     }
 
-    public void setRightChild(BinarySearchTreeNode<Key, E> rightChild) {
+    public void setRightChild(BinarySearchTreeNode<Key, Element> rightChild) {
 	this.rightChild = rightChild;
     }
 

@@ -5,7 +5,7 @@ import java.lang.Comparable;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 4, 2013
+ * @version Oct 9, 2013
  */
 public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	implements DictionaryInterface<Key, Element> {
@@ -42,6 +42,9 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	return nodeToRemove;
     }
 
+    /**
+     * Removes the root element of the binary search tree.
+     */
     @Override
     public Element removeRandomElement() {
 	if (this.rootNode == null) {
@@ -63,7 +66,7 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	return this.numberOfNodes;
     }
 
-    private Element findHelp(BinarySearchTreeNode<Key, Element> rootNode, Key key) {
+    Element findHelp(BinarySearchTreeNode<Key, Element> rootNode, Key key) {
 	if (rootNode == null) {
 	    return null;
 	}
@@ -76,10 +79,12 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	}
     }
 
-    private BinarySearchTreeNode<Key, Element> insertHelp(
-	    BinarySearchTreeNode<Key, Element> rootNode, Key key, Element element) {
+    BinarySearchTreeNode<Key, Element> insertHelp(
+	    BinarySearchTreeNode<Key, Element> rootNode, Key key,
+	    Element element) {
 	if (rootNode == null) {
-	    return new BinarySearchTreeNode<Key, Element>(key, element, null, null);
+	    return new BinarySearchTreeNode<Key, Element>(key, element, null,
+		    null);
 	}
 	if (rootNode.getKey().compareTo(key) > 0) {
 	    rootNode.setLeftChild(this.insertHelp(rootNode.getLeftChild(), key,
@@ -91,7 +96,7 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	return rootNode;
     }
 
-    private BinarySearchTreeNode<Key, Element> removeHelp(
+    BinarySearchTreeNode<Key, Element> removeHelp(
 	    BinarySearchTreeNode<Key, Element> rootNode, Key key) {
 	if (rootNode == null) {
 	    return null;
@@ -106,22 +111,26 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 		return rootNode.getRightChild();
 	    } else if (rootNode.getRightChild() == null) {
 		return rootNode.getLeftChild();
-	    } else { // there are 2 children
-		// when deleting a node that has 2 non-empty children, the deleted
-		// node is replaced with the greatest valued node in the left
-		// subtree
-		BinarySearchTreeNode<Key, Element> nodeToRemove = this
+	    } else {
+		// there are 2 children when deleting a node that has 2
+		// non-empty children, the deleted node is replaced with the
+		// greatest valued node in the left subtree
+		BinarySearchTreeNode<Key, Element> greatestNodeInLeftStubtree = this
 			.getNodeWithMaximumValue(rootNode.getLeftChild());
-		rootNode.setValue(nodeToRemove.getValue());
-		rootNode.setKey(nodeToRemove.getKey());
-		rootNode.setRightChild(this.deleteNodeWithMinimumValue(rootNode
-			.getRightChild()));
+
+		rootNode.setValue(greatestNodeInLeftStubtree.getValue());
+		rootNode.setKey(greatestNodeInLeftStubtree.getKey());
+
+		// delete greatestNodeInLeftSubtree
+		rootNode.setLeftChild(this.deleteNodeWithMaximumValue(rootNode
+			.getLeftChild()));
+
 	    }
 	}
 	return rootNode;
     }
 
-    private BinarySearchTreeNode<Key, Element> getNodeWithMaximumValue(
+    BinarySearchTreeNode<Key, Element> getNodeWithMaximumValue(
 	    BinarySearchTreeNode<Key, Element> rootNode) {
 	if (rootNode.getRightChild() == null) {
 	    return rootNode;
@@ -129,23 +138,59 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	return this.getNodeWithMaximumValue(rootNode.getRightChild());
     }
 
-    private BinarySearchTreeNode<Key, Element> deleteNodeWithMinimumValue(
+    BinarySearchTreeNode<Key, Element> deleteNodeWithMaximumValue(
 	    BinarySearchTreeNode<Key, Element> rootNode) {
-	if (rootNode.getLeftChild() == null) {
-	    return rootNode.getRightChild();
+	if (rootNode.getRightChild() == null) {
+	    return rootNode.getLeftChild();
 	}
-	rootNode.setLeftChild(this.deleteNodeWithMinimumValue(rootNode
-		.getLeftChild()));
+	rootNode.setRightChild(this.deleteNodeWithMaximumValue(rootNode
+		.getRightChild()));
 	return rootNode;
     }
 
-    // TODO: add traversal functions
-    public String inorderTraversal() {
-	// each node is on a separate line, the name and coordinates of the watcher
-	// at that node is printed, and each line is preceeded by 2 periods for
-	// each level that the corresponding node is in the tree.
+    BinarySearchTreeNode getRootNode() {
+	return this.rootNode;
+    }
 
-	// if BST is empty print nothing.
-	return "";
+    public String preorderTraversal(BinarySearchTreeNode<Key, Element> rootNode) {
+	StringBuilder stringBuilder = new StringBuilder();
+	if (rootNode != null) {
+	    stringBuilder.append(rootNode.getValue().toString() + " ");
+	    stringBuilder
+		    .append(this.inorderTraversal(rootNode.getLeftChild()));
+	    stringBuilder
+		    .append(this.inorderTraversal(rootNode.getRightChild()));
+	    return stringBuilder.toString();
+	} else {
+	    return "";
+	}
+    }
+
+    public String inorderTraversal(BinarySearchTreeNode<Key, Element> rootNode) {
+	StringBuilder stringBuilder = new StringBuilder();
+	if (rootNode != null) {
+	    stringBuilder
+		    .append(this.inorderTraversal(rootNode.getLeftChild()));
+	    stringBuilder.append(rootNode.getValue().toString() + " ");
+	    stringBuilder
+		    .append(this.inorderTraversal(rootNode.getRightChild()));
+	    return stringBuilder.toString();
+	} else {
+	    return "";
+	}
+    }
+
+    public String postorderTraversal(BinarySearchTreeNode<Key, Element> rootNode) {
+	StringBuilder stringBuilder = new StringBuilder();
+	if (rootNode != null) {
+	    stringBuilder
+		    .append(this.inorderTraversal(rootNode.getLeftChild()));
+	    stringBuilder
+		    .append(this.inorderTraversal(rootNode.getRightChild()));
+	    stringBuilder.append(rootNode.getValue().toString() + " ");
+	    return stringBuilder.toString();
+	} else {
+	    return "";
+	}
     }
 }
