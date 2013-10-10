@@ -70,7 +70,7 @@ public class PeekingIteratorTest extends junit.framework.TestCase {
 	    this.peekingIterator.peek();
 	    fail("should've thrown an exception!");
 	} catch (NoSuchElementException expected) {
-	    assertEquals("null", expected.getMessage());
+	    assertNull(expected.getMessage());
 	}
     }
 }
