@@ -6,6 +6,8 @@ import java.lang.Comparable;
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 9, 2013
+ * @param <Key>
+ * @param <Element>
  */
 public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	implements DictionaryInterface<Key, Element> {
