@@ -1,6 +1,6 @@
 package dataStructures.binTree;
 
-import java.awt.Point;
+import dataStructures.binTree.Point;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
@@ -17,23 +17,37 @@ public class BoundingBox {
 	this.height = height;
     }
 
-    public void changeToLeftBoundingBox() {
+    public double getCurrentXAxis() {
+	double leftMostXPosition = this.bottomLeft.getX();
+	double rightMostXPosition = leftMostXPosition + this.width;
+	return (leftMostXPosition + rightMostXPosition) / 2;
+    }
+
+    public double getCurrentYAxis() {
+	double bottomMostYPosition = this.bottomLeft.getY();
+	double topMostYPosition = bottomMostYPosition + this.height;
+	return (bottomMostYPosition + topMostYPosition) / 2;
+    }
+
+    public void changeToLeftHalfBoundingBox() {
 	this.width = this.width / 2;
     }
 
-    public void changeToRightBoundingBox() {
+    public void changeToRightHalfBoundingBox() {
 	this.width = this.width / 2;
-	this.bottomLeft.setLocation(this.bottomLeft.getX() + this.width,
-		this.bottomLeft.getY());
+	double newXPosition = this.bottomLeft.getX() + this.width;
+	this.bottomLeft.setX(newXPosition);
+	// do not need to change y
     }
 
-    public void changeToUpperBoundingBox() {
+    public void changeToTopHalfBoundingBox() {
 	this.height = this.height / 2;
-	this.bottomLeft.setLocation(this.bottomLeft.getX(),
-		this.bottomLeft.getY() + this.height);
+	double newYPosition = this.bottomLeft.getY() + this.height;
+	this.bottomLeft.setY(newYPosition);
+	// do not need to change x
     }
 
-    public void changeToLowerBoundingBox() {
+    public void changeToBottomHalfBoundingBox() {
 	this.height = this.height / 2;
     }
 }

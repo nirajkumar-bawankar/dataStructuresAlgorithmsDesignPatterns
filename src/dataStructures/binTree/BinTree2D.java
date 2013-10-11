@@ -14,14 +14,13 @@ import java.awt.Point;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 10, 2013
- * @param <Key>
+ * @param <K>
  *            a 2 dimensional point type in space such as a (x, y) coordinate
  *            that extends the Point class
  * @param <E>
  *            the item type to be stored in the leaf nodes of the 2D bin tree
  */
-public class BinTree2D<Key extends Point, E> implements
-	DictionaryInterface<Key, E> {
+public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> {
     /**
      * Create a flyweight leaf node to represent a single empty leaf node since
      * on average, half of the leaf nodes in a BinTree are empty.
@@ -66,7 +65,7 @@ public class BinTree2D<Key extends Point, E> implements
      * Recursive insertion of a new element.
      */
     @Override
-    public void insert(Key key, E element) {
+    public void insert(K key, E element) {
 	this.rootNode = this.insertHelp(this.rootNode, this.maximumXAxis
 		- this.minimumXAxis, this.maximumYAxis - this.minimumYAxis,
 		key, element, true);
@@ -86,12 +85,7 @@ public class BinTree2D<Key extends Point, E> implements
      * @return a subtree
      */
     public BinTreeNode<E> insertHelp(BinTreeNode<E> node, double xAxis,
-	    double yAxis, Key key, E element, boolean isSplittingXAxis) {
-	// While traversing the tree the changing rootNode parameter
-	// will most often be an BinTreeInternalNode (so this is checked first),
-	// then rootNode parameter will on average be the same as
-	// BinTreeLeafNode and Empty
-
+	    double yAxis, K key, E element, boolean isSplittingXAxis) {
 	// find a leaf node
 	if (node instanceof BinTreeInternalNode) {
 	    double xAxisMidpoint = xAxis / 2;
@@ -108,7 +102,8 @@ public class BinTree2D<Key extends Point, E> implements
 				    .getLeftChild(), xAxisMidpoint, yAxis, key,
 				    element, isSplittingXAxis));
 		} else { // current node should go to right subtree
-		    // TODO: determine if right child should be an internal node
+			 // TODO: determine if right child should be an internal
+			 // node
 		    ((BinTreeInternalNode<E>) node).setRightChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
 				    .getRightChild(), xAxisMidpoint, yAxis,
@@ -116,16 +111,12 @@ public class BinTree2D<Key extends Point, E> implements
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
-		if (key.getY() < yAxisMidpoint) { // current node should go to
-						  // left subtree
-		    // TODO: determine if left child should be an internal node
+		if (key.getY() < yAxisMidpoint) {
 		    ((BinTreeInternalNode<E>) node).setLeftChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
 				    .getLeftChild(), xAxis, yAxisMidpoint, key,
 				    element, isSplittingXAxis));
-		} else { // current node should go to right subtree
-			 // TODO: determine if right child should be an internal
-			 // node
+		} else {
 		    ((BinTreeInternalNode<E>) node).setRightChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
 				    .getRightChild(), xAxis, yAxisMidpoint,
@@ -133,37 +124,17 @@ public class BinTree2D<Key extends Point, E> implements
 		}
 	    }
 	} else if (node instanceof BinTreeEmptyNode) {
-	    // make sure that no other internal nodes need to be created by
-	    // comparing key x and y point to current xAxisMidpoint and
-	    // yAxisMidpoint
-
-	    // return a new leaf node with the element to insert and do not
-	    // worry about splitting
-	    return new BinTreeLeafNode<E>(element);
+	    return new BinTreeLeafNode<K, E>(key, element);
 	} else { // this is BinTreeLeafNode that is not empty
+	    BinTreeLeafNode<K, E> tempNode = (BinTreeLeafNode<K, E>) node;
+	    K tempKey = tempNode.getKey();
+	    E tempElement = tempNode.getElement();
 
-	    // one of the children will be set to the tempNode and other
-	    // will be set with the element that has been continuous passed
-	    // through this recursive method
-	    BinTreeLeafNode<E> tempNode = (BinTreeLeafNode<E>) node; // save A
 	    node = new BinTreeInternalNode<E>();
 
-	    // Call the point key already stored in the BinTree A, and
-	    // the new node that we want to insert with key B.
-	    // We need to split the node containing key A into 3, replacing
-	    // it with a new internal node, 1 leaf child, and 1 empty leaf
-	    // child.
-	    // Key A is then placed in the appropriate leaf child
-	    // and a recursive call is made on the new internal node
+	    this.insertHelp(node, xAxis, yAxis, tempKey, tempElement,
+		    !isSplittingXAxis);
 
-	    // return currentRootNode with correct left and right child set
-	    // element = B
-
-	    // insert element previously in the bin tree A in the correct place
-	    // in the new bin tree structure
-	    this.insertHelp(node, xAxis, yAxis, key, tempNode.getData(), !isSplittingXAxis);
-
-	    // finally insert the new element B
 	    this.insertHelp(node, xAxis, yAxis, key, element, !isSplittingXAxis);
 
 	    return node;
@@ -175,7 +146,7 @@ public class BinTree2D<Key extends Point, E> implements
     }
 
     @Override
-    public E remove(Key key) {
+    public E remove(K key) {
 	// TODO: implement with recursion
 
 	// requires that sibling leaf nodes be merged together if they are
@@ -183,6 +154,10 @@ public class BinTree2D<Key extends Point, E> implements
 	// can cause many levels of merging
 	this.size--;
 	return null;
+    }
+
+    public void regionSearch() {
+	// TODO: with recursion
     }
 
     @Override
@@ -193,7 +168,7 @@ public class BinTree2D<Key extends Point, E> implements
     }
 
     @Override
-    public E find(Key key) {
+    public E find(K key) {
 	// TODO: implement with recursion
 
 	// pass in the coordinates when the recursive call is made

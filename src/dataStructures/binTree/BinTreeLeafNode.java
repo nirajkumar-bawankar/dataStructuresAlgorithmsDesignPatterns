@@ -3,32 +3,42 @@ package dataStructures.binTree;
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 9, 2013
+ * @param <Key>
  * @param <Element>
  */
-public class BinTreeLeafNode<Element> extends BinTreeNode<Element> {
-    private Element data;
+public class BinTreeLeafNode<Key, Element> extends BinTreeNode<Element> {
+    private Key key;
+    private Element element;
 
     /**
      * Create a new BinTreeLeafNode object.
-     *
-     * @param data
+     * @param key
+     * @param element
      */
-    public BinTreeLeafNode(Element data) {
-	this.data = data;
+    public BinTreeLeafNode(Key key, Element element) {
+	this.key = key;
+	this.element = element;
     }
 
     /**
-     * @return the data stored in this bin tree leaf node.
+     * @return the key stored in this bin tree leaf node
      */
-    public Element getData() {
-	return this.data;
+    public Key getKey() {
+	return this.key;
     }
 
     /**
-     * @param data
-     *            the new data being stored in this leaf node.
+     * @return the element stored in this bin tree leaf node.
      */
-    public void setData(Element data) {
-	this.data = data;
+    public Element getElement() {
+	return this.element;
+    }
+
+    /**
+     * @param element
+     *            the new element being stored in this leaf node.
+     */
+    public void setElement(Element element) {
+	this.element = element;
     }
 }
