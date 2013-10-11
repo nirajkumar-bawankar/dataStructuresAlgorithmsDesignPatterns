@@ -24,6 +24,7 @@ public class KeyValuePairTest extends junit.framework.TestCase {
     }
 
     public void test_compareTo() {
+	// the compareTo does not care about the key value pair's element value
 	assertEquals(-1, this.keyValuePair1.compareTo(this.keyValuePair4));
 	assertEquals(0, this.keyValuePair1.compareTo(this.keyValuePair2));
 	assertEquals(1, this.keyValuePair1.compareTo(keyValuePair3));

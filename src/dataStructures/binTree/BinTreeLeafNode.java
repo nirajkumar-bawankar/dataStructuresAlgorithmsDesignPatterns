@@ -3,21 +3,32 @@ package dataStructures.binTree;
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 9, 2013
+ * @param <Element>
  */
-public class BinTreeLeafNode<E> extends BinTreeNode<E> {
-    private E data;
-    // TODO: cannot store bounding box coordinates in bin tree nodes
-    // cannot store a pointer to this node's parent
-    public BinTreeLeafNode(E data) {
-	// no children nodes, just data fields
+public class BinTreeLeafNode<Element> extends BinTreeNode<Element> {
+    private Element data;
+
+    /**
+     * Create a new BinTreeLeafNode object.
+     *
+     * @param data
+     */
+    public BinTreeLeafNode(Element data) {
 	this.data = data;
     }
 
-    public E getData() {
+    /**
+     * @return the data stored in this bin tree leaf node.
+     */
+    public Element getData() {
 	return this.data;
     }
 
-    public void setData(E data) {
+    /**
+     * @param data
+     *            the new data being stored in this leaf node.
+     */
+    public void setData(Element data) {
 	this.data = data;
     }
 }

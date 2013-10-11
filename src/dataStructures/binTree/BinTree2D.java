@@ -1,29 +1,48 @@
 package dataStructures.binTree;
 
 import dataStructures.interfaces.DictionaryInterface;
+import java.awt.Point;
 
 /**
  * The bin tree is a spatial data structure that can be used to unify search
  * across any arbitrary set of keys. Most commonly it is used to efficiently
- * search through on multi-dimensional coordinates such as 2D or 3D spaces.
+ * search through on multi-dimensional coordinates such as 2D or 3D spaces. This
+ * bin tree efficiently stores 2 dimensional keys.
  *
  * To learn more about the bin tree please visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Bintree.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 9, 2013
+ * @version Oct 10, 2013
  * @param <Key>
+ *            a 2 dimensional point type in space such as a (x, y) coordinate
+ *            that extends the Point class
  * @param <Element>
+ *            the item type to be stored in the leaf nodes of the 2D bin tree
  */
-public class BinTree<Key extends Comparable, Element> implements
+public class BinTree2D<Key extends Point, Element> implements
 	DictionaryInterface<Key, Element> {
+    /**
+     * Create a flyweight leaf node to represent a single empty leaf node since
+     * on average, half of the leaf nodes in a BinTree are empty.
+     */
+    private BinTreeNode emptyLeafNodeFlyweight;
+
+    private BinTreeNode<Element> rootNode;
 
     private double minimumXAxis;
     private double maximumXAxis;
     private double minimumYAxis;
     private double maximumYAxis;
 
-    private BinTreeNode emptyLeafNode; // flyweight
+    /**
+     * If true, split along x-axis; otherwise split along y-axis.
+     */
+    private boolean isSplitingXAxis;
+
+    /**
+     * Number of leaf nodes with data in this bin tree.
+     */
     private int size;
 
     /**
@@ -34,57 +53,100 @@ public class BinTree<Key extends Comparable, Element> implements
      * @param minimumYAxis
      * @param maximumYAxis
      */
-    public BinTree(double minimumXAxis, double maximumXAxis,
+    public BinTree2D(double minimumXAxis, double maximumXAxis,
 	    double minimumYAxis, double maximumYAxis) {
+	this.emptyLeafNodeFlyweight = EmptyBinTreeNode.getInstance();
+	this.rootNode = this.emptyLeafNodeFlyweight;
+
 	this.minimumXAxis = minimumXAxis;
 	this.maximumXAxis = maximumXAxis;
 	this.minimumYAxis = minimumYAxis;
 	this.maximumYAxis = maximumYAxis;
-
-	// create a flyweight leaf node here to represent a single
-	// empty leaf node since on average, half of the leaf nodes in a
-	// Bintree are empty
-	this.emptyLeafNode = new EmptyBinTreeNode();
+	this.isSplitingXAxis = true; // arbitrarily start splitting x-axis of
+				     // 2 dimensional world first
 	this.size = 0;
     }
 
-    @Override
-    public void clear() {
-
-    }
-
+    /**
+     * Recursive insertion of a new element.
+     */
     @Override
     public void insert(Key key, Element element) {
-	// TODO: when splitting an X coordinate of 180.0, the coordinate goes
-	// to the right side of the dividing line, not the left
-
-	// TODO: implement with recursion
-
-	// spliting takes place whenever a point is to be inserted into a leaf
-	// node that already contains a point
-
-	// similar to BST insert
-	// the bintree search is followed until a leaf node is found
-	// if the leaf node is empty, then it can store the new point.
-
-	// if the leaf node already contains a point, then additional work needs
-	// to be done.
-
-	// call the point already stored in the Bintree A, and the new node that
-	// we want to insert B. We must split the node containing A into two,
-	// replacing it with a new internal node and 2 leaf children.
-	// Record A is then placed in the appropriate child, and we restart the
-	// insertion from the new internal node.
-
-	// if B falls within in the newly created leaf node, then it can be
-	// inserted
-	// there. But if B falls within the newly created leaf node that just
-	// received A, then the splitting process must repeat.
-
-	// Depending on how far apart A and B are, it is possible that many
-	// splits
-	// are required.
+	this.rootNode = this.insertHelp(this.rootNode, this.maximumXAxis
+		- this.minimumXAxis, this.maximumYAxis - this.minimumYAxis,
+		key, element);
 	this.size++;
+    }
+
+    /**
+     * This insert forces the BinTree to have multi-dimensional keys of lowest
+     * value in the leftmost leaf and multi-dimensional keys of greatest value
+     * in the rightmost leaf of the BinTree.
+     */
+    public BinTreeNode<Element> insertHelp(BinTreeNode<Element> node,
+	    double xAxis, double yAxis, Key key, Element element) {
+	double xAxisMidpoint = xAxis / 2;
+	double yAxisMidpoint = yAxis / 2;
+
+	// While traversing the tree the changing rootNode parameter
+	// will most often be an BinTreeInternalNode (so this is checked first),
+	// then rootNode parameter will on average be the same as
+	// BinTreeLeafNode and Empty
+
+	// find a leaf node
+	if (node instanceof BinTreeInternalNode) {
+	    if (this.isSplitingXAxis) {
+		this.isSplitingXAxis = false; // so y-axis can be split next
+		// time
+		if (key.getX() < xAxisMidpoint) {
+		    this.insertHelp(
+			    ((BinTreeInternalNode) node).getLeftChild(),
+			    xAxisMidpoint, yAxis, key, element);
+		} else { // current node should go on right side
+		    this.insertHelp(
+			    ((BinTreeInternalNode) node).getRightChild(),
+			    xAxisMidpoint, yAxis, key, element);
+		}
+	    } else { // splitting y-axis
+		this.isSplitingXAxis = true; // so x-axis can be split next time
+		if (key.getY() < yAxisMidpoint) {
+		    this.insertHelp(
+			    ((BinTreeInternalNode) node).getLeftChild(), xAxis,
+			    yAxisMidpoint, key, element);
+		} else {
+		    this.insertHelp(
+			    ((BinTreeInternalNode) node).getRightChild(),
+			    xAxis, yAxisMidpoint, key, element);
+		}
+	    }
+	} else if (node instanceof EmptyBinTreeNode) {
+	    // return a new leaf node with the element to insert and do not
+	    // worry about splitting
+	    return new BinTreeLeafNode<Element>(element);
+	} else { // this is BinTreeLeafNode that is not empty
+
+	    // one of the children will be set to the tempNode and other
+	    // will be set with the element that has been continuous passed
+	    // through this recursive method
+	    BinTreeNode<Element> tempNode = node; // save A
+	    node = new BinTreeInternalNode<Element>();
+
+	    // Call the point key already stored in the BinTree A, and
+	    // the new node that we want to insert with key B.
+	    // We need to split the node containing key A into 3, replacing
+	    // it with a new internal node, 1 leaf child, and 1 empty leaf
+	    // child.
+	    // Key A is then placed in the appropriate leaf child
+	    // and a recursive call is made on the new internal node
+
+	    // return currentRootNode with correct left and right child set
+	    return this.insertHelp(node, xAxisMidpoint, yAxisMidpoint, key,
+		    element);
+	}
+	throw new IllegalArgumentException(
+		"In class BinTree2D method insertHelp the parameter node"
+			+ "must be of type BinTreeInternalNode, "
+			+ "EmptyBinTreeNode, or BinTreeLeafNode");
     }
 
     @Override
@@ -119,14 +181,18 @@ public class BinTree<Key extends Comparable, Element> implements
 	// if the process reaches a null pointer, then that point is not
 	// contained in the tree.
 
-
 	return null;
+    }
+
+    @Override
+    public void clear() {
+
     }
 
     @Override
     public int size() {
 	// TODO Auto-generated method stub
-	return 0;
+	return this.size;
     }
 
     public String preorderTraversal() {
