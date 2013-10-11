@@ -31,9 +31,23 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 
 	this.boundingBox.changeToRightHalfBoundingBox();
 	assertEquals(18.75, this.boundingBox.getCurrentXAxis());
+
+	this.boundingBox.changeToRightHalfBoundingBox();
+	assertEquals(21.875, this.boundingBox.getCurrentXAxis());
     }
 
     public void test_changeToBottomAndTopHalfBoundingBox() {
+	assertEquals(50.0, this.boundingBox.getCurrentYAxis());
+	this.boundingBox.changeToBottomHalfBoundingBox();
+	assertEquals(25.0, this.boundingBox.getCurrentYAxis());
 
+	this.boundingBox.changeToBottomHalfBoundingBox();
+	assertEquals(12.5, this.boundingBox.getCurrentYAxis());
+
+	this.boundingBox.changeToTopHalfBoundingBox();
+	assertEquals(18.75, this.boundingBox.getCurrentYAxis());
+
+	this.boundingBox.changeToTopHalfBoundingBox();
+	assertEquals(21.875, this.boundingBox.getCurrentYAxis());
     }
 }
