@@ -15,8 +15,8 @@ public class BinTreeInternalNode<Element> extends BinTreeNode<Element> {
      * Create a new BinTreeInternalNode object with 2 empty bin tree leaf nodes.
      */
     public BinTreeInternalNode() {
-	this.leftChild = EmptyBinTreeNode.getInstance();
-	this.rightChild = EmptyBinTreeNode.getInstance();
+	this.leftChild = BinTreeEmptyNode.getInstance();
+	this.rightChild = BinTreeEmptyNode.getInstance();
     }
 
     public BinTreeNode getLeftChild() {
