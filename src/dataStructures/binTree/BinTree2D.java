@@ -99,24 +99,24 @@ public class BinTree2D<Key extends Point, Element> implements
 		this.isSplitingXAxis = false; // so y-axis can be split next
 		// time
 		if (key.getX() < xAxisMidpoint) {
-		    this.insertHelp(
+		    ((BinTreeInternalNode) node).setLeftChild(this.insertHelp(
 			    ((BinTreeInternalNode) node).getLeftChild(),
-			    xAxisMidpoint, yAxis, key, element);
+			    xAxisMidpoint, yAxis, key, element));
 		} else { // current node should go on right side
-		    this.insertHelp(
+		    ((BinTreeInternalNode) node).setRightChild(this.insertHelp(
 			    ((BinTreeInternalNode) node).getRightChild(),
-			    xAxisMidpoint, yAxis, key, element);
+			    xAxisMidpoint, yAxis, key, element));
 		}
 	    } else { // splitting y-axis
 		this.isSplitingXAxis = true; // so x-axis can be split next time
 		if (key.getY() < yAxisMidpoint) {
-		    this.insertHelp(
+		    ((BinTreeInternalNode) node).setLeftChild(this.insertHelp(
 			    ((BinTreeInternalNode) node).getLeftChild(), xAxis,
-			    yAxisMidpoint, key, element);
+			    yAxisMidpoint, key, element));
 		} else {
-		    this.insertHelp(
+		    ((BinTreeInternalNode) node).setRightChild(this.insertHelp(
 			    ((BinTreeInternalNode) node).getRightChild(),
-			    xAxis, yAxisMidpoint, key, element);
+			    xAxis, yAxisMidpoint, key, element));
 		}
 	    }
 	} else if (node instanceof EmptyBinTreeNode) {
@@ -128,7 +128,7 @@ public class BinTree2D<Key extends Point, Element> implements
 	    // one of the children will be set to the tempNode and other
 	    // will be set with the element that has been continuous passed
 	    // through this recursive method
-	    BinTreeNode<Element> tempNode = node; // save A
+	    BinTreeLeafNode<Element> tempNode = (BinTreeLeafNode<Element>) node; // save A
 	    node = new BinTreeInternalNode<Element>();
 
 	    // Call the point key already stored in the BinTree A, and
@@ -140,8 +140,12 @@ public class BinTree2D<Key extends Point, Element> implements
 	    // and a recursive call is made on the new internal node
 
 	    // return currentRootNode with correct left and right child set
-	    return this.insertHelp(node, xAxisMidpoint, yAxisMidpoint, key,
-		    element);
+	    this.insertHelp(node, xAxisMidpoint, yAxisMidpoint, key,
+		    element); // element = B
+	    this.insertHelp(node, xAxisMidpoint, yAxisMidpoint, key, tempNode.getData());
+
+	    return node;
+
 	}
 	throw new IllegalArgumentException(
 		"In class BinTree2D method insertHelp the parameter node"
