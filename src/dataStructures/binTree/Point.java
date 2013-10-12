@@ -28,4 +28,12 @@ public class Point {
     public void setY(double y) {
 	this.y = y;
     }
+
+    public String toString() {
+	StringBuilder stringBuilder = new StringBuilder();
+	stringBuilder.append("(x, y) = ");
+	stringBuilder.append("(" + this.x + ", " + this.y + ")");
+	String pointInformation = stringBuilder.toString();
+	return pointInformation;
+    }
 }

@@ -134,15 +134,13 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 							    // BinTreeLeafNode
 							    // that is not empty
 	    BinTreeLeafNode<K, E> tempNode = (BinTreeLeafNode<K, E>) node;
-	    K tempKey = tempNode.getKey();
-	    E tempElement = tempNode.getElement();
 
 	    node = new BinTreeInternalNode<E>();
 
-	    this.insertHelp(node, currentWorld, tempKey, tempElement,
-		    !isSplittingXAxis);
+	    this.insertHelp(node, currentWorld, tempNode.getKey(), tempNode.getElement(),
+		    isSplittingXAxis);
 
-	    this.insertHelp(node, currentWorld, key, element, !isSplittingXAxis);
+	    this.insertHelp(node, currentWorld, key, element, isSplittingXAxis);
 
 	    return node;
 	}

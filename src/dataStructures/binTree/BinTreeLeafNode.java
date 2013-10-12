@@ -52,7 +52,7 @@ public class BinTreeLeafNode<Key extends Point, Element> extends
 	stringBuilder.append("(" + this.key.getX() + ", " + this.key.getY()
 		+ ")");
 	stringBuilder.append("\n   element: ");
-	stringBuilder.append(this.element);
+	stringBuilder.append(this.element.toString());
 	stringBuilder.append("\n==========================");
 	String binTreeInformation = stringBuilder.toString();
 	return binTreeInformation;
