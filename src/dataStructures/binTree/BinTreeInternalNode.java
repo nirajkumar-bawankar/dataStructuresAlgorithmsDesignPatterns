@@ -34,4 +34,17 @@ public class BinTreeInternalNode<Element> extends BinTreeNode<Element> {
     public void setRightChild(BinTreeNode rightChild) {
 	this.rightChild = rightChild;
     }
+
+    @Override
+    public String toString() {
+	StringBuilder stringBuilder = new StringBuilder();
+	stringBuilder.append("\n==Bin Tree Internal Node==");
+	stringBuilder.append("\n leftChild: ");
+	stringBuilder.append("\n" + this.leftChild.toString() + "\n");
+	stringBuilder.append("\nrightChild:");
+	stringBuilder.append("\n" + this.rightChild.toString());
+	stringBuilder.append("\n==========================");
+	String binTreeInformation = stringBuilder.toString();
+	return binTreeInformation;
+    }
 }

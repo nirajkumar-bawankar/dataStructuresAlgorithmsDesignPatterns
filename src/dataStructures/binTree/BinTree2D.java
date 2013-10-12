@@ -1,7 +1,7 @@
 package dataStructures.binTree;
 
 import dataStructures.interfaces.DictionaryInterface;
-import java.awt.Point;
+import dataStructures.binTree.Point;
 
 /**
  * The bin tree is a spatial data structure that can be used to unify search
@@ -66,9 +66,12 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
      */
     @Override
     public void insert(K key, E element) {
-	this.rootNode = this.insertHelp(this.rootNode, this.maximumXAxis
-		- this.minimumXAxis, this.maximumYAxis - this.minimumYAxis,
-		key, element, true);
+	// world coordinates
+	BoundingBox world = new BoundingBox(new Point(this.minimumXAxis,
+		this.minimumYAxis), this.maximumXAxis, this.maximumYAxis);
+
+	this.rootNode = this.insertHelp(this.rootNode, world, key, element,
+		true);
 	this.size++;
     }
 
@@ -78,71 +81,72 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
      * in the rightmost leaf of the BinTree.
      *
      * @param node
-     * @param xAxis
-     * @param yAxis
+     * @param currentWorld
      * @param key
      * @param element
+     * @param isSplittingXAxis
      * @return a subtree
      */
-    public BinTreeNode<E> insertHelp(BinTreeNode<E> node, double xAxis,
-	    double yAxis, K key, E element, boolean isSplittingXAxis) {
+    public BinTreeNode<E> insertHelp(BinTreeNode<E> node,
+	    BoundingBox currentWorld, K key, E element, boolean isSplittingXAxis) {
 	// find a leaf node
-	if (node instanceof BinTreeInternalNode) {
-	    double xAxisMidpoint = xAxis / 2;
-	    double yAxisMidpoint = yAxis / 2;
-
+	if (node instanceof BinTreeInternalNode<?>) {
 	    if (isSplittingXAxis) {
 		isSplittingXAxis = false; // so y-axis can be split next
 		// time
-		if (key.getX() < xAxisMidpoint) { // current node should go to
-						  // left subtree
-		    // TODO: determine if left child should be an internal node
+		if (key.getX() < currentWorld.getCurrentXAxis()) {
+		    // current node should go to left subtree
+		    currentWorld.changeToLeftHalfBoundingBox();
+
 		    ((BinTreeInternalNode<E>) node).setLeftChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
-				    .getLeftChild(), xAxisMidpoint, yAxis, key,
+				    .getLeftChild(), currentWorld, key,
 				    element, isSplittingXAxis));
 		} else { // current node should go to right subtree
-			 // TODO: determine if right child should be an internal
-			 // node
+		    currentWorld.changeToRightHalfBoundingBox();
+
 		    ((BinTreeInternalNode<E>) node).setRightChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
-				    .getRightChild(), xAxisMidpoint, yAxis,
-				    key, element, isSplittingXAxis));
+				    .getRightChild(), currentWorld, key,
+				    element, isSplittingXAxis));
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
-		if (key.getY() < yAxisMidpoint) {
+		if (key.getY() < currentWorld.getCurrentYAxis()) {
+		    currentWorld.changeToBottomHalfBoundingBox();
+
 		    ((BinTreeInternalNode<E>) node).setLeftChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
-				    .getLeftChild(), xAxis, yAxisMidpoint, key,
+				    .getLeftChild(), currentWorld, key,
 				    element, isSplittingXAxis));
 		} else {
+		    currentWorld.changeToTopHalfBoundingBox();
+
 		    ((BinTreeInternalNode<E>) node).setRightChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
-				    .getRightChild(), xAxis, yAxisMidpoint,
-				    key, element, isSplittingXAxis));
+				    .getRightChild(), currentWorld, key,
+				    element, isSplittingXAxis));
 		}
 	    }
 	} else if (node instanceof BinTreeEmptyNode) {
 	    return new BinTreeLeafNode<K, E>(key, element);
-	} else { // this is BinTreeLeafNode that is not empty
+	} else {// if (node instanceof BinTreeLeafNode<?, ?>) { // this is
+							    // BinTreeLeafNode
+							    // that is not empty
 	    BinTreeLeafNode<K, E> tempNode = (BinTreeLeafNode<K, E>) node;
 	    K tempKey = tempNode.getKey();
 	    E tempElement = tempNode.getElement();
 
 	    node = new BinTreeInternalNode<E>();
 
-	    this.insertHelp(node, xAxis, yAxis, tempKey, tempElement,
+	    this.insertHelp(node, currentWorld, tempKey, tempElement,
 		    !isSplittingXAxis);
 
-	    this.insertHelp(node, xAxis, yAxis, key, element, !isSplittingXAxis);
+	    this.insertHelp(node, currentWorld, key, element, !isSplittingXAxis);
 
 	    return node;
 	}
-	throw new IllegalArgumentException(
-		"In class BinTree2D method insertHelp the parameter node"
-			+ "must be of type BinTreeInternalNode, "
-			+ "EmptyBinTreeNode, or BinTreeLeafNode");
+	return node;
     }
 
     @Override
@@ -203,5 +207,9 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	// the name and coordinates of the point's position, and then another
 	// new line
 	return "";
+    }
+
+    BinTreeNode<E> getRootNode() {
+	return this.rootNode;
     }
 }

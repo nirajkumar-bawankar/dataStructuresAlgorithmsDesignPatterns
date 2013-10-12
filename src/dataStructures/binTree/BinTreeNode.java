@@ -8,4 +8,6 @@ package dataStructures.binTree;
 public abstract class BinTreeNode<E> {
     // there are no overlapping fields or methods between an
     // BinTreeInternalNode, BinTreeLeafNode, or an BinTreeEmptyNode
+
+    public abstract String toString();
 }

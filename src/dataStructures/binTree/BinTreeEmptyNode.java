@@ -28,4 +28,14 @@ public class BinTreeEmptyNode<E> extends BinTreeNode<E> {
     public static BinTreeEmptyNode getInstance() {
 	return emptyBinTreeNode;
     }
+
+    @Override
+    public String toString() {
+	StringBuilder stringBuilder = new StringBuilder();
+	stringBuilder.append("\n===Bin Tree Empty Node===");
+	stringBuilder.append("\nthis node is a flyweight");
+	stringBuilder.append("\n=========================");
+	String binTreeInformation = stringBuilder.toString();
+	return binTreeInformation;
+    }
 }
