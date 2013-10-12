@@ -89,15 +89,16 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
      */
     public BinTreeNode<E> insertHelp(BinTreeNode<E> node,
 	    BoundingBox currentWorld, K key, E element, boolean isSplittingXAxis) {
-	// find a leaf node
+	// in a bin tree with many elements
 	if (node instanceof BinTreeInternalNode<?>) {
 	    if (isSplittingXAxis) {
-		isSplittingXAxis = false; // so y-axis can be split next
-		// time
+		isSplittingXAxis = false; // so y-axis can be split next time
 		if (key.getX() < currentWorld.getCurrentXAxis()) {
 		    // current node should go to left subtree
 		    currentWorld.changeToLeftHalfBoundingBox();
 
+		    // recursive call on left child until base case of empty
+		    // node is reached
 		    ((BinTreeInternalNode<E>) node).setLeftChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
 				    .getLeftChild(), currentWorld, key,
@@ -105,6 +106,8 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 		} else { // current node should go to right subtree
 		    currentWorld.changeToRightHalfBoundingBox();
 
+		    // recursive call on right child until base case of empty
+		    // node is reached
 		    ((BinTreeInternalNode<E>) node).setRightChild(this
 			    .insertHelp(((BinTreeInternalNode<E>) node)
 				    .getRightChild(), currentWorld, key,
@@ -130,15 +133,15 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	    }
 	} else if (node instanceof BinTreeEmptyNode) {
 	    return new BinTreeLeafNode<K, E>(key, element);
-	} else {// if (node instanceof BinTreeLeafNode<?, ?>) { // this is
-							    // BinTreeLeafNode
-							    // that is not empty
+	} else if (node instanceof BinTreeLeafNode<?, ?>) { // this is
+		// BinTreeLeafNode
+		// that is not empty
 	    BinTreeLeafNode<K, E> tempNode = (BinTreeLeafNode<K, E>) node;
 
 	    node = new BinTreeInternalNode<E>();
 
-	    this.insertHelp(node, currentWorld, tempNode.getKey(), tempNode.getElement(),
-		    isSplittingXAxis);
+	    this.insertHelp(node, currentWorld, tempNode.getKey(),
+		    tempNode.getElement(), isSplittingXAxis);
 
 	    this.insertHelp(node, currentWorld, key, element, isSplittingXAxis);
 
@@ -188,12 +191,12 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 
     @Override
     public void clear() {
-
+	this.rootNode = this.emptyLeafNodeFlyweight;
+	this.size = 0;
     }
 
     @Override
     public int size() {
-	// TODO Auto-generated method stub
 	return this.size;
     }
 

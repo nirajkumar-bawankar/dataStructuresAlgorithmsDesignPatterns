@@ -48,9 +48,8 @@ public class BinTreeLeafNode<Key extends Point, Element> extends
     public String toString() {
 	StringBuilder stringBuilder = new StringBuilder();
 	stringBuilder.append("\n====Bin Tree Leaf Node====");
-	stringBuilder.append("\nkey (x, y): ");
-	stringBuilder.append("(" + this.key.getX() + ", " + this.key.getY()
-		+ ")");
+	stringBuilder.append("\nkey: ");
+	stringBuilder.append(this.key.toString());
 	stringBuilder.append("\n   element: ");
 	stringBuilder.append(this.element.toString());
 	stringBuilder.append("\n==========================");
