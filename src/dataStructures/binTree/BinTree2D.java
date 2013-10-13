@@ -13,7 +13,7 @@ import dataStructures.binTree.Point;
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Bintree.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 10, 2013
+ * @version Oct 13, 2013
  * @param <K>
  *            a 2 dimensional point type in space such as a (x, y) coordinate
  *            that extends the Point class
@@ -143,10 +143,18 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 
 	    node = new BinTreeInternalNode<E>();
 
-	    // to ensure that the same worlds are used when inserting into
-	    // the current node
-	    BoundingBox cuurrentWorldStateDuplicate = new BoundingBox(
-		    currentWorld.getBottomLeftPoint(), currentWorld.getWidth(),
+	    // To ensure that the same worlds are used when inserting into
+	    // the current node all fields given to constructor of
+	    // currentWorldStateDuplicate must be of type double and NOT
+	    // a reference of the currentWorlds fields.
+	    // For example, if currentWorld.getBottomLeftPoint() is used
+	    // set the x and y for currentWorldStateDuplicate, then whenever
+	    // currentWorld's bottom left point changes, so will
+	    // currentWorldStateDuplicate
+	    double currentWorldX = currentWorld.getBottomLeftPoint().getX();
+	    double currentWorldY = currentWorld.getBottomLeftPoint().getY();
+	    BoundingBox cuurrentWorldStateDuplicate = new BoundingBox(new Point(
+		    currentWorldX, currentWorldY), currentWorld.getWidth(),
 		    currentWorld.getHeight());
 	    this.insertHelp(node, currentWorld, tempNode.getKey(),
 		    tempNode.getElement(), isSplittingXAxis);
@@ -172,6 +180,24 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 
     public void regionSearch() {
 	// TODO: with recursion
+
+	// assume we want to print out a list of all records that are within
+	// a certain distance d of a given point P.
+
+	// point P is defined to be within distance d of point N if
+	// (P_x - N_x)^2 + (P_y - N_y)^2 <= d^2
+
+	// search proceeds by means of a directed traversal
+	// When we visit a node of the tree, we only proceed if the bounding
+	// box for the search circle intersects the bounding box for the node
+	// If it does not, we stop and return. If it does intersect an internal
+	// node, we visit the node's children. If it is a leaf node, then
+	// we ask whether the data point it contains is within distance d
+	// of the search point.
+
+	// Note: In the average cas, the number of ndes that must be visited
+	// during a range query is linear on the number of data records that
+	// fall within the query circle.
     }
 
     @Override
