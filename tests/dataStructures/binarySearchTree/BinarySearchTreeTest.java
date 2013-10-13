@@ -93,22 +93,8 @@ public class BinarySearchTreeTest extends junit.framework.TestCase {
 		.getRightChild());
     }
 
-    // four zero one two three five six seven
-    public void test_preorderTraversal() {
-	// TODO:
-	assertEquals("four three one zero two six five seven ", this.BST
-		.preorderTraversal(this.BST.getRootNode()).toString());
-    }
-
     public void test_inorderTraversal() {
 	assertEquals("zero one two three four five six seven ", this.BST
 		.inorderTraversal(this.BST.getRootNode()).toString());
-    }
-
-    // zero one two three five six seven four
-    public void test_postorderTraversal() {
-	// TODO:
-	assertEquals("zero one two three five seven six four ", this.BST
-		.postorderTraversal(this.BST.getRootNode()).toString());
     }
 }

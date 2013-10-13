@@ -48,23 +48,45 @@ public class BinTree2DTest extends junit.framework.TestCase {
     }
 
     public void test_remove() {
-
+	// TODO: implement
     }
 
     public void test_removeRandomElement() {
-
+	// TODO: implement
     }
 
     public void test_find() {
+	// TODO: implement
+    }
 
+    public void test_regionSearch() {
+	// TODO: implement
     }
 
     public void test_clear() {
+	this.binTree.insert(new Point(10.0, 45.0), "A");
+	this.binTree.insert(new Point(30.0, 70.0), "B");
+	assertEquals(2, this.binTree.size());
+	assertFalse(this.binTree.getRootNode() instanceof BinTreeEmptyNode<?>);
 
+	this.binTree.clear();
+
+	assertEquals(0, this.binTree.size());
+	assertTrue(this.binTree.getRootNode() instanceof BinTreeEmptyNode<?>);
     }
 
     public void test_size() {
+	assertEquals(0, this.binTree.size());
+	this.binTree.insert(new Point(10.0, 45.0), "A");
+	assertEquals(1, this.binTree.size());
+	this.binTree.insert(new Point(30.0, 70.0), "B");
+	assertEquals(2, this.binTree.size());
+	this.binTree.insert(new Point(52.0, 65.0), "C");
+	assertEquals(3, this.binTree.size());
+	this.binTree.insert(new Point(55.0, 90.0), "D");
+	assertEquals(4, this.binTree.size());
 
+	// TODO: remove all 4 elements and check for correct bin tree size
     }
 
     /**

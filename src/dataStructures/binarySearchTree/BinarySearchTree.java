@@ -154,20 +154,6 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	return this.rootNode;
     }
 
-    public String preorderTraversal(BinarySearchTreeNode<Key, Element> rootNode) {
-	StringBuilder stringBuilder = new StringBuilder();
-	if (rootNode != null) {
-	    stringBuilder.append(rootNode.getValue().toString() + " ");
-	    stringBuilder
-		    .append(this.inorderTraversal(rootNode.getLeftChild()));
-	    stringBuilder
-		    .append(this.inorderTraversal(rootNode.getRightChild()));
-	    return stringBuilder.toString();
-	} else {
-	    return "";
-	}
-    }
-
     public String inorderTraversal(BinarySearchTreeNode<Key, Element> rootNode) {
 	StringBuilder stringBuilder = new StringBuilder();
 	if (rootNode != null) {
@@ -176,20 +162,6 @@ public class BinarySearchTree<Key extends Comparable<? super Key>, Element>
 	    stringBuilder.append(rootNode.getValue().toString() + " ");
 	    stringBuilder
 		    .append(this.inorderTraversal(rootNode.getRightChild()));
-	    return stringBuilder.toString();
-	} else {
-	    return "";
-	}
-    }
-
-    public String postorderTraversal(BinarySearchTreeNode<Key, Element> rootNode) {
-	StringBuilder stringBuilder = new StringBuilder();
-	if (rootNode != null) {
-	    stringBuilder
-		    .append(this.inorderTraversal(rootNode.getLeftChild()));
-	    stringBuilder
-		    .append(this.inorderTraversal(rootNode.getRightChild()));
-	    stringBuilder.append(rootNode.getValue().toString() + " ");
 	    return stringBuilder.toString();
 	} else {
 	    return "";

@@ -179,28 +179,6 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	return null;
     }
 
-    public void regionSearch() {
-	// TODO: with recursion
-
-	// assume we want to print out a list of all records that are within
-	// a certain distance d of a given point P.
-
-	// point P is defined to be within distance d of point N if
-	// (P_x - N_x)^2 + (P_y - N_y)^2 <= d^2
-
-	// search proceeds by means of a directed traversal
-	// When we visit a node of the tree, we only proceed if the bounding
-	// box for the search circle intersects the bounding box for the node
-	// If it does not, we stop and return. If it does intersect an internal
-	// node, we visit the node's children. If it is a leaf node, then
-	// we ask whether the data point it contains is within distance d
-	// of the search point.
-
-	// Note: In the average cas, the number of ndes that must be visited
-	// during a range query is linear on the number of data records that
-	// fall within the query circle.
-    }
-
     @Override
     public E removeRandomElement() {
 	// TODO Auto-generated method stub
@@ -223,6 +201,28 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	// contained in the tree.
 
 	return null;
+    }
+
+    public void regionSearch() {
+	// TODO: with recursion
+
+	// assume we want to print out a list of all records that are within
+	// a certain distance d of a given point P.
+
+	// point P is defined to be within distance d of point N if
+	// (P_x - N_x)^2 + (P_y - N_y)^2 <= d^2
+
+	// search proceeds by means of a directed traversal
+	// When we visit a node of the tree, we only proceed if the bounding
+	// box for the search circle intersects the bounding box for the node
+	// If it does not, we stop and return. If it does intersect an internal
+	// node, we visit the node's children. If it is a leaf node, then
+	// we ask whether the data point it contains is within distance d
+	// of the search point.
+
+	// Note: In the average cas, the number of ndes that must be visited
+	// during a range query is linear on the number of data records that
+	// fall within the query circle.
     }
 
     @Override
