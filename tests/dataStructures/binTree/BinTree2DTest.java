@@ -7,13 +7,9 @@ import dataStructures.binTree.Point;
  * @version Oct 12, 2013
  */
 public class BinTree2DTest extends junit.framework.TestCase {
-    @SuppressWarnings("rawtypes")
     private BinTree2D<Point, String> binTree;
 
-    @SuppressWarnings("rawtypes")
     public void setUp() {
-	// TODO: make this range generic has a range in the x-axis of 0.0 to
-	// 360.0 y-axis from 0.0 to 180.0
 	this.binTree = new BinTree2D<Point, String>(0.0, 100.0, 0.0, 100.0);
     }
 
@@ -37,12 +33,15 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 
-	//this.binTree.insert(new Point(52.0, 65.0), "C");
+	this.binTree.insert(new Point(52.0, 65.0), "C");
+	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nC 52.0 65.0",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
 
 	// now we are going to add last element D that will dramatically change
 	// rootNodes right subtree since it's (x, y) position is very close to
 	// element C's (x, y) position
-	//this.binTree.insert(new Point(55.0, 90.0), "D");
+//	this.binTree.insert(new Point(55.0, 90.0), "D");
 //	assertEquals(
 //		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
 //		this.binTree.preorderTraversal(this.binTree.getRootNode())

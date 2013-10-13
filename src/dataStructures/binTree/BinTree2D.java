@@ -68,7 +68,8 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
     public void insert(K key, E element) {
 	// world coordinates
 	BoundingBox world = new BoundingBox(new Point(this.minimumXAxis,
-		this.minimumYAxis), this.maximumXAxis, this.maximumYAxis);
+		this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
+		this.maximumYAxis - this.minimumYAxis);
 
 	this.rootNode = this.insertHelp(this.rootNode, world, key, element,
 		true);
@@ -143,7 +144,10 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	    this.insertHelp(node, currentWorld, tempNode.getKey(),
 		    tempNode.getElement(), isSplittingXAxis);
 
-	    this.insertHelp(node, currentWorld, key, element, isSplittingXAxis);
+	    BoundingBox newElementsWorld = new BoundingBox(new Point(this.minimumXAxis,
+			this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
+			this.maximumYAxis - this.minimumYAxis);
+	    this.insertHelp(node, newElementsWorld, key, element, isSplittingXAxis);
 
 	    return node;
 	}
@@ -201,38 +205,44 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
     }
 
     /**
-     * Starting at the rootNode of the bin tree this method prints the
-     * following: 1) "I" for internal nodes. 2) "E" for empty leaf nodes. 3) a
-     * new line and the key and element of a leaf node and then another new
-     * line.
-     *
-     * @param rootNode
-     * @return
+     * @param node
+     *            The rootNode of a bin tree to begin preorder traversal.
+     * @return Starting at the rootNode of the bin tree this method returns a
+     *         string representation of a preorder traversal of the rootNode
+     *         parameter with the following notation: 1) "I" for internal nodes
+     *         2) "E" for empty leaf nodes 3) the key and element of a leaf node
      */
-    public String preorderTraversal(BinTreeNode<E> rootNode) {
+    @SuppressWarnings({ "unchecked" })
+    public String preorderTraversal(BinTreeNode<E> node) {
 	StringBuilder stringBuilder = new StringBuilder();
-	if (rootNode instanceof BinTreeEmptyNode<?>) {
+	if (node instanceof BinTreeEmptyNode<?>) {
 	    return "E\n";
-	} else if (rootNode instanceof BinTreeInternalNode<?>) {
+	} else if (node instanceof BinTreeInternalNode<?>) {
 	    stringBuilder.append("I\n");
 	    stringBuilder.append(this
-		    .preorderTraversal(((BinTreeInternalNode<E>) rootNode)
+		    .preorderTraversal(((BinTreeInternalNode<E>) node)
 			    .getLeftChild()));
 	    stringBuilder.append(this
-		    .preorderTraversal(((BinTreeInternalNode<E>) rootNode)
+		    .preorderTraversal(((BinTreeInternalNode<E>) node)
 			    .getRightChild()));
-	} else if (rootNode instanceof BinTreeLeafNode<?, ?>) {
-	    stringBuilder
-		    .append((((BinTreeLeafNode<K, E>) rootNode).getElement())
-			    .toString()
-			    + " "
-			    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
-				    .getX()
-			    + " "
-			    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
-				    .getY() + "\n");
+	} else if (node instanceof BinTreeLeafNode<?, ?>) {
+	    stringBuilder.append((((BinTreeLeafNode<K, E>) node).getElement())
+		    .toString()
+		    + " "
+		    + ((BinTreeLeafNode<K, E>) node).getKey().getX()
+		    + " "
+		    + ((BinTreeLeafNode<K, E>) node).getKey().getY() + "\n");
 	}
 	return stringBuilder.toString();
+    }
+
+    public String inorderTraversal() {
+	// TODO: implement
+	return "";
+    }
+
+    public String postorderTraversal() {
+	return "";
     }
 
     /**
