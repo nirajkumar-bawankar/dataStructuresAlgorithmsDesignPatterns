@@ -4,7 +4,7 @@ import dataStructures.binTree.Point;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 9, 2013
+ * @version Oct 12, 2013
  */
 public class BinTree2DTest extends junit.framework.TestCase {
     @SuppressWarnings("rawtypes")
@@ -27,22 +27,26 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 
-	this.binTree.insert(new Point(10, 45), "A");
+	this.binTree.insert(new Point(10.0, 45.0), "A");
 	assertEquals("A 10.0 45.0",
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 
-	this.binTree.insert(new Point(30, 70), "B");
+	this.binTree.insert(new Point(30.0, 70.0), "B");
+	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
 
-	this.binTree.insert(new Point(52, 65), "C");
+	//this.binTree.insert(new Point(52.0, 65.0), "C");
 
 	// now we are going to add last element D that will dramatically change
 	// rootNodes right subtree since it's (x, y) position is very close to
 	// element C's (x, y) position
-	this.binTree.insert(new Point(55, 90), "D");
-
-	System.out.println(this.binTree.preorderTraversal(
-		this.binTree.getRootNode()).toString());
+	//this.binTree.insert(new Point(55.0, 90.0), "D");
+//	assertEquals(
+//		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
+//		this.binTree.preorderTraversal(this.binTree.getRootNode())
+//			.trim());
     }
 
     public void test_remove() {
@@ -84,6 +88,7 @@ public class BinTree2DTest extends junit.framework.TestCase {
 			.trim());
 
 	BinTreeInternalNode<String> internalRootNode = ((BinTreeInternalNode<String>) rootNode);
+
 	// Set A & B correctly in left subtree of rootNode
 	internalRootNode.setLeftChild(new BinTreeInternalNode<String>());
 
@@ -99,12 +104,52 @@ public class BinTree2DTest extends junit.framework.TestCase {
 			10.0, 45.0), "A"));
 	internalRootNodeLeftChild
 		.setRightChild(new BinTreeLeafNode<Point, String>(new Point(
-			10.0, 45.0), "B"));
+			30.0, 70.0), "B"));
 
-	// Set C & D correctly in right subtree of rootNode
+	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
+
+	// Set C & D correctly in right subtree of rootNode by first creating
+	// the correct internal nodes to get to C & D
 	internalRootNode.setRightChild(new BinTreeInternalNode<String>());
 
-	BinTreeInternalNode<String> rootNodeRightChild = (BinTreeInternalNode<String>) internalRootNode
+	BinTreeInternalNode<String> internalRootNodeRightChild = (BinTreeInternalNode<String>) internalRootNode
 		.getRightChild();
+
+	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
+
+	internalRootNodeRightChild
+		.setRightChild(new BinTreeInternalNode<String>());
+
+	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nE\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
+
+	BinTreeInternalNode<String> internalRootNodeRightRightChild = (BinTreeInternalNode<String>) internalRootNodeRightChild
+		.getRightChild();
+
+	internalRootNodeRightRightChild
+		.setLeftChild(new BinTreeInternalNode<String>());
+
+	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nE\nE\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
+
+	BinTreeInternalNode<String> internalRootNodeRightRightLeftChild = (BinTreeInternalNode<String>) internalRootNodeRightRightChild
+		.getLeftChild();
+
+	internalRootNodeRightRightLeftChild
+		.setLeftChild(new BinTreeLeafNode<Point, String>(new Point(
+			52.0, 65.0), "C"));
+
+	internalRootNodeRightRightLeftChild
+		.setRightChild(new BinTreeLeafNode<Point, String>(new Point(
+			55.0, 90.0), "D"));
+
+	assertEquals(
+		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
     }
 }

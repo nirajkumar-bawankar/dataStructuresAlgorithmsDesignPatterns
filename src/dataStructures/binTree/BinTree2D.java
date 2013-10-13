@@ -90,7 +90,9 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
     public BinTreeNode<E> insertHelp(BinTreeNode<E> node,
 	    BoundingBox currentWorld, K key, E element, boolean isSplittingXAxis) {
 	// in a bin tree with many elements
-	if (node instanceof BinTreeInternalNode<?>) {
+	if (node instanceof BinTreeEmptyNode) {
+	    return new BinTreeLeafNode<K, E>(key, element);
+	} else if (node instanceof BinTreeInternalNode<?>) {
 	    if (isSplittingXAxis) {
 		isSplittingXAxis = false; // so y-axis can be split next time
 		if (key.getX() < currentWorld.getCurrentXAxis()) {
@@ -131,8 +133,6 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 				    element, isSplittingXAxis));
 		}
 	    }
-	} else if (node instanceof BinTreeEmptyNode) {
-	    return new BinTreeLeafNode<K, E>(key, element);
 	} else if (node instanceof BinTreeLeafNode<?, ?>) { // this is
 	    // BinTreeLeafNode
 	    // that is not empty

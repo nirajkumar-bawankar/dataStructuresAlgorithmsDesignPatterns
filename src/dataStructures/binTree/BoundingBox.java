@@ -17,12 +17,20 @@ public class BoundingBox {
 	this.height = height;
     }
 
+    /**
+     * @return the x midpoint between the smallest x coordinate and greatest x
+     *         coordinate of the current state of the box.
+     */
     public double getCurrentXAxis() {
 	double leftMostXPosition = this.bottomLeft.getX();
 	double rightMostXPosition = leftMostXPosition + this.width;
 	return (leftMostXPosition + rightMostXPosition) / 2;
     }
 
+    /**
+     * @return the y midpoint between the smallest y coordinate and greatest y
+     *         coordinate of the current state of the box.
+     */
     public double getCurrentYAxis() {
 	double bottomMostYPosition = this.bottomLeft.getY();
 	double topMostYPosition = bottomMostYPosition + this.height;
