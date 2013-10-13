@@ -4,13 +4,19 @@ import dataStructures.binTree.Point;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 11, 2013
+ * @version Oct 12, 2013
  */
 public class BoundingBox {
     private Point bottomLeft;
     private double width;
     private double height;
 
+    /**
+     * Create a new BoundingBox object.
+     * @param bottomLeft
+     * @param width
+     * @param height
+     */
     public BoundingBox(Point bottomLeft, double width, double height) {
 	this.bottomLeft = bottomLeft;
 	this.width = width;
@@ -37,10 +43,18 @@ public class BoundingBox {
 	return (bottomMostYPosition + topMostYPosition) / 2;
     }
 
+    /**
+     * Divide the current bounding box by half along the x-axis and change
+     * the current bounding box to the left half.
+     */
     public void changeToLeftHalfBoundingBox() {
 	this.width = this.width / 2;
     }
 
+    /**
+     * Divide the current bounding box by half along the x-axis and change
+     * the current bounding box to the right half.
+     */
     public void changeToRightHalfBoundingBox() {
 	this.width = this.width / 2;
 	double newXPosition = this.bottomLeft.getX() + this.width;
@@ -48,6 +62,10 @@ public class BoundingBox {
 	// do not need to change y
     }
 
+    /**
+     * Divide the current bounding box by half along the y-axis and change
+     * the current bounding box to the top half.
+     */
     public void changeToTopHalfBoundingBox() {
 	this.height = this.height / 2;
 	double newYPosition = this.bottomLeft.getY() + this.height;
@@ -55,6 +73,10 @@ public class BoundingBox {
 	// do not need to change x
     }
 
+    /**
+     * Divide the current bounding box by half along the y-axis and change
+     * the current bounding box to the bottom half.
+     */
     public void changeToBottomHalfBoundingBox() {
 	this.height = this.height / 2;
     }

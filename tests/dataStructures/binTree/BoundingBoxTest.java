@@ -4,7 +4,7 @@ import dataStructures.binTree.Point;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 11, 2013
+ * @version Oct 12, 2013
  */
 public class BoundingBoxTest extends junit.framework.TestCase {
     private BoundingBox boundingBox;
@@ -13,14 +13,26 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	this.boundingBox = new BoundingBox(new Point(0.0, 0.0), 100.0, 100.0);
     }
 
+    /**
+     * Assert initial midpoint calculations for bounding box is correct for
+     * x-axis.
+     */
     public void test_getCurrentXAxis() {
 	assertEquals(50.0, this.boundingBox.getCurrentXAxis());
     }
 
+    /**
+     * Assert initial midpoint calculations for bounding box is correct for
+     * y-axis.
+     */
     public void test_getCurrentYAxis() {
 	assertEquals(50.0, this.boundingBox.getCurrentYAxis());
     }
 
+    /**
+     * Assert that the current bounding box can change to left box 2 times then
+     * change to right box 2 times correctly.
+     */
     public void test_changeToLeftAndRightHalfBoundingBox() {
 	assertEquals(50.0, this.boundingBox.getCurrentXAxis());
 	this.boundingBox.changeToLeftHalfBoundingBox();
@@ -36,6 +48,10 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	assertEquals(21.875, this.boundingBox.getCurrentXAxis());
     }
 
+    /**
+     * Assert that the current bounding box can change to bottom box 2 times
+     * then change to top box 2 times correctly.
+     */
     public void test_changeToBottomAndTopHalfBoundingBox() {
 	assertEquals(50.0, this.boundingBox.getCurrentYAxis());
 	this.boundingBox.changeToBottomHalfBoundingBox();
@@ -51,6 +67,10 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	assertEquals(21.875, this.boundingBox.getCurrentYAxis());
     }
 
+    /**
+     * Assert that the current bounding box can change to all directions left,
+     * right, top, and bottom correctly.
+     */
     public void test_changeBoundingBoxInAllDirections() {
 	assertEquals(50.0, this.boundingBox.getCurrentXAxis());
 	assertEquals(50.0, this.boundingBox.getCurrentYAxis());

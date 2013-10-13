@@ -223,22 +223,29 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 			    .getRightChild()));
 	} else if (rootNode instanceof BinTreeLeafNode<?, ?>) {
 	    stringBuilder
-	    .append((((BinTreeLeafNode<K, E>) rootNode)
-			    .getElement()).toString()
-		    + " "
-		    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
-			    .getX()
-		    + " "
-		    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
+		    .append((((BinTreeLeafNode<K, E>) rootNode).getElement())
+			    .toString()
+			    + " "
+			    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
+				    .getX()
+			    + " "
+			    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
 				    .getY() + "\n");
 	}
 	return stringBuilder.toString();
     }
 
+    /**
+     * @return the root node.
+     */
     BinTreeNode<E> getRootNode() {
 	return this.rootNode;
     }
 
+    /**
+     * @param rootNode
+     *            the new root node.
+     */
     void setRootNode(BinTreeNode<E> rootNode) {
 	this.rootNode = rootNode;
     }

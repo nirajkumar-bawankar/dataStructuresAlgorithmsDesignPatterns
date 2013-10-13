@@ -5,33 +5,56 @@ package dataStructures.binTree;
  * child.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 9, 2013
+ * @version Oct 12, 2013
+ * @param <Element>
  */
 public class BinTreeInternalNode<Element> extends BinTreeNode<Element> {
+    /**
+     * Current internal node left child.
+     */
     BinTreeNode<Element> leftChild;
+
+    /**
+     * Current internal node right child.
+     */
     BinTreeNode<Element> rightChild;
 
     /**
      * Create a new BinTreeInternalNode object with 2 empty bin tree leaf nodes.
      */
+    @SuppressWarnings("unchecked")
     public BinTreeInternalNode() {
 	this.leftChild = BinTreeEmptyNode.getInstance();
 	this.rightChild = BinTreeEmptyNode.getInstance();
     }
 
-    public BinTreeNode getLeftChild() {
+    /**
+     * @return left child node
+     */
+    public BinTreeNode<Element> getLeftChild() {
 	return this.leftChild;
     }
 
-    public void setLeftChild(BinTreeNode leftChild) {
+    /**
+     * @param leftChild
+     *            the new left child node
+     */
+    public void setLeftChild(BinTreeNode<Element> leftChild) {
 	this.leftChild = leftChild;
     }
 
-    public BinTreeNode getRightChild() {
+    /**
+     * @return left child node
+     */
+    public BinTreeNode<Element> getRightChild() {
 	return this.rightChild;
     }
 
-    public void setRightChild(BinTreeNode rightChild) {
+    /**
+     * @param rightChild
+     *            the new right child node
+     */
+    public void setRightChild(BinTreeNode<Element> rightChild) {
 	this.rightChild = rightChild;
     }
 

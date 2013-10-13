@@ -2,9 +2,12 @@ package dataStructures.binTree;
 
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 9, 2013
+ * @version Oct 12, 2013
  * @param <Key>
+ *            A class with an x and y field to be used to efficiently store and
+ *            find an Element into the BinTree.
  * @param <Element>
+ *            The type to be stored in the BinTree.
  */
 public class BinTreeLeafNode<Key extends Point, Element> extends
 	BinTreeNode<Element> {
