@@ -134,8 +134,8 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	} else if (node instanceof BinTreeEmptyNode) {
 	    return new BinTreeLeafNode<K, E>(key, element);
 	} else if (node instanceof BinTreeLeafNode<?, ?>) { // this is
-		// BinTreeLeafNode
-		// that is not empty
+	    // BinTreeLeafNode
+	    // that is not empty
 	    BinTreeLeafNode<K, E> tempNode = (BinTreeLeafNode<K, E>) node;
 
 	    node = new BinTreeInternalNode<E>();
@@ -200,17 +200,46 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	return this.size;
     }
 
-    public String preorderTraversal() {
-	// TODO: internal nodes = "I"
-	// empty leaf nodes = "E"
-
-	// leaf nodes that contain a data point output a new line
-	// the name and coordinates of the point's position, and then another
-	// new line
-	return "";
+    /**
+     * Starting at the rootNode of the bin tree this method prints the
+     * following: 1) "I" for internal nodes. 2) "E" for empty leaf nodes. 3) a
+     * new line and the key and element of a leaf node and then another new
+     * line.
+     *
+     * @param rootNode
+     * @return
+     */
+    public String preorderTraversal(BinTreeNode<E> rootNode) {
+	StringBuilder stringBuilder = new StringBuilder();
+	if (rootNode instanceof BinTreeEmptyNode<?>) {
+	    return "E\n";
+	} else if (rootNode instanceof BinTreeInternalNode<?>) {
+	    stringBuilder.append("I\n");
+	    stringBuilder.append(this
+		    .preorderTraversal(((BinTreeInternalNode<E>) rootNode)
+			    .getLeftChild()));
+	    stringBuilder.append(this
+		    .preorderTraversal(((BinTreeInternalNode<E>) rootNode)
+			    .getRightChild()));
+	} else if (rootNode instanceof BinTreeLeafNode<?, ?>) {
+	    stringBuilder
+	    .append((((BinTreeLeafNode<K, E>) rootNode)
+			    .getElement()).toString()
+		    + " "
+		    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
+			    .getX()
+		    + " "
+		    + ((BinTreeLeafNode<K, E>) rootNode).getKey()
+				    .getY() + "\n");
+	}
+	return stringBuilder.toString();
     }
 
     BinTreeNode<E> getRootNode() {
 	return this.rootNode;
+    }
+
+    void setRootNode(BinTreeNode<E> rootNode) {
+	this.rootNode = rootNode;
     }
 }
