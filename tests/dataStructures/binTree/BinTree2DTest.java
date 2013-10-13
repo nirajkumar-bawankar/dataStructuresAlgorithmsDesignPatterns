@@ -41,7 +41,7 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	// now we are going to add last element D that will dramatically change
 	// rootNodes right subtree since it's (x, y) position is very close to
 	// element C's (x, y) position
-//	this.binTree.insert(new Point(55.0, 90.0), "D");
+	this.binTree.insert(new Point(55.0, 90.0), "D");
 //	assertEquals(
 //		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
 //		this.binTree.preorderTraversal(this.binTree.getRootNode())
