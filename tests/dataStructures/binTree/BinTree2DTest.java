@@ -29,9 +29,8 @@ public class BinTree2DTest extends junit.framework.TestCase {
 			.trim());
 
 	this.binTree.insert(new Point(30.0, 70.0), "B");
-	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nE",
-		this.binTree.preorderTraversal(this.binTree.getRootNode())
-			.trim());
+	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
 
 	this.binTree.insert(new Point(52.0, 65.0), "C");
 	assertEquals("I\nI\nA 10.0 45.0\nB 30.0 70.0\nC 52.0 65.0",
@@ -42,10 +41,10 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	// rootNodes right subtree since it's (x, y) position is very close to
 	// element C's (x, y) position
 	this.binTree.insert(new Point(55.0, 90.0), "D");
-//	assertEquals(
-//		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
-//		this.binTree.preorderTraversal(this.binTree.getRootNode())
-//			.trim());
+	assertEquals(
+		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
     }
 
     public void test_remove() {

@@ -17,16 +17,16 @@ public class BoundingBoxTest extends junit.framework.TestCase {
      * Assert initial midpoint calculations for bounding box is correct for
      * x-axis.
      */
-    public void test_getCurrentXAxis() {
-	assertEquals(50.0, this.boundingBox.getCurrentXAxis());
+    public void test_getCurrentMidpointOfBoxAlongXAxis() {
+	assertEquals(50.0, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
     }
 
     /**
      * Assert initial midpoint calculations for bounding box is correct for
      * y-axis.
      */
-    public void test_getCurrentYAxis() {
-	assertEquals(50.0, this.boundingBox.getCurrentYAxis());
+    public void test_getCurrentMidpointOfBoxAlongYAxis() {
+	assertEquals(50.0, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
     }
 
     /**
@@ -34,18 +34,18 @@ public class BoundingBoxTest extends junit.framework.TestCase {
      * change to right box 2 times correctly.
      */
     public void test_changeToLeftAndRightHalfBoundingBox() {
-	assertEquals(50.0, this.boundingBox.getCurrentXAxis());
+	assertEquals(50.0, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
 	this.boundingBox.changeToLeftHalfBoundingBox();
-	assertEquals(25.0, this.boundingBox.getCurrentXAxis());
+	assertEquals(25.0, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
 
 	this.boundingBox.changeToLeftHalfBoundingBox();
-	assertEquals(12.5, this.boundingBox.getCurrentXAxis());
+	assertEquals(12.5, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
 
 	this.boundingBox.changeToRightHalfBoundingBox();
-	assertEquals(18.75, this.boundingBox.getCurrentXAxis());
+	assertEquals(18.75, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
 
 	this.boundingBox.changeToRightHalfBoundingBox();
-	assertEquals(21.875, this.boundingBox.getCurrentXAxis());
+	assertEquals(21.875, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
     }
 
     /**
@@ -53,18 +53,18 @@ public class BoundingBoxTest extends junit.framework.TestCase {
      * then change to top box 2 times correctly.
      */
     public void test_changeToBottomAndTopHalfBoundingBox() {
-	assertEquals(50.0, this.boundingBox.getCurrentYAxis());
+	assertEquals(50.0, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 	this.boundingBox.changeToBottomHalfBoundingBox();
-	assertEquals(25.0, this.boundingBox.getCurrentYAxis());
+	assertEquals(25.0, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToBottomHalfBoundingBox();
-	assertEquals(12.5, this.boundingBox.getCurrentYAxis());
+	assertEquals(12.5, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToTopHalfBoundingBox();
-	assertEquals(18.75, this.boundingBox.getCurrentYAxis());
+	assertEquals(18.75, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToTopHalfBoundingBox();
-	assertEquals(21.875, this.boundingBox.getCurrentYAxis());
+	assertEquals(21.875, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
     }
 
     /**
@@ -72,23 +72,23 @@ public class BoundingBoxTest extends junit.framework.TestCase {
      * right, top, and bottom correctly.
      */
     public void test_changeBoundingBoxInAllDirections() {
-	assertEquals(50.0, this.boundingBox.getCurrentXAxis());
-	assertEquals(50.0, this.boundingBox.getCurrentYAxis());
+	assertEquals(50.0, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
+	assertEquals(50.0, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToRightHalfBoundingBox();
-	assertEquals(75.0, this.boundingBox.getCurrentXAxis());
-	assertEquals(50.0, this.boundingBox.getCurrentYAxis());
+	assertEquals(75.0, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
+	assertEquals(50.0, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToTopHalfBoundingBox();
-	assertEquals(75.0, this.boundingBox.getCurrentXAxis());
-	assertEquals(75.0, this.boundingBox.getCurrentYAxis());
+	assertEquals(75.0, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
+	assertEquals(75.0, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToLeftHalfBoundingBox();
-	assertEquals(62.5, this.boundingBox.getCurrentXAxis());
-	assertEquals(75.0, this.boundingBox.getCurrentYAxis());
+	assertEquals(62.5, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
+	assertEquals(75.0, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
 
 	this.boundingBox.changeToBottomHalfBoundingBox();
-	assertEquals(62.5, this.boundingBox.getCurrentXAxis());
-	assertEquals(62.5, this.boundingBox.getCurrentYAxis());
+	assertEquals(62.5, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
+	assertEquals(62.5, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
     }
 }

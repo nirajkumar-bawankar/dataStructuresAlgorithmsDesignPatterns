@@ -96,7 +96,7 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	} else if (node instanceof BinTreeInternalNode<?>) {
 	    if (isSplittingXAxis) {
 		isSplittingXAxis = false; // so y-axis can be split next time
-		if (key.getX() < currentWorld.getCurrentXAxis()) {
+		if (key.getX() < currentWorld.getCurrentMidpointOfBoxAlongXAxis()) {
 		    // current node should go to left subtree
 		    currentWorld.changeToLeftHalfBoundingBox();
 
@@ -118,7 +118,8 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
-		if (key.getY() < currentWorld.getCurrentYAxis()) {
+		double yMidpoint = currentWorld.getCurrentMidpointOfBoxAlongYAxis();
+		if (key.getY() < currentWorld.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
 
 		    ((BinTreeInternalNode<E>) node).setLeftChild(this
@@ -137,17 +138,21 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	} else if (node instanceof BinTreeLeafNode<?, ?>) { // this is
 	    // BinTreeLeafNode
 	    // that is not empty
+	    @SuppressWarnings("unchecked")
 	    BinTreeLeafNode<K, E> tempNode = (BinTreeLeafNode<K, E>) node;
 
 	    node = new BinTreeInternalNode<E>();
 
+	    // to ensure that the same worlds are used when inserting into
+	    // the current node
+	    BoundingBox cuurrentWorldStateDuplicate = new BoundingBox(
+		    currentWorld.getBottomLeftPoint(), currentWorld.getWidth(),
+		    currentWorld.getHeight());
 	    this.insertHelp(node, currentWorld, tempNode.getKey(),
 		    tempNode.getElement(), isSplittingXAxis);
 
-	    BoundingBox newElementsWorld = new BoundingBox(new Point(this.minimumXAxis,
-			this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
-			this.maximumYAxis - this.minimumYAxis);
-	    this.insertHelp(node, newElementsWorld, key, element, isSplittingXAxis);
+	    this.insertHelp(node, cuurrentWorldStateDuplicate, key, element,
+		    isSplittingXAxis);
 
 	    return node;
 	}
