@@ -156,6 +156,7 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	    BoundingBox cuurrentWorldStateDuplicate = new BoundingBox(new Point(
 		    currentWorldX, currentWorldY), currentWorld.getWidth(),
 		    currentWorld.getHeight());
+
 	    this.insertHelp(node, currentWorld, tempNode.getKey(),
 		    tempNode.getElement(), isSplittingXAxis);
 
@@ -265,15 +266,6 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 		    + ((BinTreeLeafNode<K, E>) node).getKey().getY() + "\n");
 	}
 	return stringBuilder.toString();
-    }
-
-    public String inorderTraversal() {
-	// TODO: implement
-	return "";
-    }
-
-    public String postorderTraversal() {
-	return "";
     }
 
     /**

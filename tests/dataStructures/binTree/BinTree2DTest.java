@@ -69,8 +69,8 @@ public class BinTree2DTest extends junit.framework.TestCase {
 
     /**
      * Before asserting the preorder traversal printout is correct, the bin tree
-     * is first correclty constructed WITHOUT using the bin tree's insert method
-     * to prevent the possibility that an incorreclty implemented BinTree insert
+     * is first correctly constructed WITHOUT using the bin tree's insert method
+     * to prevent the possibility that an incorrectly implemented BinTree insert
      * method will create an incorrect preorder print out.
      */
     public void test_preorderTraversal() {
