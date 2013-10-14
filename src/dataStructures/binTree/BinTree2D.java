@@ -239,7 +239,7 @@ public class BinTree2D<K extends Point, E> {
 		return null;
 	    }
 	}
-	return null;
+	return node;
     }
 
     /**

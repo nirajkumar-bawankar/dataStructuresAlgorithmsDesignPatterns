@@ -65,11 +65,16 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	this.binTree.insert(new Point(52.0, 65.0), "C");
 	this.binTree.insert(new Point(55.0, 90.0), "D");
 
+	assertEquals(
+		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
 	assertEquals("A", this.binTree.remove(new Point(10.0, 45.0), "A"));
 	assertEquals(
 		"I\nI\nE\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
+
     }
 
     public void test_removeRandomElement() {
