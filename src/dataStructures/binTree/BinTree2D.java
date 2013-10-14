@@ -183,51 +183,68 @@ public class BinTree2D<K extends Point, E> {
 		    this.minimumXAxis, this.minimumYAxis), this.maximumXAxis
 		    - this.minimumXAxis, this.maximumYAxis - this.minimumYAxis);
 
-	    this.removeHelp(this.rootNode, currentWorld, key, element,
-		    true);
+	    this.removeHelp(this.rootNode, currentWorld, key, element, true);
 	    return element;
 	}
     }
 
-    BinTreeNode<E> removeHelp(BinTreeNode<E> node, BoundingBox currentWorld, K key,
-	    E element, boolean isSplittingXAxis) {
+    BinTreeNode<E> removeHelp(BinTreeNode<E> node, BoundingBox currentWorld,
+	    K key, E element, boolean isSplittingXAxis) {
 	if (node instanceof BinTreeEmptyNode<?>) {
 	    return null;
 	} else if (node instanceof BinTreeInternalNode<?>) {
-	    if (isSplittingXAxis) {
-		isSplittingXAxis = false; // so y-axis can be split next time
-		if (key.getX() < currentWorld
-			.getCurrentMidpointOfBoxAlongXAxis()) {
-		    // current node should go to left subtree
-		    currentWorld.changeToLeftHalfBoundingBox();
+	    // if this internal node's left and right child are both empty nodes
+	    // then this internal nodes needs to become empty to successfully
+	    // merge it's children
+	    if (((BinTreeInternalNode) node).getLeftChild() instanceof BinTreeEmptyNode<?>
+		    && ((BinTreeInternalNode) node).getRightChild() instanceof BinTreeEmptyNode<?>) {
+		node = this.emptyLeafNodeFlyweight;
+	    } else {
+		if (isSplittingXAxis) {
+		    isSplittingXAxis = false; // so y-axis can be split next
+					      // time
+		    if (key.getX() < currentWorld
+			    .getCurrentMidpointOfBoxAlongXAxis()) {
+			// current node should go to left subtree
+			currentWorld.changeToLeftHalfBoundingBox();
 
-		    ((BinTreeInternalNode) node).setLeftChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getLeftChild(),
-			    currentWorld, key, element, isSplittingXAxis));
-		} else { // current node should go to right subtree
-		    currentWorld.changeToRightHalfBoundingBox();
+			((BinTreeInternalNode) node).setLeftChild(this
+				.removeHelp(((BinTreeInternalNode<E>) node)
+					.getLeftChild(), currentWorld, key,
+					element, isSplittingXAxis));
 
-		    ((BinTreeInternalNode) node).setRightChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getRightChild(),
-			    currentWorld, key, element, isSplittingXAxis));
-		}
-	    } else { // splitting y-axis
-		isSplittingXAxis = true; // so x-axis can be split next time
-		double yMidpoint = currentWorld
-			.getCurrentMidpointOfBoxAlongYAxis();
-		if (key.getY() < currentWorld
-			.getCurrentMidpointOfBoxAlongYAxis()) {
-		    currentWorld.changeToBottomHalfBoundingBox();
+			// TODO:
+		    } else { // current node should go to right subtree
+			currentWorld.changeToRightHalfBoundingBox();
 
-		    ((BinTreeInternalNode) node).setLeftChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getLeftChild(),
-			    currentWorld, key, element, isSplittingXAxis));
-		} else {
-		    currentWorld.changeToTopHalfBoundingBox();
+			((BinTreeInternalNode) node).setRightChild(this
+				.removeHelp(((BinTreeInternalNode<E>) node)
+					.getRightChild(), currentWorld, key,
+					element, isSplittingXAxis));
+			// TODO:
+		    }
+		} else { // splitting y-axis
+		    isSplittingXAxis = true; // so x-axis can be split next time
+		    double yMidpoint = currentWorld
+			    .getCurrentMidpointOfBoxAlongYAxis();
+		    if (key.getY() < currentWorld
+			    .getCurrentMidpointOfBoxAlongYAxis()) {
+			currentWorld.changeToBottomHalfBoundingBox();
 
-		    ((BinTreeInternalNode) node).setRightChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getRightChild(),
-			    currentWorld, key, element, isSplittingXAxis));
+			((BinTreeInternalNode) node).setLeftChild(this
+				.removeHelp(((BinTreeInternalNode<E>) node)
+					.getLeftChild(), currentWorld, key,
+					element, isSplittingXAxis));
+			// TODO:
+		    } else {
+			currentWorld.changeToTopHalfBoundingBox();
+
+			((BinTreeInternalNode) node).setRightChild(this
+				.removeHelp(((BinTreeInternalNode<E>) node)
+					.getRightChild(), currentWorld, key,
+					element, isSplittingXAxis));
+			// TODO:
+		    }
 		}
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
