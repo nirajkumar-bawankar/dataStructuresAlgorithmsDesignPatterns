@@ -50,15 +50,7 @@ public class BinTree2DTest extends junit.framework.TestCase {
     }
 
     public void test_remove() {
-	try {
-	    assertNull(this.binTree.remove(new Point(10.0, 45.0), "A"));
-	    fail("should've thrown an exception!");
-	} catch (NoSuchElementException expected) {
-	    assertEquals("In class BinTree2D method remove"
-		    + " you cannot remove key: (x, y) = (10.0, 45.0) "
-		    + "value: A because it does not exist within "
-		    + "your bin tree.", expected.getMessage());
-	}
+	assertFalse(this.binTree.remove(new Point(10.0, 45.0), "A"));
 
 	this.binTree.insert(new Point(10.0, 45.0), "A");
 	this.binTree.insert(new Point(30.0, 70.0), "B");
@@ -69,21 +61,25 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		"I\nI\nA 10.0 45.0\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
-	assertEquals("A", this.binTree.remove(new Point(10.0, 45.0), "A"));
+	assertTrue(this.binTree.remove(new Point(10.0, 45.0), "A"));
 	assertEquals("I\nB 30.0 70.0\nI\nE\nI"
 		+ "\nI\nC 52.0 65.0\nD 55.0 90.0\nE", this.binTree
 		.preorderTraversal(this.binTree.getRootNode()).trim());
 
-	assertEquals("B", this.binTree.remove(new Point(30.0, 70.0), "B"));
+	assertTrue(this.binTree.remove(new Point(30.0, 70.0), "B"));
 	assertEquals("I\nE\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 
-	assertEquals("C", this.binTree.remove(new Point(52.0, 65.0), "C"));
+	assertTrue(this.binTree.remove(new Point(52.0, 65.0), "C"));
 	assertEquals("D 55.0 90.0",
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 
+	assertTrue(this.binTree.remove(new Point(55.0, 90.0), "D"));
+	assertEquals("E",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
     }
 
     /**
@@ -125,17 +121,33 @@ public class BinTree2DTest extends junit.framework.TestCase {
     }
 
     public void test_size() {
+	// insert all 4 elements and check for correct bin tree size
 	assertEquals(0, this.binTree.size());
+
 	this.binTree.insert(new Point(10.0, 45.0), "A");
 	assertEquals(1, this.binTree.size());
+
 	this.binTree.insert(new Point(30.0, 70.0), "B");
 	assertEquals(2, this.binTree.size());
+
 	this.binTree.insert(new Point(52.0, 65.0), "C");
 	assertEquals(3, this.binTree.size());
+
 	this.binTree.insert(new Point(55.0, 90.0), "D");
 	assertEquals(4, this.binTree.size());
 
-	// TODO: remove all 4 elements and check for correct bin tree size
+	// remove all 4 elements and check for correct bin tree size
+	assertTrue(this.binTree.remove(new Point(10.0, 45.0), "A"));
+	assertEquals(3, this.binTree.size());
+
+	assertTrue(this.binTree.remove(new Point(30.0, 70.0), "B"));
+	assertEquals(2, this.binTree.size());
+
+	assertTrue(this.binTree.remove(new Point(52.0, 65.0), "C"));
+	assertEquals(1, this.binTree.size());
+
+	assertTrue(this.binTree.remove(new Point(55.0, 90.0), "D"));
+	assertEquals(0, this.binTree.size());
     }
 
     /**

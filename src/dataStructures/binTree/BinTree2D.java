@@ -171,22 +171,19 @@ public class BinTree2D<K extends Point, E> {
 	return node;
     }
 
-    public E remove(K key, E element) {
+    public boolean remove(K key, E element) {
 	if (this.find(key, element) == null) {
-	    throw new NoSuchElementException("In class BinTree2D method remove"
-		    + " you cannot remove key: " + key.toString() + " value: "
-		    + element.toString() + " because it does not exist within "
-		    + "your bin tree.");
+	    return false;
 	} else { // key value pair exists in bin tree
-	    this.size--;
 	    BoundingBox currentWorld = new BoundingBox(new Point(
 		    this.minimumXAxis, this.minimumYAxis), this.maximumXAxis
 		    - this.minimumXAxis, this.maximumYAxis - this.minimumYAxis);
 
 	    this.removeHelp(this.rootNode, currentWorld, key, element, true);
+	    this.size--;
 
 	    this.rootNode = this.pruneBinTree(this.rootNode);
-	    return element;
+	    return true;
 	}
     }
 
@@ -379,7 +376,7 @@ public class BinTree2D<K extends Point, E> {
 	// we ask whether the data point it contains is within distance d
 	// of the search point.
 
-	// Note: In the average cas, the number of ndes that must be visited
+	// Note: In the average case, the number of ideas that must be visited
 	// during a range query is linear on the number of data records that
 	// fall within the query circle.
     }
