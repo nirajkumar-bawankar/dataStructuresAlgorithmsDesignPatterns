@@ -70,14 +70,17 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 	assertEquals("A", this.binTree.remove(new Point(10.0, 45.0), "A"));
-	assertEquals(
-		"I\nI\nE\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
+	assertEquals("I\nB 30.0 70.0\nI\nE\nI"
+		+ "\nI\nC 52.0 65.0\nD 55.0 90.0\nE", this.binTree
+		.preorderTraversal(this.binTree.getRootNode()).trim());
+
+	assertEquals("B", this.binTree.remove(new Point(30.0, 70.0), "B"));
+	assertEquals("I\nE\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 
-	assertEquals("B", this.binTree.remove(new Point(30.0, 70.0), "B"));
-	assertEquals(
-		"I\nE\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
+	assertEquals("C", this.binTree.remove(new Point(52.0, 65.0), "C"));
+	assertEquals("D 55.0 90.0",
 		this.binTree.preorderTraversal(this.binTree.getRootNode())
 			.trim());
 
