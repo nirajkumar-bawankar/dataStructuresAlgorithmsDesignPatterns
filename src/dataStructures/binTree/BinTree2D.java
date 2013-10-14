@@ -183,12 +183,13 @@ public class BinTree2D<K extends Point, E> {
 		    this.minimumXAxis, this.minimumYAxis), this.maximumXAxis
 		    - this.minimumXAxis, this.maximumYAxis - this.minimumYAxis);
 
-	    return this.removeHelp(this.rootNode, currentWorld, key, element,
+	    this.removeHelp(this.rootNode, currentWorld, key, element,
 		    true);
+	    return element;
 	}
     }
 
-    E removeHelp(BinTreeNode<E> node, BoundingBox currentWorld, K key,
+    BinTreeNode<E> removeHelp(BinTreeNode<E> node, BoundingBox currentWorld, K key,
 	    E element, boolean isSplittingXAxis) {
 	if (node instanceof BinTreeEmptyNode<?>) {
 	    return null;
@@ -200,15 +201,15 @@ public class BinTree2D<K extends Point, E> {
 		    // current node should go to left subtree
 		    currentWorld.changeToLeftHalfBoundingBox();
 
-		    return this.removeHelp(
+		    ((BinTreeInternalNode) node).setLeftChild(this.removeHelp(
 			    ((BinTreeInternalNode<E>) node).getLeftChild(),
-			    currentWorld, key, element, isSplittingXAxis);
+			    currentWorld, key, element, isSplittingXAxis));
 		} else { // current node should go to right subtree
 		    currentWorld.changeToRightHalfBoundingBox();
 
-		    return this.removeHelp(
+		    ((BinTreeInternalNode) node).setRightChild(this.removeHelp(
 			    ((BinTreeInternalNode<E>) node).getRightChild(),
-			    currentWorld, key, element, isSplittingXAxis);
+			    currentWorld, key, element, isSplittingXAxis));
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
@@ -218,22 +219,22 @@ public class BinTree2D<K extends Point, E> {
 			.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
 
-		    return this.removeHelp(
+		    ((BinTreeInternalNode) node).setLeftChild(this.removeHelp(
 			    ((BinTreeInternalNode<E>) node).getLeftChild(),
-			    currentWorld, key, element, isSplittingXAxis);
+			    currentWorld, key, element, isSplittingXAxis));
 		} else {
 		    currentWorld.changeToTopHalfBoundingBox();
 
-		    return this.removeHelp(
+		    ((BinTreeInternalNode) node).setRightChild(this.removeHelp(
 			    ((BinTreeInternalNode<E>) node).getRightChild(),
-			    currentWorld, key, element, isSplittingXAxis);
+			    currentWorld, key, element, isSplittingXAxis));
 		}
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
 	    if (element.equals(((BinTreeLeafNode<?, E>) node).getElement())
 		    && key.equals(((BinTreeLeafNode<?, E>) node).getKey())) {
 		node = this.emptyLeafNodeFlyweight;
-		return element;
+		return node;
 	    } else {
 		return null;
 	    }
