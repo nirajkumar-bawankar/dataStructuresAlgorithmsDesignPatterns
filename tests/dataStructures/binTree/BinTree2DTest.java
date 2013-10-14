@@ -110,6 +110,18 @@ public class BinTree2DTest extends junit.framework.TestCase {
 
     }
 
+    public void test_regionSearchHelp() {
+
+    }
+
+    public void test_isOverlapping() {
+	// the current bin tree has a bounding box of bottom left point (0, 0)
+	// and width and height of 100.
+
+	BoundingBox box1 = new BoundingBox(new Point(101.0, 101.0), 100.0, 100.0);
+
+    }
+
     public void test_clear() {
 	this.binTree.insert(new Point(10.0, 45.0), "A");
 	this.binTree.insert(new Point(30.0, 70.0), "B");
