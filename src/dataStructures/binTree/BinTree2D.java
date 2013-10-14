@@ -262,7 +262,8 @@ public class BinTree2D<K extends Point, E> {
 	    } else if (((BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeLeafNode<?, ?>
 		    && ((BinTreeInternalNode<E>) node).getRightChild() instanceof BinTreeEmptyNode<?>) {
 		// sets the current internal to it's left child leaf node
-		return node = ((BinTreeInternalNode<E>) node).getLeftChild();
+		BinTreeNode<E> replacedNode = ((BinTreeInternalNode<E>) node).getLeftChild();
+		return replacedNode;
 	    }
 
 	    // now check if left or right child is an internal node
