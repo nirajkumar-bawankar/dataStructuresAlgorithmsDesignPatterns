@@ -203,15 +203,17 @@ public class BinTree2D<K extends Point, E> {
 		    // current node should go to left subtree
 		    currentWorld.changeToLeftHalfBoundingBox();
 
-		    ((BinTreeInternalNode<E>) node).setLeftChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getLeftChild(),
-			    currentWorld, key, element, isSplittingXAxis));
+		    ((BinTreeInternalNode<E>) node).setLeftChild(this
+			    .removeHelp(((BinTreeInternalNode<E>) node)
+				    .getLeftChild(), currentWorld, key,
+				    element, isSplittingXAxis));
 		} else { // current node should go to right subtree
 		    currentWorld.changeToRightHalfBoundingBox();
 
-		    ((BinTreeInternalNode<E>) node).setRightChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getRightChild(),
-			    currentWorld, key, element, isSplittingXAxis));
+		    ((BinTreeInternalNode<E>) node).setRightChild(this
+			    .removeHelp(((BinTreeInternalNode<E>) node)
+				    .getRightChild(), currentWorld, key,
+				    element, isSplittingXAxis));
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
@@ -221,15 +223,17 @@ public class BinTree2D<K extends Point, E> {
 			.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
 
-		    ((BinTreeInternalNode<E>) node).setLeftChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getLeftChild(),
-			    currentWorld, key, element, isSplittingXAxis));
+		    ((BinTreeInternalNode<E>) node).setLeftChild(this
+			    .removeHelp(((BinTreeInternalNode<E>) node)
+				    .getLeftChild(), currentWorld, key,
+				    element, isSplittingXAxis));
 		} else {
 		    currentWorld.changeToTopHalfBoundingBox();
 
-		    ((BinTreeInternalNode<E>) node).setRightChild(this.removeHelp(
-			    ((BinTreeInternalNode<E>) node).getRightChild(),
-			    currentWorld, key, element, isSplittingXAxis));
+		    ((BinTreeInternalNode<E>) node).setRightChild(this
+			    .removeHelp(((BinTreeInternalNode<E>) node)
+				    .getRightChild(), currentWorld, key,
+				    element, isSplittingXAxis));
 		}
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
@@ -248,35 +252,41 @@ public class BinTree2D<K extends Point, E> {
      * Given a bin tree root node with internal nodes that have exactly one leaf
      * node and one empty node, this method will remove all of these internal
      * node states and replace the internal node with the leaf node recursively.
+     *
      * @param node
      * @return
      */
     BinTreeNode<E> pruneBinTree(BinTreeNode<E> node) {
 	if (node instanceof BinTreeInternalNode<?>) {
-	    if (((BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeEmptyNode<?>
-		    && ((BinTreeInternalNode<E>) node).getRightChild() instanceof BinTreeLeafNode<?, ?>) {
-		// sets the current internal to it's right child leaf node
-		// !!!!! replacedNode needs to be of type BinTreeLeafNode
-		BinTreeNode<E> replacedNode = ((BinTreeInternalNode<E>) node).getRightChild();
-		return replacedNode;
-	    } else if (((BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeLeafNode<?, ?>
-		    && ((BinTreeInternalNode<E>) node).getRightChild() instanceof BinTreeEmptyNode<?>) {
-		// sets the current internal to it's left child leaf node
-		BinTreeNode<E> replacedNode = ((BinTreeInternalNode<E>) node).getLeftChild();
-		return replacedNode;
-	    }
-
+	    // ---------------------traverse the bin tree
 	    // now check if left or right child is an internal node
-	    if (( (BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeInternalNode<?>) {
+	    if (((BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeInternalNode<?>) {
 		((BinTreeInternalNode<E>) node).setLeftChild(this
-			    .pruneBinTree(((BinTreeInternalNode<E>) node)
-				    .getLeftChild()));
+			.pruneBinTree(((BinTreeInternalNode<E>) node)
+				.getLeftChild()));
 	    }
 
 	    if (((BinTreeInternalNode<E>) node).getRightChild() instanceof BinTreeInternalNode<?>) {
 		((BinTreeInternalNode<E>) node).setRightChild(this
-			    .pruneBinTree(((BinTreeInternalNode<E>) node)
-				    .getRightChild()));
+			.pruneBinTree(((BinTreeInternalNode<E>) node)
+				.getRightChild()));
+	    }
+
+	    // ------------------------merge----------------------
+	    if (((BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeEmptyNode<?>
+		    && ((BinTreeInternalNode<E>) node).getRightChild() instanceof BinTreeLeafNode<?, ?>) {
+		// sets the current internal to it's right child leaf node
+		// !!!!! replacedNode needs to be of type BinTreeLeafNode
+		BinTreeNode<E> replacedNode = ((BinTreeInternalNode<E>) node)
+			.getRightChild();
+		return replacedNode;
+	    } else if (((BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeLeafNode<?, ?>
+		    && ((BinTreeInternalNode<E>) node).getRightChild() instanceof BinTreeEmptyNode<?>) {
+		// sets the current internal to it's left child leaf node
+		// !!!!! replacedNode needs to be of type BinTreeLeafNode
+		BinTreeNode<E> replacedNode = ((BinTreeInternalNode<E>) node)
+			.getLeftChild();
+		return replacedNode;
 	    }
 	    return node;
 	}
