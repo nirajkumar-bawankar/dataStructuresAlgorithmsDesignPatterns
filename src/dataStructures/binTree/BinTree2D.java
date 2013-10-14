@@ -193,58 +193,41 @@ public class BinTree2D<K extends Point, E> {
 	if (node instanceof BinTreeEmptyNode<?>) {
 	    return null;
 	} else if (node instanceof BinTreeInternalNode<?>) {
-	    // if this internal node's left and right child are both empty nodes
-	    // then this internal nodes needs to become empty to successfully
-	    // merge it's children
-	    if (((BinTreeInternalNode) node).getLeftChild() instanceof BinTreeEmptyNode<?>
-		    && ((BinTreeInternalNode) node).getRightChild() instanceof BinTreeEmptyNode<?>) {
-		node = this.emptyLeafNodeFlyweight;
-	    } else {
-		if (isSplittingXAxis) {
-		    isSplittingXAxis = false; // so y-axis can be split next
-					      // time
-		    if (key.getX() < currentWorld
-			    .getCurrentMidpointOfBoxAlongXAxis()) {
-			// current node should go to left subtree
-			currentWorld.changeToLeftHalfBoundingBox();
+	    if (isSplittingXAxis) {
+		isSplittingXAxis = false; // so y-axis can be split next
+					  // time
+		if (key.getX() < currentWorld
+			.getCurrentMidpointOfBoxAlongXAxis()) {
+		    // current node should go to left subtree
+		    currentWorld.changeToLeftHalfBoundingBox();
 
-			((BinTreeInternalNode) node).setLeftChild(this
-				.removeHelp(((BinTreeInternalNode<E>) node)
-					.getLeftChild(), currentWorld, key,
-					element, isSplittingXAxis));
+		    ((BinTreeInternalNode) node).setLeftChild(this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, element, isSplittingXAxis));
+		} else { // current node should go to right subtree
+		    currentWorld.changeToRightHalfBoundingBox();
 
-			// TODO:
-		    } else { // current node should go to right subtree
-			currentWorld.changeToRightHalfBoundingBox();
+		    ((BinTreeInternalNode) node).setRightChild(this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, element, isSplittingXAxis));
+		}
+	    } else { // splitting y-axis
+		isSplittingXAxis = true; // so x-axis can be split next time
+		double yMidpoint = currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis();
+		if (key.getY() < currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis()) {
+		    currentWorld.changeToBottomHalfBoundingBox();
 
-			((BinTreeInternalNode) node).setRightChild(this
-				.removeHelp(((BinTreeInternalNode<E>) node)
-					.getRightChild(), currentWorld, key,
-					element, isSplittingXAxis));
-			// TODO:
-		    }
-		} else { // splitting y-axis
-		    isSplittingXAxis = true; // so x-axis can be split next time
-		    double yMidpoint = currentWorld
-			    .getCurrentMidpointOfBoxAlongYAxis();
-		    if (key.getY() < currentWorld
-			    .getCurrentMidpointOfBoxAlongYAxis()) {
-			currentWorld.changeToBottomHalfBoundingBox();
+		    ((BinTreeInternalNode) node).setLeftChild(this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, element, isSplittingXAxis));
+		} else {
+		    currentWorld.changeToTopHalfBoundingBox();
 
-			((BinTreeInternalNode) node).setLeftChild(this
-				.removeHelp(((BinTreeInternalNode<E>) node)
-					.getLeftChild(), currentWorld, key,
-					element, isSplittingXAxis));
-			// TODO:
-		    } else {
-			currentWorld.changeToTopHalfBoundingBox();
-
-			((BinTreeInternalNode) node).setRightChild(this
-				.removeHelp(((BinTreeInternalNode<E>) node)
-					.getRightChild(), currentWorld, key,
-					element, isSplittingXAxis));
-			// TODO:
-		    }
+		    ((BinTreeInternalNode) node).setRightChild(this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, element, isSplittingXAxis));
 		}
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
@@ -254,6 +237,15 @@ public class BinTree2D<K extends Point, E> {
 		return node;
 	    } else {
 		return null;
+	    }
+	} // TODO: somehow the following code needs to be called
+	// before setting the left and right children of an
+	// internal but after removeHelp has executed on the nodes
+	// left or right child
+	else if (node instanceof BinTreeInternalNode<?>) {
+	    if (((BinTreeInternalNode) node).getLeftChild() instanceof BinTreeEmptyNode<?>
+		    && ((BinTreeInternalNode) node).getRightChild() instanceof BinTreeEmptyNode<?>) {
+		node = this.emptyLeafNodeFlyweight;
 	    }
 	}
 	return node;
