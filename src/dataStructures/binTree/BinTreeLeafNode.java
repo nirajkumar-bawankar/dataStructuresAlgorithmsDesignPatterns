@@ -3,16 +3,16 @@ package dataStructures.binTree;
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 12, 2013
- * @param <Key>
+ * @param <K>
  *            A class with an x and y field to be used to efficiently store and
  *            find an Element into the BinTree.
- * @param <Element>
+ * @param <E>
  *            The type to be stored in the BinTree.
  */
-public class BinTreeLeafNode<Key extends Point, Element> extends
-	BinTreeNode<Element> {
-    private Key key;
-    private Element element;
+public class BinTreeLeafNode<K extends Point, E> extends
+	BinTreeNode<E> {
+    private K key;
+    private E element;
 
     /**
      * Create a new BinTreeLeafNode object.
@@ -20,7 +20,7 @@ public class BinTreeLeafNode<Key extends Point, Element> extends
      * @param key
      * @param element
      */
-    public BinTreeLeafNode(Key key, Element element) {
+    public BinTreeLeafNode(K key, E element) {
 	this.key = key;
 	this.element = element;
     }
@@ -28,14 +28,14 @@ public class BinTreeLeafNode<Key extends Point, Element> extends
     /**
      * @return the key stored in this bin tree leaf node
      */
-    public Key getKey() {
+    public K getKey() {
 	return this.key;
     }
 
     /**
      * @return the element stored in this bin tree leaf node.
      */
-    public Element getElement() {
+    public E getElement() {
 	return this.element;
     }
 
@@ -43,7 +43,7 @@ public class BinTreeLeafNode<Key extends Point, Element> extends
      * @param element
      *            the new element being stored in this leaf node.
      */
-    public void setElement(Element element) {
+    public void setElement(E element) {
 	this.element = element;
     }
 

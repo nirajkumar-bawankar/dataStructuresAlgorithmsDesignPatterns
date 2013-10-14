@@ -6,18 +6,18 @@ package dataStructures.binTree;
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 12, 2013
- * @param <Element>
+ * @param <E>
  */
-public class BinTreeInternalNode<Element> extends BinTreeNode<Element> {
+public class BinTreeInternalNode<E> extends BinTreeNode<E> {
     /**
      * Current internal node left child.
      */
-    BinTreeNode<Element> leftChild;
+    BinTreeNode<E> leftChild;
 
     /**
      * Current internal node right child.
      */
-    BinTreeNode<Element> rightChild;
+    BinTreeNode<E> rightChild;
 
     /**
      * Create a new BinTreeInternalNode object with 2 empty bin tree leaf nodes.
@@ -31,7 +31,7 @@ public class BinTreeInternalNode<Element> extends BinTreeNode<Element> {
     /**
      * @return left child node
      */
-    public BinTreeNode<Element> getLeftChild() {
+    public BinTreeNode<E> getLeftChild() {
 	return this.leftChild;
     }
 
@@ -39,14 +39,14 @@ public class BinTreeInternalNode<Element> extends BinTreeNode<Element> {
      * @param leftChild
      *            the new left child node
      */
-    public void setLeftChild(BinTreeNode<Element> leftChild) {
+    public void setLeftChild(BinTreeNode<E> leftChild) {
 	this.leftChild = leftChild;
     }
 
     /**
      * @return left child node
      */
-    public BinTreeNode<Element> getRightChild() {
+    public BinTreeNode<E> getRightChild() {
 	return this.rightChild;
     }
 
@@ -54,7 +54,7 @@ public class BinTreeInternalNode<Element> extends BinTreeNode<Element> {
      * @param rightChild
      *            the new right child node
      */
-    public void setRightChild(BinTreeNode<Element> rightChild) {
+    public void setRightChild(BinTreeNode<E> rightChild) {
 	this.rightChild = rightChild;
     }
 
