@@ -1,5 +1,7 @@
 package dataStructures.binTree;
 
+import java.util.NoSuchElementException;
+
 import dataStructures.binTree.Point;
 
 /**
@@ -65,12 +67,12 @@ public class BinTree2D<K extends Point, E> {
      */
     public void insert(K key, E element) {
 	// world coordinates
-	BoundingBox world = new BoundingBox(new Point(this.minimumXAxis,
+	BoundingBox currentWorld = new BoundingBox(new Point(this.minimumXAxis,
 		this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
 		this.maximumYAxis - this.minimumYAxis);
 
-	this.rootNode = this.insertHelp(this.rootNode, world, key, element,
-		true);
+	this.rootNode = this.insertHelp(this.rootNode, currentWorld, key,
+		element, true);
 	this.size++;
     }
 
@@ -169,13 +171,73 @@ public class BinTree2D<K extends Point, E> {
 	return node;
     }
 
-    public E remove(K key) {
-	// TODO: implement with recursion
+    public E remove(K key, E element) {
+	if (this.find(key, element) == null) {
+	    throw new NoSuchElementException("In class BinTree2D method remove"
+		    + " you cannot remove key: " + key.toString() + " value: "
+		    + element.toString() + " because it does not exist within "
+		    + "your bin tree.");
+	} else { // key value pair exists in bin tree
+	    this.size--;
+	    BoundingBox currentWorld = new BoundingBox(new Point(
+		    this.minimumXAxis, this.minimumYAxis), this.maximumXAxis
+		    - this.minimumXAxis, this.maximumYAxis - this.minimumYAxis);
 
-	// requires that sibling leaf nodes be merged together if they are
-	// empty.
-	// can cause many levels of merging
-	this.size--;
+	    return this.removeHelp(this.rootNode, currentWorld, key, element,
+		    true);
+	}
+    }
+
+    E removeHelp(BinTreeNode<E> node, BoundingBox currentWorld, K key,
+	    E element, boolean isSplittingXAxis) {
+	if (node instanceof BinTreeEmptyNode<?>) {
+	    return null;
+	} else if (node instanceof BinTreeInternalNode<?>) {
+	    if (isSplittingXAxis) {
+		isSplittingXAxis = false; // so y-axis can be split next time
+		if (key.getX() < currentWorld
+			.getCurrentMidpointOfBoxAlongXAxis()) {
+		    // current node should go to left subtree
+		    currentWorld.changeToLeftHalfBoundingBox();
+
+		    return this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		} else { // current node should go to right subtree
+		    currentWorld.changeToRightHalfBoundingBox();
+
+		    return this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		}
+	    } else { // splitting y-axis
+		isSplittingXAxis = true; // so x-axis can be split next time
+		double yMidpoint = currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis();
+		if (key.getY() < currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis()) {
+		    currentWorld.changeToBottomHalfBoundingBox();
+
+		    return this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		} else {
+		    currentWorld.changeToTopHalfBoundingBox();
+
+		    return this.removeHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		}
+	    }
+	} else if (node instanceof BinTreeLeafNode<?, ?>) {
+	    if (element.equals(((BinTreeLeafNode<?, E>) node).getElement())
+		    && key.equals(((BinTreeLeafNode<?, E>) node).getKey())) {
+		node = this.emptyLeafNodeFlyweight;
+		return element;
+	    } else {
+		return null;
+	    }
+	}
 	return null;
     }
 
@@ -238,8 +300,8 @@ public class BinTree2D<K extends Point, E> {
 		}
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
-	    if (element.equals(((BinTreeLeafNode<?, E>) node).getElement()) &&
-		    key.equals(((BinTreeLeafNode<?, E>) node).getKey())) {
+	    if (element.equals(((BinTreeLeafNode<?, E>) node).getElement())
+		    && key.equals(((BinTreeLeafNode<?, E>) node).getKey())) {
 		return element;
 	    } else {
 		return null;

@@ -1,5 +1,7 @@
 package dataStructures.binTree;
 
+import java.util.NoSuchElementException;
+
 import dataStructures.binTree.Point;
 
 /**
@@ -48,7 +50,26 @@ public class BinTree2DTest extends junit.framework.TestCase {
     }
 
     public void test_remove() {
-	// TODO: implement
+	try {
+	    assertNull(this.binTree.remove(new Point(10.0, 45.0), "A"));
+	    fail("should've thrown an exception!");
+	} catch (NoSuchElementException expected) {
+	    assertEquals("In class BinTree2D method remove"
+		    + " you cannot remove key: (x, y) = (10.0, 45.0) "
+		    + "value: A because it does not exist within "
+		    + "your bin tree.", expected.getMessage());
+	}
+
+	this.binTree.insert(new Point(10.0, 45.0), "A");
+	this.binTree.insert(new Point(30.0, 70.0), "B");
+	this.binTree.insert(new Point(52.0, 65.0), "C");
+	this.binTree.insert(new Point(55.0, 90.0), "D");
+
+	assertEquals("A", this.binTree.remove(new Point(10.0, 45.0), "A"));
+	assertEquals(
+		"I\nI\nE\nB 30.0 70.0\nI\nE\nI\nI\nC 52.0 65.0\nD 55.0 90.0\nE",
+		this.binTree.preorderTraversal(this.binTree.getRootNode())
+			.trim());
     }
 
     public void test_removeRandomElement() {
