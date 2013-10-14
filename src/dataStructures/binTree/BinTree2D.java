@@ -362,6 +362,31 @@ public class BinTree2D<K extends Point, E> {
 	return null;
     }
 
+    public void regionSearch(Earthquake earthquake) {
+	// TODO: make sure the adjust coordinates in method call
+	double earthquakeLongitude = earthquake.getLocation().getLongitude();
+	double earthquakeLatitude = earthquake.getLocation().getLatitude();
+	double earthquakeMagnitude = earthquake.getMagnitude();
+
+	double radius = Math.pow(earthquakeMagnitude, 3) * 2;
+	double earthquakeBoundingBoxBottomLeftX = earthquakeLongitude - radius;
+	double earthquakeBoundingBoxBottomLeftY = earthquakeLatitude - radius;
+
+	double width = radius * 2;
+	double height = radius * 2;
+	BoundingBox earthquakeBoundingBox = new BoundingBox(new Point(
+		earthquakeBoundingBoxBottomLeftX,
+		earthquakeBoundingBoxBottomLeftY), width, height);
+
+	BoundingBox currentWorld = new BoundingBox(new Point(this.minimumXAxis,
+		this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
+		this.maximumYAxis - this.minimumYAxis);
+
+	int numberOfCloseByWatchers = this.regionSearchHelp(currentWorld,
+		earthquakeBoundingBox, new Point(earthquakeLongitude,
+			earthquakeLatitude), true);
+    }
+
     /**
      * Assume we want to print out a list of all records that are within a
      * certain distance d of a given point P.
@@ -380,29 +405,13 @@ public class BinTree2D<K extends Point, E> {
      * during a range query is linear on the number of data records that fall
      * within the query circle.
      */
-    public void regionSearch(Earthquake earthquake) {
-	// TODO: make sure the adjust coordinates in method call
-	double earthquakeLongitude = earthquake.getLocation().getLongitude();
-	double earthquakeLatitude = earthquake.getLocation().getLatitude();
-	double earthquakeMagnitude = earthquake.getMagnitude();
-
-	double radius = Math.pow(earthquakeMagnitude, 3) * 2;
-	double earthquakeBoundingBoxBottomLeftX = earthquakeLongitude - radius;
-	double earthquakeBoundingBoxBottomLeftY = earthquakeLatitude - radius;
-
-	double width = radius * 2;
-	double height = radius * 2;
-	BoundingBox earthquakeBoundingBox = new BoundingBox(new Point(
-		earthquakeBoundingBoxBottomLeftX,
-		earthquakeBoundingBoxBottomLeftY), width, height);
-
+    int regionSearchHelp(BoundingBox currentWorld,
+	    BoundingBox earthquakeBoundingBox, Point earthquakePoint, boolean isSplittingXAxis) {
 	// check if region intersects with one or both sides, if both
-	// recursivley call left and right
+	// recursively call left and right
+	if (earthquakeBoundingBox)
 
-    }
-
-    void regionSearchHelp() {
-	// recursive
+	return 1;
     }
 
     boolean isOverlapping(BoundingBox box1, BoundingBox box2) {
@@ -421,8 +430,7 @@ public class BinTree2D<K extends Point, E> {
 	double bSWy = box2.getBottomLeftPoint().getY();
 	double aHeight = box2.getHeight();
 
-	if (aSWx <= bNEx && aNEx >= bSWx && aNEy >= bSWy && aSWy <= bNEy)
-	{
+	if (aSWx <= bNEx && aNEx >= bSWx && aNEy >= bSWy && aSWy <= bNEy) {
 	    isOverlapping = true;
 	}
 	return isOverlapping;

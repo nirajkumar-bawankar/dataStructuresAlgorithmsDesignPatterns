@@ -102,4 +102,26 @@ public class BoundingBox {
     double getHeight() {
 	return this.height;
     }
+
+    public boolean isOverlapping(BoundingBox box1, BoundingBox box2) {
+	boolean isOverlapping = false;
+
+	// all coordinates for box 1
+	double aNEx = box1.getBottomLeftPoint().getX() + box1.getWidth();
+	double aNEy = box1.getBottomLeftPoint().getY() + box1.getHeight();
+	double aSWx = box1.getBottomLeftPoint().getX();
+	double aSWy = box1.getBottomLeftPoint().getY();
+
+	// all coordinates for box 2
+	double bNEx = box2.getBottomLeftPoint().getX() + box2.getWidth();
+	double bNEy = box2.getBottomLeftPoint().getY() + box2.getHeight();
+	double bSWx = box2.getBottomLeftPoint().getX();
+	double bSWy = box2.getBottomLeftPoint().getY();
+	double aHeight = box2.getHeight();
+
+	if (aSWx <= bNEx && aNEx >= bSWx && aNEy >= bSWy && aSWy <= bNEy) {
+	    isOverlapping = true;
+	}
+	return isOverlapping;
+    }
 }

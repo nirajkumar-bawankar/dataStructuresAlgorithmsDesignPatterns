@@ -91,4 +91,28 @@ public class BoundingBoxTest extends junit.framework.TestCase {
 	assertEquals(62.5, this.boundingBox.getCurrentMidpointOfBoxAlongXAxis());
 	assertEquals(62.5, this.boundingBox.getCurrentMidpointOfBoxAlongYAxis());
     }
+
+    public void test_isOverlapping() {
+	// box1 will contain all other boxes
+	BoundingBox box1 = new BoundingBox(new Point(0.0, 0.0), 100.0, 100.0);
+
+	BoundingBox nonoverlappingTopRightBox = new BoundingBox(new Point(
+		101.0, 101.0), 100.0, 100.0);
+
+	// the bin tree's own bounding box will not be used in the isOverlapping
+	// method
+	assertFalse(this.boundingBox.isOverlapping(box1, nonoverlappingTopRightBox));
+
+	// this nonoverlapping rectangle has a x coordinate that is within the
+	// x range of box1, but it's y coordinate is a little too large
+	// to create an overlap
+	BoundingBox nonoverlappingTopRightBox2 = new BoundingBox(new Point(
+		99.0, 101.0), 100.0, 100.0);
+	assertFalse(this.boundingBox
+		.isOverlapping(box1, nonoverlappingTopRightBox2));
+
+	BoundingBox overlappingTopRightBox = new BoundingBox(new Point(99.0,
+		99.0), 100.0, 100.0);
+	assertTrue(this.boundingBox.isOverlapping(box1, overlappingTopRightBox));
+    }
 }
