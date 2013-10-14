@@ -25,4 +25,13 @@ public class PointTest extends junit.framework.TestCase {
 	this.point.setY(4.0);
 	assertEquals("(x, y) = (3.0, 4.0)", this.point.toString());
     }
+
+    public void test_equals() {
+	Point point34 = new Point(3.0, 4.0);
+	Point samePoint = new Point(3.0, 4.0);
+	assertTrue(point34.equals(samePoint));
+
+	Point differentPoint = new Point(3.0, 5.0);
+	assertFalse(point34.equals(differentPoint));
+    }
 }

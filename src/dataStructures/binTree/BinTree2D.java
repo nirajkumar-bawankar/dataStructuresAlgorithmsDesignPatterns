@@ -208,13 +208,13 @@ public class BinTree2D<K extends Point, E> {
 		    // current node should go to left subtree
 		    currentWorld.changeToLeftHalfBoundingBox();
 
-		    this.findHelp(
+		    return this.findHelp(
 			    ((BinTreeInternalNode<E>) node).getLeftChild(),
 			    currentWorld, key, element, isSplittingXAxis);
 		} else { // current node should go to right subtree
 		    currentWorld.changeToRightHalfBoundingBox();
 
-		    this.findHelp(
+		    return this.findHelp(
 			    ((BinTreeInternalNode<E>) node).getRightChild(),
 			    currentWorld, key, element, isSplittingXAxis);
 		}
@@ -226,19 +226,20 @@ public class BinTree2D<K extends Point, E> {
 			.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
 
-		    this.findHelp(
+		    return this.findHelp(
 			    ((BinTreeInternalNode<E>) node).getLeftChild(),
 			    currentWorld, key, element, isSplittingXAxis);
 		} else {
 		    currentWorld.changeToTopHalfBoundingBox();
 
-		    this.findHelp(
+		    return this.findHelp(
 			    ((BinTreeInternalNode<E>) node).getRightChild(),
 			    currentWorld, key, element, isSplittingXAxis);
 		}
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
-	    if (element.equals(((BinTreeLeafNode<?, E>) node).getElement())) {
+	    if (element.equals(((BinTreeLeafNode<?, E>) node).getElement()) &&
+		    key.equals(((BinTreeLeafNode<?, E>) node).getKey())) {
 		return element;
 	    } else {
 		return null;

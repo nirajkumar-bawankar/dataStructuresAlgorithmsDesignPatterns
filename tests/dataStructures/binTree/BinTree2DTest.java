@@ -66,6 +66,15 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	this.binTree.insert(new Point(55.0, 90.0), "D");
 
 	assertEquals("A", this.binTree.find(new Point(10.0, 45.0), "A"));
+	assertEquals("B", this.binTree.find(new Point(30.0, 70.0), "B"));
+
+	// if element is incorrect but key is correct
+	assertNull(this.binTree.find(new Point(52.0, 65.0), "Z"));
+	assertEquals("C", this.binTree.find(new Point(52.0, 65.0), "C"));
+
+	// if key is incorrect but element is correct
+	assertNull(this.binTree.find(new Point(55.0, 91.0), "D"));
+	assertEquals("D", this.binTree.find(new Point(55.0, 90.0), "D"));
     }
 
     public void test_regionSearch() {
