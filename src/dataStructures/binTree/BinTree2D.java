@@ -185,7 +185,7 @@ public class BinTree2D<K extends Point, E> {
 
 	    this.removeHelp(this.rootNode, currentWorld, key, element, true);
 
-	    this.pruneBinTree(this.rootNode);
+	    this.rootNode = this.pruneBinTree(this.rootNode);
 	    return element;
 	}
     }
@@ -258,7 +258,7 @@ public class BinTree2D<K extends Point, E> {
      */
     BinTreeNode<E> pruneBinTree(BinTreeNode<E> node) {
 	if (node instanceof BinTreeInternalNode<?>) {
-	    // ---------------------traverse the bin tree
+	    // ---------------------traverse the bin tree-----------------------
 	    // now check if left or right child is an internal node
 	    if (((BinTreeInternalNode<E>) node).getLeftChild() instanceof BinTreeInternalNode<?>) {
 		((BinTreeInternalNode<E>) node).setLeftChild(this

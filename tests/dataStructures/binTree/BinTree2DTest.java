@@ -86,10 +86,6 @@ public class BinTree2DTest extends junit.framework.TestCase {
 
     }
 
-    public void test_removeRandomElement() {
-	// TODO: implement
-    }
-
     /**
      * First 4 letters are correctly inserted into the correct positions within
      * the bin tree.
