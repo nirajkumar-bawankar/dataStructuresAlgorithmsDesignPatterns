@@ -1,6 +1,5 @@
 package dataStructures.binTree;
 
-import dataStructures.interfaces.DictionaryInterface;
 import dataStructures.binTree.Point;
 
 /**
@@ -20,7 +19,7 @@ import dataStructures.binTree.Point;
  * @param <E>
  *            the item type to be stored in the leaf nodes of the 2D bin tree
  */
-public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> {
+public class BinTree2D<K extends Point, E> {
     /**
      * Create a flyweight leaf node to represent a single empty leaf node since
      * on average, half of the leaf nodes in a BinTree are empty.
@@ -64,7 +63,6 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
     /**
      * Recursive insertion of a new element.
      */
-    @Override
     public void insert(K key, E element) {
 	// world coordinates
 	BoundingBox world = new BoundingBox(new Point(this.minimumXAxis,
@@ -88,15 +86,16 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
      * @param isSplittingXAxis
      * @return a subtree
      */
-    public BinTreeNode<E> insertHelp(BinTreeNode<E> node,
-	    BoundingBox currentWorld, K key, E element, boolean isSplittingXAxis) {
+    BinTreeNode<E> insertHelp(BinTreeNode<E> node, BoundingBox currentWorld,
+	    K key, E element, boolean isSplittingXAxis) {
 	// in a bin tree with many elements
 	if (node instanceof BinTreeEmptyNode) {
 	    return new BinTreeLeafNode<K, E>(key, element);
 	} else if (node instanceof BinTreeInternalNode<?>) {
 	    if (isSplittingXAxis) {
 		isSplittingXAxis = false; // so y-axis can be split next time
-		if (key.getX() < currentWorld.getCurrentMidpointOfBoxAlongXAxis()) {
+		if (key.getX() < currentWorld
+			.getCurrentMidpointOfBoxAlongXAxis()) {
 		    // current node should go to left subtree
 		    currentWorld.changeToLeftHalfBoundingBox();
 
@@ -118,8 +117,10 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
-		double yMidpoint = currentWorld.getCurrentMidpointOfBoxAlongYAxis();
-		if (key.getY() < currentWorld.getCurrentMidpointOfBoxAlongYAxis()) {
+		double yMidpoint = currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis();
+		if (key.getY() < currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
 
 		    ((BinTreeInternalNode<E>) node).setLeftChild(this
@@ -153,9 +154,9 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	    // currentWorldStateDuplicate
 	    double currentWorldX = currentWorld.getBottomLeftPoint().getX();
 	    double currentWorldY = currentWorld.getBottomLeftPoint().getY();
-	    BoundingBox cuurrentWorldStateDuplicate = new BoundingBox(new Point(
-		    currentWorldX, currentWorldY), currentWorld.getWidth(),
-		    currentWorld.getHeight());
+	    BoundingBox cuurrentWorldStateDuplicate = new BoundingBox(
+		    new Point(currentWorldX, currentWorldY),
+		    currentWorld.getWidth(), currentWorld.getHeight());
 
 	    this.insertHelp(node, currentWorld, tempNode.getKey(),
 		    tempNode.getElement(), isSplittingXAxis);
@@ -168,7 +169,6 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	return node;
     }
 
-    @Override
     public E remove(K key) {
 	// TODO: implement with recursion
 
@@ -179,27 +179,71 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	return null;
     }
 
-    @Override
-    public E removeRandomElement() {
-	// TODO Auto-generated method stub
-	this.size--;
-	return null;
+    /**
+     * @param key
+     *            Used to search through the bin tree.
+     * @param element
+     *            The element to find within the bin tree.
+     * @return The element in the bin tree if the given element with the given
+     *         key exists within the bin tree. If the given element does not
+     *         exist within the bin tree return null.
+     */
+    public E find(K key, E element) {
+	BoundingBox world = new BoundingBox(new Point(this.minimumXAxis,
+		this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
+		this.maximumYAxis - this.minimumYAxis);
+
+	return this.findHelp(this.rootNode, world, key, element, true);
     }
 
-    @Override
-    public E find(K key) {
-	// TODO: implement with recursion
+    E findHelp(BinTreeNode<E> node, BoundingBox currentWorld, K key, E element,
+	    boolean isSplittingXAxis) {
+	if (node instanceof BinTreeEmptyNode<?>) {
+	    return null;
+	} else if (node instanceof BinTreeInternalNode<?>) {
+	    if (isSplittingXAxis) {
+		isSplittingXAxis = false; // so y-axis can be split next time
+		if (key.getX() < currentWorld
+			.getCurrentMidpointOfBoxAlongXAxis()) {
+		    // current node should go to left subtree
+		    currentWorld.changeToLeftHalfBoundingBox();
 
-	// pass in the coordinates when the recursive call is made
+		    this.findHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		} else { // current node should go to right subtree
+		    currentWorld.changeToRightHalfBoundingBox();
 
-	// TODO: bintree search operation should visit no more nodes than
-	// neccessary
+		    this.findHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		}
+	    } else { // splitting y-axis
+		isSplittingXAxis = true; // so x-axis can be split next time
+		double yMidpoint = currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis();
+		if (key.getY() < currentWorld
+			.getCurrentMidpointOfBoxAlongYAxis()) {
+		    currentWorld.changeToBottomHalfBoundingBox();
 
-	// is like searching a BST, except that each level of the BinTree is
-	// associated with a particular discriminator.
-	// if the process reaches a null pointer, then that point is not
-	// contained in the tree.
+		    this.findHelp(
+			    ((BinTreeInternalNode<E>) node).getLeftChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		} else {
+		    currentWorld.changeToTopHalfBoundingBox();
 
+		    this.findHelp(
+			    ((BinTreeInternalNode<E>) node).getRightChild(),
+			    currentWorld, key, element, isSplittingXAxis);
+		}
+	    }
+	} else if (node instanceof BinTreeLeafNode<?, ?>) {
+	    if (element.equals(((BinTreeLeafNode<?, E>) node).getElement())) {
+		return element;
+	    } else {
+		return null;
+	    }
+	}
 	return null;
     }
 
@@ -225,13 +269,18 @@ public class BinTree2D<K extends Point, E> implements DictionaryInterface<K, E> 
 	// fall within the query circle.
     }
 
-    @Override
+    /**
+     * Remove all nodes in bin tree and replace root node with empty node
+     * flyweight.
+     */
     public void clear() {
 	this.rootNode = this.emptyLeafNodeFlyweight;
 	this.size = 0;
     }
 
-    @Override
+    /**
+     * @return the number of BinTreeNodes in this bin tree.
+     */
     public int size() {
 	return this.size;
     }

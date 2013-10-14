@@ -4,14 +4,28 @@ import dataStructures.interfaces.BinNodeInterface;
 
 /**
  * @version Oct 2, 2013
+ * @param <Key>
+ *            A unique identifier property of the element to be used to
+ *            efficiently store elements in the binary search tree.
+ * @param <Element>
+ *            The type of element to be stored in this node.
  */
-public class BinarySearchTreeNode<Key, Element> implements BinNodeInterface<Element> {
+public class BinarySearchTreeNode<Key, Element> implements
+	BinNodeInterface<Element> {
     private Key key;
     private Element value;
 
     private BinarySearchTreeNode<Key, Element> leftChild;
     private BinarySearchTreeNode<Key, Element> rightChild;
 
+    /**
+     * Create a new BinarySearchTreeNode object.
+     *
+     * @param key
+     * @param value
+     * @param leftChild
+     * @param rightChild
+     */
     public BinarySearchTreeNode(Key key, Element value,
 	    BinarySearchTreeNode<Key, Element> leftChild,
 	    BinarySearchTreeNode<Key, Element> rightChild) {
@@ -21,10 +35,16 @@ public class BinarySearchTreeNode<Key, Element> implements BinNodeInterface<Elem
 	this.rightChild = rightChild;
     }
 
+    /**
+     * @return The key for this node.
+     */
     public Key getKey() {
 	return this.key;
     }
 
+    /**
+     * @param key The new key for this node.
+     */
     public void setKey(Key key) {
 	this.key = key;
     }
@@ -44,6 +64,9 @@ public class BinarySearchTreeNode<Key, Element> implements BinNodeInterface<Elem
 	return this.leftChild;
     }
 
+    /**
+     * @param leftChild The new left child for this node.
+     */
     public void setLeftChild(BinarySearchTreeNode<Key, Element> leftChild) {
 	this.leftChild = leftChild;
     }
@@ -53,6 +76,9 @@ public class BinarySearchTreeNode<Key, Element> implements BinNodeInterface<Elem
 	return this.rightChild;
     }
 
+    /**
+     * @param rightChild The new right child for this node.
+     */
     public void setRightChild(BinarySearchTreeNode<Key, Element> rightChild) {
 	this.rightChild = rightChild;
     }

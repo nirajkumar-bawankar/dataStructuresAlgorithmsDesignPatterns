@@ -82,14 +82,23 @@ public class BoundingBox {
 	this.height = this.height / 2;
     }
 
+    /**
+     * @return The bottom left point of this bounding box.
+     */
     Point getBottomLeftPoint() {
 	return this.bottomLeft;
     }
 
+    /**
+     * @return The width of this bounding box.
+     */
     double getWidth() {
 	return this.width;
     }
 
+    /**
+     * @return The height of this bounding box.
+     */
     double getHeight() {
 	return this.height;
     }

@@ -55,8 +55,17 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	// TODO: implement
     }
 
+    /**
+     * First 4 letters are correctly inserted into the correct positions within
+     * the bin tree.
+     */
     public void test_find() {
-	// TODO: implement
+	this.binTree.insert(new Point(10.0, 45.0), "A");
+	this.binTree.insert(new Point(30.0, 70.0), "B");
+	this.binTree.insert(new Point(52.0, 65.0), "C");
+	this.binTree.insert(new Point(55.0, 90.0), "D");
+
+	assertEquals("A", this.binTree.find(new Point(10.0, 45.0), "A"));
     }
 
     public void test_regionSearch() {
