@@ -1,5 +1,7 @@
 package dataStructures.binTree;
 
+import realtimeweb.earthquakeservice.domain.Earthquake;
+
 import java.util.NoSuchElementException;
 
 import dataStructures.binTree.Point;
@@ -179,7 +181,8 @@ public class BinTree2D<K extends Point, E> {
 		    this.minimumXAxis, this.minimumYAxis), this.maximumXAxis
 		    - this.minimumXAxis, this.maximumYAxis - this.minimumYAxis);
 
-	    this.removeHelp(this.rootNode, currentWorld, key, element, true);
+	    this.rootNode = this.removeHelp(this.rootNode, currentWorld, key,
+		    element, true);
 	    this.size--;
 
 	    this.rootNode = this.pruneBinTree(this.rootNode);
@@ -359,26 +362,54 @@ public class BinTree2D<K extends Point, E> {
 	return null;
     }
 
-    public void regionSearch() {
-	// TODO: with recursion
+    /**
+     * Assume we want to print out a list of all records that are within a
+     * certain distance d of a given point P.
+     *
+     * Point P is defined to be within distance d of point N if (P_x - N_x)^2 +
+     * (P_y - N_y)^2 <= d^2
+     *
+     * Search proceeds by means of a directed traversal. When we visit a node of
+     * the tree, we only proceed if the bounding box for the search circle
+     * intersects the bounding box for the node if it does not, we stop and
+     * return. If it does intersect an internal node, we visit the node's
+     * children. If it is a leaf node, then we ask whether the data point it
+     * contains is within distance d of the search point.
+     *
+     * Note: In the average case, the number of ideas that must be visited
+     * during a range query is linear on the number of data records that fall
+     * within the query circle.
+     */
+    public void regionSearch(Earthquake earthquake) {
+	// TODO: make sure the adjust coordinates in method call
+	double earthquakeLongitude = earthquake.getLocation().getLongitude();
+	double earthquakeLatitude = earthquake.getLocation().getLatitude();
+	double earthquakeMagnitude = earthquake.getMagnitude();
 
-	// assume we want to print out a list of all records that are within
-	// a certain distance d of a given point P.
+	double radius = Math.pow(earthquakeMagnitude, 3) * 2;
+	double earthquakeBoundingBoxBottomLeftX = earthquakeLongitude - radius;
+	double earthquakeBoundingBoxBottomLeftY = earthquakeLatitude - radius;
 
-	// point P is defined to be within distance d of point N if
-	// (P_x - N_x)^2 + (P_y - N_y)^2 <= d^2
+	double width = radius * 2;
+	double height = radius * 2;
+	BoundingBox earthquakeBoundingBox = new BoundingBox(new Point(
+		earthquakeBoundingBoxBottomLeftX,
+		earthquakeBoundingBoxBottomLeftY), width, height);
 
-	// search proceeds by means of a directed traversal
-	// When we visit a node of the tree, we only proceed if the bounding
-	// box for the search circle intersects the bounding box for the node
-	// If it does not, we stop and return. If it does intersect an internal
-	// node, we visit the node's children. If it is a leaf node, then
-	// we ask whether the data point it contains is within distance d
-	// of the search point.
+	// check if region intersects with one or both sides, if both
+	// recursivley call left and right
 
-	// Note: In the average case, the number of ideas that must be visited
-	// during a range query is linear on the number of data records that
-	// fall within the query circle.
+    }
+
+    void regionSearchHelp() {
+	// recursive
+    }
+
+    boolean isOverlapping(BoundingBox boundingBox1, BoundingBox boundingBox2) {
+	// if overlapping
+	//   return true
+	// else
+	//   return false
     }
 
     /**

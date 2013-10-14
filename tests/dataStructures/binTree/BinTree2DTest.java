@@ -106,6 +106,8 @@ public class BinTree2DTest extends junit.framework.TestCase {
 
     public void test_regionSearch() {
 	// TODO: implement
+
+
     }
 
     public void test_clear() {
