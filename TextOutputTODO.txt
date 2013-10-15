@@ -1,0 +1,38 @@
+TO-DO LIST
+
+1. Attempt first to insert into BST, then to bintree.
+	If name is not in the BST, and the coordinate is not a duplicate:
+		0 add -105.7 -24.3 Riley
+		Riley -105.7 -24.3 is added to the BST
+		Riley -105.7 -24.3 is added to the bintree
+	If name appears:
+		1 add 21.2 -38.6 Taylor
+			Riley -105.7 -24.3 is added to the BST
+			Riley -105.7 -24.3 is added to the bintree
+		1 add 21.2 -38.6 Taylor
+			Taylor duplicates a watcher already in the BST.
+	If name doesn't appear, but coordinate is a duplicate:
+		0 add -105.7 -24.3 Riley
+			Riley -105.7 -24.3 is added to the BST
+			Riley -105.7 -24.3 is added to the bintree
+		8 add -105.7 -24.3 Sean
+			Sean -105.7 -24.3 is added to the BST
+			-105.7 -24.3 duplicates a watcher already in the bintree
+			Sean is removed from the BST
+2. Removing a watcher.
+	If watcher exists:
+		1 add 21.2 -38.6 Taylor
+		8 delete Taylor 
+		Taylor 21.2 -38.6 is removed from the BST
+		Taylor 21.2 -38.6 is removed from the bintree
+	If watcher does not exist.
+		21 delete Notexist
+		Notexist does not appear in the BST
+
+3. Implement "debug" command.
+	Output current state of BST
+	Output current stage of Bintree
+		preorder traversal:
+			Internal nodes = I
+			Empty Nodes = E
+			Data points = Output name and coordinates of point's position
