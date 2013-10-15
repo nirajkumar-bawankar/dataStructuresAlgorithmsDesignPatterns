@@ -357,7 +357,7 @@ public class BinTree2D<K extends Point, E> {
     }
 
     // TODO: remove earthquake and just pass in 3 parameters
-    public void regionSearch(Earthquake earthquake) {
+    public String regionSearch(Earthquake earthquake) {
 	// TODO: make sure the adjust coordinates in method call
 	double earthquakeLongitude = earthquake.getLocation().getLongitude();
 	double earthquakeLatitude = earthquake.getLocation().getLatitude();
@@ -377,9 +377,12 @@ public class BinTree2D<K extends Point, E> {
 		this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
 		this.maximumYAxis - this.minimumYAxis);
 
-	int numberOfCloseByWatchers = this.regionSearchHelp(this.rootNode,
+	int numberOfBinTreeNodesVisited = this.regionSearchHelp(this.rootNode,
 		currentWorld, earthquakeBoundingBox, new Point(
 			earthquakeLongitude, earthquakeLatitude), true);
+
+	return "Watcher search caused " + numberOfBinTreeNodesVisited +
+		" bintree nodes to be visited";
     }
 
     /**

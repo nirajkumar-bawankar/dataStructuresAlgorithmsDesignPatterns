@@ -1,7 +1,11 @@
 package dataStructures.binTree;
 
-import java.util.NoSuchElementException;
+import java.io.PrintStream;
 
+import java.io.ByteArrayOutputStream;
+
+import realtimeweb.earthquakeservice.domain.Coordinate;
+import realtimeweb.earthquakeservice.domain.Earthquake;
 import dataStructures.binTree.Point;
 
 /**
@@ -11,8 +15,13 @@ import dataStructures.binTree.Point;
 public class BinTree2DTest extends junit.framework.TestCase {
     private BinTree2D<Point, String> binTree;
 
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
     public void setUp() {
 	this.binTree = new BinTree2D<Point, String>(0.0, 100.0, 0.0, 100.0);
+
+	// set up stream
+	System.setOut(new PrintStream(outContent));
     }
 
     /**
@@ -105,8 +114,26 @@ public class BinTree2DTest extends junit.framework.TestCase {
     }
 
     public void test_regionSearch() {
-	// TODO: implement
+	// earthquake1 is the very center of the world of the bintree
+	// with a radius of magnitude^3 * 2 = 2^3 * 2 = 16
+	Earthquake earthquake1 = new Earthquake(new Coordinate(50.0, 50.0, 1.0),
+		2.0, "San Fran", 1000, "www.walnutiq.com", 1, 1.0, 2.0, "red",
+		"event", 1, "id", 3.0, 4.0, 5.0);
 
+	this.binTree.regionSearch(earthquake1);
+	assertEquals("Watcher search caused 1 bintree nodes to be visited",
+		this.binTree.regionSearch(earthquake1));
+
+	this.binTree.insert(new Point(10.0, 45.0), "A");
+	assertEquals("Watcher search caused 1 bintree nodes to be visited",
+		this.binTree.regionSearch(earthquake1));
+
+
+
+
+
+	// clean up stream
+	System.setOut(null);
     }
 
     public void test_regionSearchHelp() {
