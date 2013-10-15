@@ -381,8 +381,8 @@ public class BinTree2D<K extends Point, E> {
 		currentWorld, earthquakeBoundingBox, new Point(
 			earthquakeLongitude, earthquakeLatitude), true);
 
-	return "Watcher search caused " + numberOfBinTreeNodesVisited +
-		" bintree nodes to be visited";
+	return "Watcher search caused " + numberOfBinTreeNodesVisited
+		+ " bintree nodes to be visited";
     }
 
     /**
@@ -407,7 +407,11 @@ public class BinTree2D<K extends Point, E> {
 	    BoundingBox earthquakeBoundingBox, Point earthquakePoint,
 	    boolean isSplittingXAxis) {
 	if (node instanceof BinTreeEmptyNode) {
-	    return 1;
+	    if (BoundingBox.isOverlapping(currentWorld, earthquakeBoundingBox)) {
+		return 1;
+	    } else {
+		return 0;
+	    }
 	} else if (node instanceof BinTreeInternalNode<?>) {
 	    if (isSplittingXAxis) {
 		if (BoundingBox.isOverlapping(currentWorld,
@@ -436,6 +440,8 @@ public class BinTree2D<K extends Point, E> {
 					    .getRightChild(), rightWorld,
 				    earthquakeBoundingBox, earthquakePoint,
 				    !isSplittingXAxis);
+		} else {
+		    return 0;
 		}
 	    } else {
 		if (BoundingBox.isOverlapping(currentWorld,
@@ -464,10 +470,22 @@ public class BinTree2D<K extends Point, E> {
 					    .getRightChild(), rightWorld,
 				    earthquakeBoundingBox, earthquakePoint,
 				    !isSplittingXAxis);
+		} else {
+		    return 0;
 		}
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
-	    return 1;
+	    if (BoundingBox.isOverlapping(currentWorld, earthquakeBoundingBox)) {
+		System.out.println(((BinTreeLeafNode<?, E>) node).getElement()
+			.toString()
+			+ " "
+			+ ((BinTreeLeafNode<?, E>) node).getKey().getX()
+			+ " "
+			+ ((BinTreeLeafNode<?, E>) node).getKey().getY());
+		return 1;
+	    } else {
+		return 0;
+	    }
 	}
 	return 0;
     }
