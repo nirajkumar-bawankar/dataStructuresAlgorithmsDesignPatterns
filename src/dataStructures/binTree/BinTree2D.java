@@ -389,8 +389,6 @@ public class BinTree2D<K extends Point, E> {
      * Assume we want to print out a list of all records that are within a
      * certain distance d of a given point P.
      *
-     * Point P is defined to be within distance d of point N if (P_x - N_x)^2 +
-     * (P_y - N_y)^2 <= d^2
      *
      * Search proceeds by means of a directed traversal. When we visit a node of
      * the tree, we only proceed if the bounding box for the search circle
@@ -476,6 +474,9 @@ public class BinTree2D<K extends Point, E> {
 	    }
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
 	    if (BoundingBox.isOverlapping(currentWorld, earthquakeBoundingBox)) {
+
+		// Point P is defined to be within distance d of point N if
+		// (P_x - N_x)^2 + (P_y - N_y)^2 <= d^2
 		System.out.println(((BinTreeLeafNode<?, E>) node).getElement()
 			.toString()
 			+ " "

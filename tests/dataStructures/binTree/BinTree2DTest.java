@@ -143,11 +143,6 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	assertEquals("Watcher search caused 5 bintree nodes to be visited",
 		this.binTree.regionSearch(earthquake1));
 
-	Earthquake earthquake2 = new Earthquake(
-		new Coordinate(55.0, 58.0, 1.0), 1.0, "San Fran", 1000,
-		"www.walnutiq.com", 1, 1.0, 2.0, "red", "event", 1, "id", 3.0,
-		4.0, 5.0);
-
 	// clean up stream
 	System.setOut(null);
     }
