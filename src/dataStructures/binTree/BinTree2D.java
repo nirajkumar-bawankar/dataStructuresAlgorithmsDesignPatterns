@@ -121,8 +121,6 @@ public class BinTree2D<K extends Point, E> {
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
-		double yMidpoint = currentWorld
-			.getCurrentMidpointOfBoxAlongYAxis();
 		if (key.getY() < currentWorld
 			.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
@@ -217,8 +215,6 @@ public class BinTree2D<K extends Point, E> {
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
-		double yMidpoint = currentWorld
-			.getCurrentMidpointOfBoxAlongYAxis();
 		if (key.getY() < currentWorld
 			.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
@@ -334,8 +330,6 @@ public class BinTree2D<K extends Point, E> {
 		}
 	    } else { // splitting y-axis
 		isSplittingXAxis = true; // so x-axis can be split next time
-		double yMidpoint = currentWorld
-			.getCurrentMidpointOfBoxAlongYAxis();
 		if (key.getY() < currentWorld
 			.getCurrentMidpointOfBoxAlongYAxis()) {
 		    currentWorld.changeToBottomHalfBoundingBox();
@@ -362,6 +356,7 @@ public class BinTree2D<K extends Point, E> {
 	return null;
     }
 
+    // TODO: remove earthquake and just pass in 3 parameters
     public void regionSearch(Earthquake earthquake) {
 	// TODO: make sure the adjust coordinates in method call
 	double earthquakeLongitude = earthquake.getLocation().getLongitude();
@@ -382,9 +377,9 @@ public class BinTree2D<K extends Point, E> {
 		this.minimumYAxis), this.maximumXAxis - this.minimumXAxis,
 		this.maximumYAxis - this.minimumYAxis);
 
-	int numberOfCloseByWatchers = this.regionSearchHelp(currentWorld,
-		earthquakeBoundingBox, new Point(earthquakeLongitude,
-			earthquakeLatitude), true);
+	int numberOfCloseByWatchers = this.regionSearchHelp(this.rootNode,
+		currentWorld, earthquakeBoundingBox, new Point(
+			earthquakeLongitude, earthquakeLatitude), true);
     }
 
     /**
@@ -405,13 +400,73 @@ public class BinTree2D<K extends Point, E> {
      * during a range query is linear on the number of data records that fall
      * within the query circle.
      */
-    int regionSearchHelp(BoundingBox currentWorld,
-	    BoundingBox earthquakeBoundingBox, Point earthquakePoint, boolean isSplittingXAxis) {
-	// check if region intersects with one or both sides, if both
-	// recursively call left and right
-	if (earthquakeBoundingBox)
+    int regionSearchHelp(BinTreeNode<E> node, BoundingBox currentWorld,
+	    BoundingBox earthquakeBoundingBox, Point earthquakePoint,
+	    boolean isSplittingXAxis) {
+	if (node instanceof BinTreeEmptyNode) {
+	    return 1;
+	} else if (node instanceof BinTreeInternalNode<?>) {
+	    if (isSplittingXAxis) {
+		if (BoundingBox.isOverlapping(currentWorld,
+			earthquakeBoundingBox)) {
+		    // current node should go to left subtree
+		    double worldX = currentWorld.getBottomLeftPoint().getX();
+		    double worldY = currentWorld.getBottomLeftPoint().getY();
+		    BoundingBox leftWorld = new BoundingBox(new Point(worldX,
+			    worldY), currentWorld.getWidth(),
+			    currentWorld.getHeight());
+		    leftWorld.changeToLeftHalfBoundingBox();
 
-	return 1;
+		    // current node should go to right subtree
+		    BoundingBox rightWorld = new BoundingBox(new Point(worldX,
+			    worldY), currentWorld.getWidth(),
+			    currentWorld.getHeight());
+		    rightWorld.changeToRightHalfBoundingBox();
+
+		    return 1
+			    + this.regionSearchHelp(
+				    ((BinTreeInternalNode) node).getLeftChild(),
+				    leftWorld, earthquakeBoundingBox,
+				    earthquakePoint, !isSplittingXAxis)
+			    + this.regionSearchHelp(
+				    ((BinTreeInternalNode) node)
+					    .getRightChild(), rightWorld,
+				    earthquakeBoundingBox, earthquakePoint,
+				    !isSplittingXAxis);
+		}
+	    } else {
+		if (BoundingBox.isOverlapping(currentWorld,
+			earthquakeBoundingBox)) {
+		    // current node should go to left subtree
+		    double worldX = currentWorld.getBottomLeftPoint().getX();
+		    double worldY = currentWorld.getBottomLeftPoint().getY();
+		    BoundingBox leftWorld = new BoundingBox(new Point(worldX,
+			    worldY), currentWorld.getWidth(),
+			    currentWorld.getHeight());
+		    leftWorld.changeToLeftHalfBoundingBox();
+
+		    // current node should go to right subtree
+		    BoundingBox rightWorld = new BoundingBox(new Point(worldX,
+			    worldY), currentWorld.getWidth(),
+			    currentWorld.getHeight());
+		    rightWorld.changeToRightHalfBoundingBox();
+
+		    return 1
+			    + this.regionSearchHelp(
+				    ((BinTreeInternalNode) node).getLeftChild(),
+				    leftWorld, earthquakeBoundingBox,
+				    earthquakePoint, !isSplittingXAxis)
+			    + this.regionSearchHelp(
+				    ((BinTreeInternalNode) node)
+					    .getRightChild(), rightWorld,
+				    earthquakeBoundingBox, earthquakePoint,
+				    !isSplittingXAxis);
+		}
+	    }
+	} else if (node instanceof BinTreeLeafNode<?, ?>) {
+	    return 1;
+	}
+	return 0;
     }
 
     boolean isOverlapping(BoundingBox box1, BoundingBox box2) {

@@ -103,7 +103,7 @@ public class BoundingBox {
 	return this.height;
     }
 
-    public boolean isOverlapping(BoundingBox box1, BoundingBox box2) {
+    public static boolean isOverlapping(BoundingBox box1, BoundingBox box2) {
 	boolean isOverlapping = false;
 
 	// all coordinates for box 1
