@@ -1,9 +1,6 @@
 package dataStructures.binTree;
 
 import realtimeweb.earthquakeservice.domain.Earthquake;
-
-import java.util.NoSuchElementException;
-
 import dataStructures.binTree.Point;
 
 /**
@@ -16,7 +13,7 @@ import dataStructures.binTree.Point;
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Bintree.html
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 13, 2013
+ * @version Oct 15, 2013
  * @param <K>
  *            a 2 dimensional point type in space such as a (x, y) coordinate
  *            that extends the Point class
@@ -379,7 +376,7 @@ public class BinTree2D<K extends Point, E> {
 
 	int numberOfBinTreeNodesVisited = this.regionSearchHelp(this.rootNode,
 		currentWorld, earthquakeBoundingBox, new Point(
-			earthquakeLongitude, earthquakeLatitude), true);
+			earthquakeLongitude, earthquakeLatitude), radius, true);
 
 	return "Watcher search caused " + numberOfBinTreeNodesVisited
 		+ " bintree nodes to be visited";
@@ -403,7 +400,7 @@ public class BinTree2D<K extends Point, E> {
      */
     int regionSearchHelp(BinTreeNode<E> node, BoundingBox currentWorld,
 	    BoundingBox earthquakeBoundingBox, Point earthquakePoint,
-	    boolean isSplittingXAxis) {
+	    double earthquakeDistance, boolean isSplittingXAxis) {
 	if (node instanceof BinTreeEmptyNode) {
 	    if (BoundingBox.isOverlapping(currentWorld, earthquakeBoundingBox)) {
 		return 1;
@@ -430,14 +427,15 @@ public class BinTree2D<K extends Point, E> {
 
 		    return 1
 			    + this.regionSearchHelp(
-				    ((BinTreeInternalNode) node).getLeftChild(),
+				    ((BinTreeInternalNode<E>) node).getLeftChild(),
 				    leftWorld, earthquakeBoundingBox,
-				    earthquakePoint, !isSplittingXAxis)
+				    earthquakePoint, earthquakeDistance,
+				    !isSplittingXAxis)
 			    + this.regionSearchHelp(
-				    ((BinTreeInternalNode) node)
+				    ((BinTreeInternalNode<E>) node)
 					    .getRightChild(), rightWorld,
 				    earthquakeBoundingBox, earthquakePoint,
-				    !isSplittingXAxis);
+				    earthquakeDistance, !isSplittingXAxis);
 		} else {
 		    return 0;
 		}
@@ -460,14 +458,15 @@ public class BinTree2D<K extends Point, E> {
 
 		    return 1
 			    + this.regionSearchHelp(
-				    ((BinTreeInternalNode) node).getLeftChild(),
+				    ((BinTreeInternalNode<E>) node).getLeftChild(),
 				    leftWorld, earthquakeBoundingBox,
-				    earthquakePoint, !isSplittingXAxis)
+				    earthquakePoint, earthquakeDistance,
+				    !isSplittingXAxis)
 			    + this.regionSearchHelp(
-				    ((BinTreeInternalNode) node)
+				    ((BinTreeInternalNode<E>) node)
 					    .getRightChild(), rightWorld,
 				    earthquakeBoundingBox, earthquakePoint,
-				    !isSplittingXAxis);
+				    earthquakeDistance, !isSplittingXAxis);
 		} else {
 		    return 0;
 		}
@@ -475,15 +474,37 @@ public class BinTree2D<K extends Point, E> {
 	} else if (node instanceof BinTreeLeafNode<?, ?>) {
 	    if (BoundingBox.isOverlapping(currentWorld, earthquakeBoundingBox)) {
 
-		// Point P is defined to be within distance d of point N if
-		// (P_x - N_x)^2 + (P_y - N_y)^2 <= d^2
-		System.out.println(((BinTreeLeafNode<?, E>) node).getElement()
-			.toString()
-			+ " "
-			+ ((BinTreeLeafNode<?, E>) node).getKey().getX()
-			+ " "
-			+ ((BinTreeLeafNode<?, E>) node).getKey().getY());
-		return 1;
+		double distance = earthquakeDistance;
+		double EP_x = earthquakePoint.getX();
+		double EP_y = earthquakePoint.getY();
+		double WP_x = ((BinTreeLeafNode<?, E>) node).getKey().getX();
+		double WP_y = ((BinTreeLeafNode<?, E>) node).getKey().getY();
+		// check to see if the current node parameter is actually
+		// close enough to the earthquakePoint parameter. There is the
+		// possibility that the node's watcher's bounding box will
+		// overlap with the earthquake bounding box but will not
+		// actually be within the earthquake bounding box circle(that
+		// perfectly fits inside of the earthquake bounding box)
+
+		// TODO: earthquakePoint EP is defined to be within distance of
+		// point WP (node's watcher point location) if:
+		// (EP_x - WP_x)^2 + (EP_y - WP_y)^2 <= distance^2
+		double distanceSquared = Math.pow(distance, 2);
+		double leftSideOfEquation = (Math.pow((EP_x - WP_x), 2) + Math
+			.pow((EP_y - WP_y), 2));
+
+		if (leftSideOfEquation <= distanceSquared) {
+		    System.out.println(((BinTreeLeafNode<?, E>) node)
+			    .getElement().toString()
+			    + " "
+			    + ((BinTreeLeafNode<?, E>) node).getKey().getX()
+			    + " "
+			    + ((BinTreeLeafNode<?, E>) node).getKey().getY());
+		} else {
+		    // don't print out information about watcher since
+		    // he/she is not close enough to the earthquake
+		}
+		return 1; // to add to the counter of how many nodes are visited
 	    } else {
 		return 0;
 	    }

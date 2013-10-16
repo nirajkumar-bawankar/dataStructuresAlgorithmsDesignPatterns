@@ -113,11 +113,16 @@ public class BinTree2DTest extends junit.framework.TestCase {
 	assertEquals("D", this.binTree.find(new Point(55.0, 90.0), "D"));
     }
 
+    /**
+     * The magnitude of the earthquake used for testing has purposely been
+     * given a magnitude so large that is will affect all 3 different types of
+     * nodes
+     */
     public void test_regionSearch() {
 	// earthquake1 is the very center of the world of the bintree
 	// with a radius of magnitude^3 * 2 = 2^3 * 2 = 16
 	Earthquake earthquake1 = new Earthquake(
-		new Coordinate(50.0, 50.0, 1.0), 1.0, "San Fran", 1000,
+		new Coordinate(50.0, 50.0, 1.0), 5.0, "San Fran", 1000,
 		"www.walnutiq.com", 1, 1.0, 2.0, "red", "event", 1, "id", 3.0,
 		4.0, 5.0);
 
@@ -132,21 +137,21 @@ public class BinTree2DTest extends junit.framework.TestCase {
 		this.binTree.regionSearch(earthquake1));
 
 	this.binTree.insert(new Point(30.0, 70.0), "B");
-	assertEquals("Watcher search caused 4 bintree nodes to be visited",
-		this.binTree.regionSearch(earthquake1));
-
-	this.binTree.insert(new Point(52.0, 65.0), "C");
-	assertEquals("Watcher search caused 4 bintree nodes to be visited",
-		this.binTree.regionSearch(earthquake1));
-
-	this.binTree.insert(new Point(55.0, 90.0), "D");
 	assertEquals("Watcher search caused 5 bintree nodes to be visited",
 		this.binTree.regionSearch(earthquake1));
 
-	// clean up stream
-	System.setOut(null);
+	this.binTree.insert(new Point(52.0, 65.0), "C");
+	assertEquals("Watcher search caused 5 bintree nodes to be visited",
+		this.binTree.regionSearch(earthquake1));
+
+	this.binTree.insert(new Point(55.0, 90.0), "D");
+	assertEquals("Watcher search caused 11 bintree nodes to be visited",
+		this.binTree.regionSearch(earthquake1));
     }
 
+    /**
+     * Testing this method with sample input and output
+     */
     public void test_regionSearchHelp() {
 
     }
