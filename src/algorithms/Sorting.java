@@ -1,11 +1,13 @@
 package algorithms;
 
+import dataStructures.MaxHeap;
+
 /**
- * Sorting algorithms need to primarily compared by both number of comparisons
- * done and number of swaps done to create a sorted array.
+ * Implementations of the most common sorting algorithms commented with the pros
+ * and cons of each algorithm.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
- * @version Oct 5, 2013
+ * @version Oct 17, 2013
  */
 public class Sorting {
 
@@ -172,5 +174,28 @@ public class Sorting {
      */
     public static void quickSort() {
 	// TODO: implement
+    }
+
+    /**
+     * Time complexities: Best Case = O(n * log n) Average Case = O(n * log n)
+     * Worst Case = O(n * log n)
+     *
+     * Use this sorting algorithm when: 1) sorting large data sets too large to
+     * fit in main memory. 2) if you specifically only want to find the K
+     * greatest/ least elements in an array takes O(n + K * log n) where n is
+     * the total number of elements. 3) when implementing Kruskal's minimal cost
+     * spanning tree. *
+     *
+     * To learn more about heap sort visit:
+     * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Heapsort.html
+     */
+    public static void heapSort(Comparable[] array) {
+	//MaxHeap maxHeap = new MaxHeap(array, array.length, array.length);
+
+	for (int i = 0; i < array.length; i++) {
+	    //maxHeap.removeMaximumValue(); // remove maximum places the maximum
+	    // value in the array based max heap in at the correct position in
+	    // the end of the heap
+	}
     }
 }
