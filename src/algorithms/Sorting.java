@@ -4,7 +4,10 @@ import dataStructures.MaxHeap;
 
 /**
  * Implementations of the most common sorting algorithms commented with the pros
- * and cons of each algorithm.
+ * and cons of each algorithm. Each sorting algorithm has been implemented with
+ * the easiest way to understand the algorithm. Refer to the links in each
+ * algorithm's header for suggestions for optimizing the algorithm and code
+ * tuneing.
  *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 17, 2013
@@ -50,6 +53,9 @@ public class Sorting {
      *
      * To learn more about insertion sort visit:
      * http://algoviz.org/OpenDSA/Books/CS3114PM/html/SelectionSort.html
+     *
+     * @param array
+     *            unsorted array to be sorted
      */
     public static void selectionSort(Comparable[] array) {
 	for (int i = 0; i < (array.length - 1); i++) {
@@ -65,6 +71,16 @@ public class Sorting {
 	}
     }
 
+    /**
+     * Move the element initially stored at index1 of array into index2 of
+     * array. Move the element initially stored at index2 of array into index1
+     * of array.
+     *
+     * @param array
+     *            The array with 2 elements to be swapped.
+     * @param index1
+     * @param index2
+     */
     static void swap(Comparable[] array, int index1, int index2) {
 	checkIfValidIndex(index1, array.length);
 	checkIfValidIndex(index2, array.length);
@@ -174,6 +190,10 @@ public class Sorting {
      */
     public static void quickSort() {
 	// TODO: implement
+
+	// when subarrays reach a size of 9 or fewer elements, leave them
+	// unordered and call insertion sort on the nearly sorted array to
+	// optimize
     }
 
     /**
@@ -184,18 +204,24 @@ public class Sorting {
      * fit in main memory. 2) if you specifically only want to find the K
      * greatest/ least elements in an array takes O(n + K * log n) where n is
      * the total number of elements. 3) when implementing Kruskal's minimal cost
-     * spanning tree. *
+     * spanning tree.
      *
      * To learn more about heap sort visit:
      * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Heapsort.html
      */
     public static void heapSort(Comparable[] array) {
-	//MaxHeap maxHeap = new MaxHeap(array, array.length, array.length);
+	// MaxHeap maxHeap = new MaxHeap(array, array.length, array.length);
 
 	for (int i = 0; i < array.length; i++) {
-	    //maxHeap.removeMaximumValue(); // remove maximum places the maximum
+	    // maxHeap.removeMaximumValue(); // remove maximum places the
+	    // maximum
 	    // value in the array based max heap in at the correct position in
 	    // the end of the heap
 	}
+    }
+
+    // TODO:
+    public static void binSort(Integer[] array) {
+
     }
 }
