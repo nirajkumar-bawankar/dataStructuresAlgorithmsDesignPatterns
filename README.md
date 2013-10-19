@@ -8,12 +8,19 @@ This repository hold common data structures and algorithms I have implemented. E
     + Factorial.java
     + Fibonacci.java
     + Sorting.java
+        - insertionSort
+        - selectionSort
+        - mergeSort
+        - TODO: quickSort
+        - TODO: heapSort
+        - TODO: binSort
     + TowerOfHanoi.java
     + TODO: BreathFirstSearch
     + TODO: DepthFirstSearch
 
 - src/dataStructures
     + arrayLists
+    + binTree
     + binarySearchTree
     + interfaces
     + linkedList
@@ -26,8 +33,8 @@ This repository hold common data structures and algorithms I have implemented. E
     + KeyValuePair.java
     + LinkedQueue.java
     + MaxHeap.java
+    + PeekingIterator.java
     + TODO: CircularLinkedQueue
-    + TODO: BinTree
     + TODO: Treap
     
 - src/designPatterns
