@@ -52,6 +52,14 @@ public class SortingTest extends junit.framework.TestCase {
 	    assertEquals(this.numberOfStudents + i, this.students[i].getID());
 	}
     }
+
+    public void test_heapSort() {
+	Sorting.heapSort(this.students);
+
+	for (int i = 0; i < this.students.length; i++) {
+	    assertEquals(this.numberOfStudents + i, this.students[i].getID());
+	}
+    }
 }
 
 class Student implements Comparable {

@@ -210,13 +210,12 @@ public class Sorting {
      * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Heapsort.html
      */
     public static void heapSort(Comparable[] array) {
-	// MaxHeap maxHeap = new MaxHeap(array, array.length, array.length);
+	MaxHeap maxHeap = new MaxHeap(array, array.length, array.length);
 
 	for (int i = 0; i < array.length; i++) {
-	    // maxHeap.removeMaximumValue(); // remove maximum places the
-	    // maximum
-	    // value in the array based max heap in at the correct position in
-	    // the end of the heap
+	    maxHeap.removeMaximumValue(); // remove maximum places the
+	    // maximum value in the array based max heap in at the correct
+	    // position in the end of the heap
 	}
     }
 

@@ -11,9 +11,8 @@ This repository hold common data structures and algorithms I have implemented. E
         - insertionSort
         - selectionSort
         - mergeSort
+        - heapSort
         - TODO: quickSort
-        - TODO: heapSort
-        - TODO: binSort
     + TowerOfHanoi.java
     + TODO: BreathFirstSearch
     + TODO: DepthFirstSearch
@@ -36,9 +35,10 @@ This repository hold common data structures and algorithms I have implemented. E
     + PeekingIterator.java
     + TODO: CircularLinkedQueue
     + TODO: Treap
+    + TODO: PlaceQueueInC
     
 - src/designPatterns
-    + flyweight
+    + flyweight TODO: comment
     + strategy
     + visitor
     + TODO: composite
