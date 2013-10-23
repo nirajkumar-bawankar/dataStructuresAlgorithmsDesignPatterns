@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////// PlaceDT type
 //  PlaceDT provides a "wrapper" to attach a user data object of type
 //  Place to a queue node.
-// 
+//
 //  Warning: the PlaceQueue implementation receives pointers to user
 //  data (Place) objects, and it does not make copies of those objects.
 //  Therefore, the user of this code must ensure that the Place objects
@@ -29,7 +29,7 @@ typedef struct _PlaceDT PlaceDT;
  *             pPlace points to a properly-initialized Place object
  *   Post:     pPlaceDT->pItem == pPlace
  *             The pointers in pPlaceDT->Node are NULL
- *   Returns:  false if the object could not be properly initialized; 
+ *   Returns:  false if the object could not be properly initialized;
  *             true otherwise
  *   Note:     Whether *pPlace was allocated dynamically or statically
  *             is unknown.  *pPlace is owned by the client who uses
@@ -43,7 +43,7 @@ bool PlaceDT_Set(PlaceDT* const pPlaceDT, Place* pPlace);
 //////////////////////////////////////////////////////////// PlaceQueue type
 //  PlaceQueue provides the means to create and manipulate a queue of Place
 //  objects (e.g., for implementing a "bucket list").
-// 
+//
 //  Warning: the PlaceQueue implementation receives pointers to user
 //  data (Place) objects, and it does not make copies of those objects.
 //  Therefore, the user of this code must ensure that the Place objects
@@ -96,7 +96,7 @@ Place* PlaceQueue_Visit(PlaceQueue* const pPQ);
  *   Pre:      pPQ points to a proper PlaceQueue object
  *             pPlace points to a proper Place object
  *   Post:     *pPQ and *pPlace are unchanged
- *   Returns:  true if the queue contains a Place object that matches 
+ *   Returns:  true if the queue contains a Place object that matches
  *             *pPlace, according to Place_Equals();
  *             false otherwise
  *  Called by: unknown client code that uses a PlaceQueue object

@@ -3,22 +3,6 @@
 #include <stdio.h>
 #include "PlaceQueue.h"
 
-// On my honor:
-//
-// - I have not discussed the C language code in my program with
-// anyone other than my instructor or the teaching assistants
-// assigned to this course.
-//
-// - I have not used C language code obtained from another student,
-// or any other unauthorized source, either modified or unmodified.
-//
-// - If any C language code or documentation used in my program
-// was obtained from another source, such as a text book or course
-// notes, that has been clearly noted with a proper citation in
-// the comments of my program.
-//
-// Huanqing Liu
-
 /**  PlaceDT_Set() initializes a new PlaceDT object.
  *   Pre:      pPlaceDT points to a PlaceDT object
  *             pPlace points to a properly-initialized Place object
@@ -131,4 +115,3 @@ Place* PlaceQueue_Visit(PlaceQueue* const pPQ) {
  */bool PlaceQueue_Empty(const PlaceQueue* const pPQ) {
 	return Queue_Empty(&(pPQ->Q));
 }
-

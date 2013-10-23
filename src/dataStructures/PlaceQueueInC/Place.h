@@ -11,7 +11,7 @@
 /**  Every properly initialized Place object must satisfy the following conditions:
  *
  *    1.  Each array is a zero-terminated ASCII strings.
- *    2.  Each array is of the minimum dimension to store its contents. 
+ *    2.  Each array is of the minimum dimension to store its contents.
  *    3.  FID is initialized
  */
 struct _Place {

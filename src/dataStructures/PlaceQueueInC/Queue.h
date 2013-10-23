@@ -1,13 +1,13 @@
 #ifndef QUEUE_H
-#define QUEUE_H	
+#define QUEUE_H
 #include <stddef.h>
 #include <stdbool.h>
 
 /* Our queues have two Guard elements: fGuard just before the first
    interior element (if any) and rGuard just after the last interior
-   element (if any).  
+   element (if any).
 
-   The 'prev' link of the front guard is NULL, as is the 'next' link of the 
+   The 'prev' link of the front guard is NULL, as is the 'next' link of the
    rear guard.  Their other two links point toward each other (directly, or
    via the interior elements of the queue).
 
@@ -24,18 +24,18 @@
            +------------+     +-------+     +-------+     +-----------+
 
    The symmetry of this arrangement eliminates lots of special cases in queue
-   processing.  
+   processing.
 
-   (Because only one of the pointers in each guard element is used, we could 
-   in fact combine them into a single header element without sacrificing this 
-   simplicity.  But using two separate elements allows us to do a little bit 
-   of checking on some operations, which can be valuable.) 
+   (Because only one of the pointers in each guard element is used, we could
+   in fact combine them into a single header element without sacrificing this
+   simplicity.  But using two separate elements allows us to do a little bit
+   of checking on some operations, which can be valuable.)
 
    This implementation of a queue does not require use of dynamically allocated
    memory.  Instead, each structure that is a potential list element must embed
-   a QNode member.  All of the list functions operate on these QNodes.  
+   a QNode member.  All of the list functions operate on these QNodes.
 
-   The QList_Entry macro allows conversion from a QNode back to a structure object 
+   The QList_Entry macro allows conversion from a QNode back to a structure object
    that contains it.
 
    For example, suppose there is a need for a queue of 'struct Widget'.
@@ -53,7 +53,7 @@
 
       Queue_Init(&Widget_Q);
 
-   Retrieval is a typical situation where it is necessary to convert from a 
+   Retrieval is a typical situation where it is necessary to convert from a
    QNode back to its enclosing structure.  Here's an example using Widget_Q:
 
       QNode *e = Queue_Pop(Widget_Q);
@@ -61,14 +61,14 @@
       struct Widget *f = Queue_Entry(e, struct Widget, node);
       // now, do something with f...
 
-   The interface for this queue is inspired by the queue<> template in the C++ 
-   STL.  If you're familiar with queue<>, you should find this easy to use.  
-   However, it should be emphasized that these queues do *no* type checking and 
+   The interface for this queue is inspired by the queue<> template in the C++
+   STL.  If you're familiar with queue<>, you should find this easy to use.
+   However, it should be emphasized that these queues do *no* type checking and
    can't do much other correctness checking.  If you screw up, it will bite you.
 
    Glossary of Queue terms:
 
-     - "interior element": An element that is not the head or tail, that is, a 
+     - "interior element": An element that is not the head or tail, that is, a
                real queue element.  An empty queue does not have any interior elements.
 
      - "front": The first interior element in a queue.  Undefined in an empty queue.
@@ -78,7 +78,7 @@
                Returned by Queue_Back().
 
      - "end":  The element figuratively just after the last interior element of a queue;
-               i.e., the rear guard.  
+               i.e., the rear guard.
                Well-defined even in an empty queue.
                Returned by Queue_End().
 */
@@ -103,9 +103,9 @@ typedef struct _Queue Queue;
 // Queue_Entry() is a useful macro; there is a full discussion of a similar
 // macro for a generic doubly-linked list implementation in the CS 2505 notes.
 // Converts pointer to queue element NODE into a pointer to the structure that
-// NODE is embedded inside.  Supply the name of the outer structure STRUCT and 
+// NODE is embedded inside.  Supply the name of the outer structure STRUCT and
 // the member name MEMBER of the NODE.  See the big comment at the top of the
-// file for an example. 
+// file for an example.
 
 #define Queue_Entry(NODE, STRUCT, MEMBER)                              \
         ((STRUCT *) ((uint8_t *) (NODE) - offsetof (STRUCT, MEMBER)))
@@ -169,4 +169,3 @@ QNode* const Queue_Back(const Queue* const pQ);
 const QNode* const Queue_End(const Queue* const pQ);
 
 #endif
-
