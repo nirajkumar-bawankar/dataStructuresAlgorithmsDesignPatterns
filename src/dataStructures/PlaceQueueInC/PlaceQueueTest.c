@@ -1,4 +1,4 @@
-/* Tests Place.c method implementations */
+/* Tests PlaceQueue.c method implementations */
 #include <stdio.h>
 #include <stdlib.h>
 #include "PlaceQueue.h"
