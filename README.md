@@ -3,45 +3,28 @@ DataStructuresAlgorithmsDesignPatterns
 
 This repository hold common data structures and algorithms I have implemented. Enjoy!
 
-- src/algorithms
-    + BinarySearch.java
-    + Factorial.java
-    + Fibonacci.java
-    + Sorting.java
-        - insertionSort
-        - selectionSort
-        - mergeSort
-        - heapSort
-        - TODO: quickSort
-    + TowerOfHanoi.java
-    + TODO: BreathFirstSearch
-    + TODO: DepthFirstSearch
 
-- src/dataStructures
-    + arrayLists
-    + binTree
-    + binarySearchTree
-    + interfaces
-    + linkedList
-    + linkedQueueInC
-    + linkedStackInC++
-    + polynomialInC
-    + rationalInC
-    + stacks
-    + Bag.java
-    + KeyValuePair.java
-    + LinkedQueue.java
-    + MaxHeap.java
-    + PeekingIterator.java
-    + TODO: CircularLinkedQueue
-    + TODO: Treap
-    + TODO: PlaceQueueInC
-    
-- src/designPatterns
-    + flyweight TODO: comment
-    + strategy
-    + visitor
-    + TODO: composite
+
+|- src/algorithms              |- src/dataStructures             |- src/designPatterns          |
+|------------------------------|:-------------------------------:|-----------------------------:|
+|   + BinarySearch.java        |   + arrayLists                  |   + flyweight TODO: comment  |
+|   + Factorial.java           |   + binTree                     |   + strategy                 |
+|   + Fibonacci.java           |   + binarySearchTree            |   + visitor                  |
+|   + Sorting.java             |   + interfaces                  |   + TODO: composite          |
+|       - insertionSort        |   + linkedList                  |
+|       - selectionSort        |   + linkedQueueInC              |  
+|       - mergeSort            |   + linkedStackInC++            |    
+|       - heapSort             |   + polynomialInC               | 
+|       - TODO: quickSort      |   + rationalInC                 | 
+|   + TowerOfHanoi.java        |   + stacks                      | 
+|   + TODO: BreathFirstSearch  |   + Bag.java                    |
+|   + TODO: DepthFirstSearch   |   + KeyValuePair.java           |     
+                               | + LinkedQueue.java              |  
+                               |    + MaxHeap.java               | 
+                               |    + PeekingIterator.java       |         
+                               |    + TODO: CircularLinkedQueue  |              
+                               |    + TODO: Treap                | 
+                               |    + TODO: PlaceQueueInC        |        
 
 ===============================================
 e-mail me at quinnliu@vt.edu for any questions!
