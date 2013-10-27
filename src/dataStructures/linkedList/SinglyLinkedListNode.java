@@ -1,5 +1,6 @@
 package dataStructures.linkedList;
 
+
 /**
  * To view an interactive web page about linked list implementation visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/ListArray.html

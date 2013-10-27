@@ -1,7 +1,4 @@
 package dataStructures.linkedList;
-
-import dataStructures.linkedList.SinglyLinkedList;
-
 /**
  * Tests all logic within class SinglyLinkedList.
  *
@@ -46,11 +43,17 @@ public class SinglyLinkedListTest extends junit.framework.TestCase {
 	this.linkedList.append(3);
 	assertEquals("< | 0 1 2 3 >", this.linkedList.toString());
 	this.linkedList.remove();
-	assertEquals("< | 0 2 3 >", this.linkedList.toString());
+	assertEquals("< | 1 2 3 >", this.linkedList.toString());
 
 	this.linkedList.remove();
+	assertEquals("< | 2 3 >", this.linkedList.toString());
+
 	this.linkedList.remove();
+	assertEquals("< | 3 >", this.linkedList.toString());
+
 	this.linkedList.remove();
+	assertEquals("< | >", this.linkedList.toString());
+
 	assertNull(this.linkedList.remove());
     }
 
@@ -112,13 +115,22 @@ public class SinglyLinkedListTest extends junit.framework.TestCase {
     public void test_currentPosition() {
 	this.linkedList.insert(1);
 	this.linkedList.insert(2);
+	this.linkedList.insert(3);
 	assertEquals(0, this.linkedList.currentPosition());
 	this.linkedList.next();
 	assertEquals(1, this.linkedList.currentPosition());
 	this.linkedList.next();
 	assertEquals(2, this.linkedList.currentPosition());
+	this.linkedList.next();
+	assertEquals(3, this.linkedList.currentPosition());
+
+	// cannot move to the next position since position 2 holds the inserted
+	// element 3
+	this.linkedList.next();
+	assertEquals(3, this.linkedList.currentPosition());
+
 	this.linkedList.previous();
-	assertEquals(1, this.linkedList.currentPosition());
+	assertEquals(2, this.linkedList.currentPosition());
     }
 
     /**
@@ -165,9 +177,11 @@ public class SinglyLinkedListTest extends junit.framework.TestCase {
 	assertEquals(-1, this.linkedList.findValuePosition(2));
 	this.linkedList.insert(2); // position 1
 	this.linkedList.insert(3); // position 0
+	assertEquals("< | 3 2 1 >", this.linkedList.toString());
 	assertEquals(2, this.linkedList.findValuePosition(1));
 	assertEquals(1, this.linkedList.findValuePosition(2));
 	assertEquals(0, this.linkedList.findValuePosition(3));
+	assertEquals(-1, this.linkedList.findValuePosition(4));
     }
 
     /**

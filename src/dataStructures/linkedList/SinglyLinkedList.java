@@ -1,16 +1,15 @@
 package dataStructures.linkedList;
 
+import dataStructures.interfaces.ListInterface;
 
 import dataStructures.interfaces.ListIteratorInterface;
 
-import dataStructures.interfaces.ListInterface;
-
 /**
  * If you have a good idea of how many elements will be in your list that does
- * not change very much you should instead use an array based linked
- * list. On the other hand, if you have no idea how many elements you will add
- * to your list and removed from your list use a linked list of nodes as
- * implemented in this file.
+ * not change very much you should instead use an array based linked list. On
+ * the other hand, if you have no idea how many elements you will add to your
+ * list and removed from your list use a linked list of nodes as implemented in
+ * this file.
  *
  * To view an interactive web page about linked list implementation visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/ListArray.html
@@ -19,7 +18,8 @@ import dataStructures.interfaces.ListInterface;
  * @version Sep 12, 2013
  * @param <E>
  */
-public class SinglyLinkedList<E> implements ListInterface<E>, ListIteratorInterface<E> {
+public class SinglyLinkedList<E> implements ListInterface<E>,
+	ListIteratorInterface<E> {
     private SinglyLinkedListNode<E> head;
     private SinglyLinkedListNode<E> tail;
     private SinglyLinkedListNode<E> currentNode;
@@ -29,14 +29,15 @@ public class SinglyLinkedList<E> implements ListInterface<E>, ListIteratorInterf
      * Create a new SinglyLinkedList object.
      */
     public SinglyLinkedList() {
-	this.head = this.tail = this.currentNode = new SinglyLinkedListNode<E>(null, null);
+	this.head = this.tail = this.currentNode = new SinglyLinkedListNode<E>(
+		null, null);
 	this.size = 0;
     }
 
     @Override
     public void insert(E item) {
-	this.currentNode.setNextNode(new SinglyLinkedListNode<E>(this.currentNode.getValue(),
-		this.currentNode.getNextNode()));
+	this.currentNode.setNextNode(new SinglyLinkedListNode<E>(
+		this.currentNode.getValue(), this.currentNode.getNextNode()));
 	this.currentNode.setValue(item);
 
 	if (this.tail == this.currentNode) {
@@ -58,17 +59,19 @@ public class SinglyLinkedList<E> implements ListInterface<E>, ListIteratorInterf
 
     @Override
     public E remove() {
-	if (this.currentNode.getNextNode() == null) {
+	if (this.currentNode == this.tail) {
 	    // nothing to remove
 	    return null;
 	}
 
 	// save value before deleting to be returned at end of method
-	E item = this.currentNode.getNextNode().getValue();
+	E item = this.currentNode.getValue();
 
-	// in the case where the node to be removed is immediately
-	// before the tail node
-	if (this.tail == this.currentNode.getNextNode()) {
+	// pull forward the next element
+	this.currentNode.setValue(this.currentNode.getNextNode().getValue());
+
+	// removed last, move tail
+	if (this.currentNode.getNextNode() == this.tail) {
 	    this.tail = this.currentNode;
 	}
 
@@ -82,7 +85,8 @@ public class SinglyLinkedList<E> implements ListInterface<E>, ListIteratorInterf
     @Override
     public void clear() {
 	this.head.setNextNode(null);
-	this.currentNode = this.tail = this.head = new SinglyLinkedListNode<E>(null, null);
+	this.currentNode = this.tail = this.head = new SinglyLinkedListNode<E>(
+		null, null);
 	this.size = 0;
     }
 
@@ -152,9 +156,6 @@ public class SinglyLinkedList<E> implements ListInterface<E>, ListIteratorInterf
 
     @Override
     public E getValue() {
-	if (this.currentNode.getNextNode() == null) {
-	    return null;
-	}
 	return this.currentNode.getValue();
     }
 
@@ -175,14 +176,15 @@ public class SinglyLinkedList<E> implements ListInterface<E>, ListIteratorInterf
 	// begin searching for item within the linked list from the beginning
 	this.moveToStart();
 
-	do {
-	    if (this.getValue() == item) {
+	while (this.currentNode != this.tail) {
+	    if (this.currentNode.getValue().equals(item)) {
 		this.moveCurrentToPosition(currentPosition);
 		return foundValuePosition;
 	    } else {
 		foundValuePosition++;
+		this.currentNode = this.currentNode.getNextNode();
 	    }
-	} while (this.next() != false);
+	}
 
 	this.moveCurrentToPosition(currentPosition);
 	return -1;
