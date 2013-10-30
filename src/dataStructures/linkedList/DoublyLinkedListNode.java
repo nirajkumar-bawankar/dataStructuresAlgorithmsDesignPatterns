@@ -1,5 +1,4 @@
 package dataStructures.linkedList;
-
 /**
  * To view an interactive web page about doubly linked list node implementation
  * visit: http://algoviz.org/OpenDSA/Books/CS3114PM/html/ListDouble.html

@@ -1,6 +1,5 @@
 package dataStructures.linkedList;
 
-
 import dataStructures.interfaces.ListIteratorInterface;
 
 import dataStructures.interfaces.ListInterface;
@@ -148,6 +147,49 @@ public class DoublyLinkedList<E> implements ListInterface<E>, ListIteratorInterf
 	} else {
 	    return this.currentNode.getNextNode().getValue();
 	}
+    }
+
+    /**
+     * @param item
+     *            Item to be found within linked list.
+     * @return Correct position within linked list or -1 if value is not found
+     *         within linked list.
+     */
+    public int findValuePosition(E item) {
+	// move the current position of the linked list back to the original
+	// position before this method was called
+	int currentPosition = this.currentPosition();
+
+	// counter to track where the found value is within the linked list
+	int foundValuePosition = 0;
+
+	// begin searching for item within the linked list from the beginning
+	this.moveToStart();
+	this.next();
+
+	while (this.currentNode != this.tail) {
+	    if (this.currentNode.getValue().equals(item)) {
+		this.moveCurrentToPosition(currentPosition);
+		return foundValuePosition;
+	    } else {
+		foundValuePosition++;
+		this.currentNode = this.currentNode.getNextNode();
+	    }
+	}
+
+	this.moveCurrentToPosition(currentPosition);
+	return -1;
+    }
+
+    /**
+     * This method can only be in constant time for a DoublyLinkedList.
+     */
+    public void moveCurrentNodeValueToLastNodeValue() {
+	E currentNodeValue = this.currentNode.getValue();
+	E lastNodeValue = this.tail.getPreviousNode().getValue();
+
+	this.tail.getPreviousNode().setValue(currentNodeValue);
+	this.currentNode.setValue(lastNodeValue);
     }
 
     /**
