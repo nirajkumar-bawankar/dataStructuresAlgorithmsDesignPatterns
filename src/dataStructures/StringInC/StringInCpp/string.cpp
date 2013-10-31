@@ -9,8 +9,8 @@
 // Default constructor for this class. Initializes an empty string.
 string::string() {
 	this->numberOfChars = 0;
-	this->charArray = new char[this->numberOfChars + 1]; // make room for terminating char '\0'
-	this->charArray[this->numberOfChars] = '\0';
+	this->charArray = new char[1]; // make room for terminating char '\0'
+	this->charArray[0] = '\0';
 }
 
 // Constructor for String class. Initializes a string based on the given C string.
@@ -40,7 +40,7 @@ string::string(const string& string) {
 }
 
 // Sets this string equal to another.
-//The contents of the string should be copied over to this string.
+// The contents of the string should be copied over to this string.
 string& string::operator=(const string& string) {
 	this->string(string);
 	return *this;
@@ -77,8 +77,7 @@ const char& string::operator[](int index) const {
 	if (index >= 0 && index < this->numberOfChars) {
 		return this->charArray[index];
 	} else {
-		// return out_of_range; TODO: fix
-		return 'z';
+		throw out_of_range();
 	}
 }
 
@@ -100,11 +99,11 @@ int string::length() const {
 // Copies the C string in the second argument into the first argument,
 // including the null terminator.
 char* strcpy(char* copiedCharArray, const char* sourceCharArray) {
-	int sourceCharArrayLengthWithTerminatingChar = strlen(sourceCharArray) + 1;
-	copiedCharArray = new char[sourceCharArrayLengthWithTerminatingChar];
-	for (int i = 0; i < sourceCharArrayLengthWithTerminatingChar; i++) {
+	int i = 0;
+	while (sourceCharArray[i] != '\0') {
 		copiedCharArray[i] = sourceCharArray[i];
 	}
+	copiedCharArray[i + 1] = '\0';
 	return copiedCharArray;
 }
 
@@ -151,7 +150,16 @@ int strcmp(const char* charPointerToArray1, const char* charPointerToArray2) {
 			i++;
 		}
 	}
-	return 0; // charPointerToArray1 == charPointerToArray2
+
+	// consider the case where we are comparing 'foo' & 'foobar'
+	// now we are going to compare '\0' and 'b' after i++; is executed
+	if (strlen(charPointerToArray1) < strlen(charPointerToArray2)) {
+		return charPointerToArray2[i];
+	} else if (strlen(charPointerToArray1) > strlen(charPointerToArray2)) {
+		return charPointerToArray1[i];
+	} else {
+		return 0; // charPointerToArray1 == charPointerToArray2
+	}
 }
 
 // Returns a pointer to the first occurrence of the given character in the
