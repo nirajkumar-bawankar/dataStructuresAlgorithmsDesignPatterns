@@ -1,27 +1,26 @@
-package dataStructures.linkedList.DoublyLinkedList;
+package dataStructures.linkedList.doublyLinkedList;
 
 /**
  * A generic doubly linked list Node class.
  *
- * @author Alexander Norton (ajn123@vt.edu)
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 30, 2013
  *
  * @param <E>
- *            the type of data stored in the Node.
+ *            The type of data stored in the Node.
  */
-public class Node<E> {
+public class DoublyLinkedListNode<E> {
 
     private E data;
-    private Node<E> nextNode;
-    private Node<E> previousNode;
+    private DoublyLinkedListNode<E> nextNode;
+    private DoublyLinkedListNode<E> previousNode;
 
     /**
      * Create a new Node object.
      *
      * @param data
      */
-    public Node(E data) {
+    public DoublyLinkedListNode(E data) {
 	this.data = data;
 	this.nextNode = null;
 	this.previousNode = null;
@@ -44,28 +43,28 @@ public class Node<E> {
     /**
      * @return This Node's next Node.
      */
-    public Node<E> getNextNode() {
+    public DoublyLinkedListNode<E> getNextNode() {
 	return this.nextNode;
     }
 
     /**
      * @param nextNode This Node's reference to next Node.
      */
-    public void setNextNode(Node<E> nextNode) {
+    public void setNextNode(DoublyLinkedListNode<E> nextNode) {
 	this.nextNode = nextNode;
     }
 
     /**
      * @return This Node's previous Node.
      */
-    public Node<E> getPreviousNode() {
+    public DoublyLinkedListNode<E> getPreviousNode() {
 	return this.previousNode;
     }
 
     /**
      * @param previousNode This Node's reference to previous Node.
      */
-    public void setPreviousNode(Node<E> previousNode) {
+    public void setPreviousNode(DoublyLinkedListNode<E> previousNode) {
 	this.previousNode = previousNode;
     }
 }

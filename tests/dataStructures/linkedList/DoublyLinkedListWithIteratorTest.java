@@ -188,14 +188,6 @@ public class DoublyLinkedListWithIteratorTest extends junit.framework.TestCase {
 	assertEquals(-1, this.linkedList.findValuePosition(4));
     }
 
-    public void test_moveCurrentNodeValueToLastNodeValue() {
-	this.test_insert(); // add ints 0, 1, 2, & 3 to linked list
-	assertEquals("< | 3 2 1 0 >", this.linkedList.toString());
-
-	this.linkedList.moveCurrentNodeValueToLastNodeValue();
-	assertEquals("< | 2 1 0 3 >", this.linkedList.toString());
-    }
-
     /**
      * Assert the current position and node values are correctly represented by
      * toString.

@@ -5,11 +5,11 @@ package dataStructures.linkedList;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 8, 2013
  */
-public class SinglyLinkedListTest extends junit.framework.TestCase {
-    private SinglyLinkedList<Integer> linkedList;
+public class SinglyLinkedListWithIteratorTest extends junit.framework.TestCase {
+    private SinglyLinkedListWithIterator<Integer> linkedList;
 
     public void setUp() {
-	this.linkedList = new SinglyLinkedList<Integer>();
+	this.linkedList = new SinglyLinkedListWithIterator<Integer>();
     }
 
     /**

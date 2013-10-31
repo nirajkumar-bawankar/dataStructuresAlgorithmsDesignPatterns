@@ -18,7 +18,7 @@ import dataStructures.interfaces.ListIteratorInterface;
  * @version Sep 12, 2013
  * @param <E>
  */
-public class SinglyLinkedList<E> implements ListInterface<E>,
+public class SinglyLinkedListWithIterator<E> implements ListInterface<E>,
 	ListIteratorInterface<E> {
     private SinglyLinkedListNode<E> head;
     private SinglyLinkedListNode<E> tail;
@@ -28,7 +28,7 @@ public class SinglyLinkedList<E> implements ListInterface<E>,
     /**
      * Create a new SinglyLinkedList object.
      */
-    public SinglyLinkedList() {
+    public SinglyLinkedListWithIterator() {
 	this.head = this.tail = this.currentNode = new SinglyLinkedListNode<E>(
 		null, null);
 	this.size = 0;

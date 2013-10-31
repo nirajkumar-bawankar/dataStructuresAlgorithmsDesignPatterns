@@ -1,4 +1,4 @@
-package dataStructures.linkedList;
+package dataStructures.linkedList.beautifulDoublyLinkedList;
 
 /**
  * A "node" represents a single element in a sequence. Think of it like a like

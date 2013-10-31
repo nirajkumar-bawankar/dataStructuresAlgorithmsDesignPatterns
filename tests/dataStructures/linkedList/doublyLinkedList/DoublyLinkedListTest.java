@@ -1,4 +1,7 @@
-package dataStructures.linkedList.DoublyLinkedList;
+package dataStructures.linkedList.doublyLinkedList;
+
+import dataStructures.linkedList.doublyLinkedList.DoublyLinkedList;
+
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 30, 2013
@@ -12,13 +15,13 @@ public class DoublyLinkedListTest extends junit.framework.TestCase {
     }
 
     public void test_append4NodesToLinkedList() {
-	this.doublyLinkedList.appendNode(new Node<Integer>(0));
+	this.doublyLinkedList.appendNode(new DoublyLinkedListNode<Integer>(0));
 	assertEquals("< 0 >", this.doublyLinkedList.toString());
-	this.doublyLinkedList.appendNode(new Node<Integer>(1));
+	this.doublyLinkedList.appendNode(new DoublyLinkedListNode<Integer>(1));
 	assertEquals("< 0 1 >", this.doublyLinkedList.toString());
-	this.doublyLinkedList.appendNode(new Node<Integer>(2));
+	this.doublyLinkedList.appendNode(new DoublyLinkedListNode<Integer>(2));
 	assertEquals("< 0 1 2 >", this.doublyLinkedList.toString());
-	this.doublyLinkedList.appendNode(new Node<Integer>(3));
+	this.doublyLinkedList.appendNode(new DoublyLinkedListNode<Integer>(3));
 	assertEquals("< 0 1 2 3 >", this.doublyLinkedList.toString());
     }
 

@@ -1,6 +1,6 @@
-package dataStructures.linkedList.DoublyLinkedList;
+package dataStructures.linkedList.doublyLinkedList;
+
 /**
- * @author Alexander Norton (ajn123@vt.edu)
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 30, 2013
  *
@@ -8,8 +8,8 @@ package dataStructures.linkedList.DoublyLinkedList;
  *            The type of data stored in the Node.
  */
 public class DoublyLinkedList<E> {
-    private Node<E> head;
-    private Node<E> tail;
+    private DoublyLinkedListNode<E> head;
+    private DoublyLinkedListNode<E> tail;
 
     private int size;
 
@@ -17,8 +17,8 @@ public class DoublyLinkedList<E> {
      * Creates an empty doubly linked list.
      */
     public DoublyLinkedList() {
-	this.head = new Node<E>(null);
-	this.tail = new Node<E>(null);
+	this.head = new DoublyLinkedListNode<E>(null);
+	this.tail = new DoublyLinkedListNode<E>(null);
 
 	this.head.setNextNode(this.tail);
 	this.tail.setPreviousNode(this.head);
@@ -33,7 +33,7 @@ public class DoublyLinkedList<E> {
      *            The Node to be added at the end of this linked list. the item
      *            to add
      */
-    public void appendNode(Node<E> nodeToAppend) {
+    public void appendNode(DoublyLinkedListNode<E> nodeToAppend) {
 	// If the list is not empty, then we need to create a new
 	// node, set the current tail's next reference to point to
 	// the new one, and then reassign tail to point to the new
@@ -49,13 +49,13 @@ public class DoublyLinkedList<E> {
     /**
      * Return and remove the node within the linked list with data dataToFind.
      *
-     * @param dataToFind
+     * @param dataOfNodeToFind
      * @return The removed Node if found; otherwise return null.
      */
-    Node<E> findAndRemoveNode(E dataToFind) {
-	Node<E> currentNode = this.head.getNextNode();
+    DoublyLinkedListNode<E> findAndRemoveNode(E dataOfNodeToFind) {
+	DoublyLinkedListNode<E> currentNode = this.head.getNextNode();
 	while (currentNode != this.tail) {
-	    if (currentNode.getData().equals(dataToFind)) {
+	    if (currentNode.getData().equals(dataOfNodeToFind)) {
 		currentNode.getPreviousNode().setNextNode(
 			currentNode.getNextNode());
 		currentNode.getNextNode().setPreviousNode(
@@ -72,15 +72,15 @@ public class DoublyLinkedList<E> {
     }
 
     /**
-     * Place a description of your method here.
+     * Remove the first Node in this linked list (the head Node's next node).
      *
-     * @return
+     * @return The removed node.
      */
-    public Node<E> removeFirstNode() {
+    public DoublyLinkedListNode<E> removeFirstNode() {
 	if (this.size == 0) {
 	    return null;
 	} else {
-	    Node<E> currentNode = this.head.getNextNode();
+	    DoublyLinkedListNode<E> currentNode = this.head.getNextNode();
 
 	    this.head.setNextNode(currentNode.getNextNode());
 
@@ -100,13 +100,19 @@ public class DoublyLinkedList<E> {
 	return this.size;
     }
 
+    /**
+     * @return a String representation of this doubly linked list. For example a
+     *         linked list starting at the head with elements (head) 0, 1, 2, 3
+     *         (tail) will be returned as a String equal to "< 0 1 2 3 >".
+     */
+    @Override
     public String toString() {
 
 	StringBuffer stringRepresentationOfLinkedList = new StringBuffer();
 
 	stringRepresentationOfLinkedList.append("< ");
 
-	Node<E> currentNode = this.head.getNextNode();
+	DoublyLinkedListNode<E> currentNode = this.head.getNextNode();
 	while (currentNode != this.tail) {
 	    stringRepresentationOfLinkedList
 		    .append(currentNode.getData() + " ");

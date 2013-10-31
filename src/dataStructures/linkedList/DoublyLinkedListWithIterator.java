@@ -182,17 +182,6 @@ public class DoublyLinkedListWithIterator<E> implements ListInterface<E>, ListIt
     }
 
     /**
-     * This method can only be in constant time for a DoublyLinkedList.
-     */
-    public void moveCurrentNodeValueToLastNodeValue() {
-	E currentNodeValue = this.currentNode.getValue();
-	E lastNodeValue = this.tail.getPreviousNode().getValue();
-
-	this.tail.getPreviousNode().setValue(currentNodeValue);
-	this.currentNode.setValue(lastNodeValue);
-    }
-
-    /**
      * Creates a easy to read String representation of the doubly linked lists
      * contents.
      *
