@@ -18,7 +18,7 @@ import dataStructures.interfaces.ListInterface;
  * @version Sep 28, 2013
  * @param <E>
  */
-public class DoublyLinkedList<E> implements ListInterface<E>, ListIteratorInterface<E> {
+public class DoublyLinkedListWithIterator<E> implements ListInterface<E>, ListIteratorInterface<E> {
     private DoublyLinkedListNode<E> head;
     private DoublyLinkedListNode<E> tail;
     private DoublyLinkedListNode<E> currentNode;
@@ -27,7 +27,7 @@ public class DoublyLinkedList<E> implements ListInterface<E>, ListIteratorInterf
     /**
      * Create a new empty DoublyLinkedList object.
      */
-    public DoublyLinkedList() {
+    public DoublyLinkedListWithIterator() {
 	this.currentNode = this.head = new DoublyLinkedListNode<E>(null, null,
 		null);
 	this.tail = new DoublyLinkedListNode<E>(null, this.head, null);

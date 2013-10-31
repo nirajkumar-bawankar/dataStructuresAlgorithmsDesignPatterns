@@ -15,10 +15,10 @@ package dataStructures.linkedList;
  * @author Tony Allevato (allevato@vt.edu)
  * @version Oct 22, 2012
  */
-public class Node<T> {
+public class JoinAndSplitNode<T> {
     private T data;
-    private Node<T> next;
-    private Node<T> previous;
+    private JoinAndSplitNode<T> next;
+    private JoinAndSplitNode<T> previous;
 
     /**
      * Create a new Node object with the specified data.
@@ -26,7 +26,7 @@ public class Node<T> {
      * @param data
      *            the data for the node
      */
-    public Node(T data) {
+    public JoinAndSplitNode(T data) {
 	this.data = data;
     }
 
@@ -38,19 +38,19 @@ public class Node<T> {
 	this.data = data;
     }
 
-    public Node<T> next() {
+    public JoinAndSplitNode<T> next() {
 	return this.next;
     }
 
-    public void setNext(Node<T> next) {
+    public void setNext(JoinAndSplitNode<T> next) {
 	this.next = next;
     }
 
-    public Node<T> previous() {
+    public JoinAndSplitNode<T> previous() {
 	return this.previous;
     }
 
-    public void setPrevious(Node<T> previous) {
+    public void setPrevious(JoinAndSplitNode<T> previous) {
 	this.previous = previous;
     }
 
@@ -73,7 +73,7 @@ public class Node<T> {
      *             if there is already a node following this node or if there is
      *             already a node preceding {@code newNext}
      */
-    public Node<T> join(Node<T> newNext) {
+    public JoinAndSplitNode<T> join(JoinAndSplitNode<T> newNext) {
 	if (this.next != null) {
 	    throw new IllegalStateException(
 		    "A node is already following this node");
@@ -95,8 +95,8 @@ public class Node<T> {
      *
      * @return the node that used to follow this node before they were split.
      */
-    public Node<T> split() {
-	Node<T> oldNext = this.next;
+    public JoinAndSplitNode<T> split() {
+	JoinAndSplitNode<T> oldNext = this.next;
 
 	if (this.next != null) {
 	    this.next.previous = null;

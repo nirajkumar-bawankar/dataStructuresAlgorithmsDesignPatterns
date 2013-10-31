@@ -5,11 +5,11 @@ package dataStructures.linkedList;
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sep 8, 2013
  */
-public class DoublyLinkedListTest extends junit.framework.TestCase {
-    private DoublyLinkedList<Integer> linkedList;
+public class DoublyLinkedListWithIteratorTest extends junit.framework.TestCase {
+    private DoublyLinkedListWithIterator<Integer> linkedList;
 
     public void setUp() {
-	this.linkedList = new DoublyLinkedList<Integer>();
+	this.linkedList = new DoublyLinkedListWithIterator<Integer>();
     }
 
     /**
