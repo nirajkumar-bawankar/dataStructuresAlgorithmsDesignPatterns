@@ -5,16 +5,13 @@ This repository hold common data structures and algorithms I have implemented. E
 
 |src/algorithms                  |src/dataStructures               |src/designPatterns        |
 |:------------------------------:|:-------------------------------:|:------------------------:|
-|BinarySearch.java               |PlaceQueueInC                    |flyweight TODO: comment   |
-|Factorial.java                  |StringInC                        |strategy                  |
-|Fibonacci.java                  |arrayLists                       |visitor                   |
-|Sorting.java                    |binTree                          |TODO: composite           |
-|TowerOfHanoi.java               |binarySearchTree                 |
-                                 |interfaces                       |
+|BinarySearch.java               |StringInC                        |flyweight TODO: comment   |
+|Factorial.java                  |arrayLists                       |strategy                  |
+|Fibonacci.java                  |binTree                          |visitor                   |
+|Sorting.java                    |binarySearchTree                 |TODO: composite           |
+|TowerOfHanoi.java               |interfaces                       |
                                  |linkedList                       |
-                                 |linkedQueueInC                   |  
-                                 |linkedStackInC++                 |    
-                                 |polynomialInC                    | 
+                                 |polynomialInC                    |                              |queue                            | 
                                  |rationalInC                      | 
                                  |stacks                           | 
                                  |Bag.java                         |
