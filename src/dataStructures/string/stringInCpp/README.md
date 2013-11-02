@@ -4,7 +4,7 @@ Well hello there! Here are instructions for running the tests for the implemente
 
 1. Get the files in this repo into your local machine with ```git clone```
 
-2. ```# open up a terminal and navigate to the folder containing the files in this repo```
+2. ```# open up a terminal and navigate to the folder containing the current files```
 
 3. type to the command line ```make```
 
