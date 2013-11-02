@@ -3,30 +3,33 @@
 
 #include <cstdlib>
 
-class string {
- public:
- 	// Initializes an empty string.
-	string();
+/**
+ * A implementation of a simplified version of the string C++ class.
+ */
+class String {
+public:
+	// Initializes an empty string.
+	String();
 
 	// Initializes a string based on the given C string.
-	string(const char*);
+	String(const char*);
 
 	// Initializes a string from an already existing string.  The contents
 	// of the existing string should be copied over to this string.
-	string(const string&);
+	String(const String&);
 
 	// Sets this string equal to another.  The contents of the string should
 	// be copied over to this string.
-	string& operator=(const string&);
+	String& operator=(const String&);
 
 	// Frees up memory for this string.
-	~string();
+	~String();
 
 	// Returns true if the two strings have the same contents.
-	bool operator==(const string&) const;
+	bool operator==(const String&) const;
 
 	// Concatenates a string to this string.
-	string& operator+=(const string&);
+	String& operator+=(const String&);
 
 	// Returns the ith character of this string.
 	const char& operator[](int) const;
@@ -37,12 +40,13 @@ class string {
 	// Returns the length of this string.
 	int length() const;
 
- private:
- 	char* str;
-	int len;
+private:
+	char* charArray;
+	int numberOfChars;
 };
 
-class out_of_range { };
+class out_of_range {
+};
 
 // Copies the C string in the second argument into the first argument,
 // including the null terminator.
