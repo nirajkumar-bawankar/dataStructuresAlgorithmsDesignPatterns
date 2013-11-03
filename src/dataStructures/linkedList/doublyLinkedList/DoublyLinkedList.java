@@ -52,7 +52,7 @@ public class DoublyLinkedList<E> {
      * @param dataOfNodeToFind
      * @return The removed Node if found; otherwise return null.
      */
-    DoublyLinkedListNode<E> findAndRemoveNode(E dataOfNodeToFind) {
+    public DoublyLinkedListNode<E> findAndRemoveNode(E dataOfNodeToFind) {
 	DoublyLinkedListNode<E> currentNode = this.head.getNextNode();
 	while (currentNode != this.tail) {
 	    if (currentNode.getData().equals(dataOfNodeToFind)) {
