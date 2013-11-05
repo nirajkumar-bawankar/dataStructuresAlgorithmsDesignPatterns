@@ -11,10 +11,13 @@ package dataStructures.hashTable;
  * @version Nov 4, 2013
  */
 public class HashFunctions {
+    public static int integerModulusFunction(int numberKey, int tableSize) {
+	return numberKey % tableSize;
+    }
+
     public static void integerBinningHashFunction() {
 	// TODO: implement
     }
-
 
     /**
      * This is a good hash function to use with integer key values. This method
