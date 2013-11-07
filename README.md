@@ -5,10 +5,10 @@ This repository hold common data structures and algorithms I have implemented. E
 
 |src/algorithms                  |src/dataStructures               |src/designPatterns        |
 |:------------------------------:|:-------------------------------:|:------------------------:|
-|BinarySearch.java               |StringInC                        |flyweight TODO: comment   |
-|Factorial.java                  |arrayLists                       |strategy                  |
-|Fibonacci.java                  |binTree                          |visitor                   |
-|Sorting.java                    |binarySearchTree                 |TODO: composite           |
+|BinarySearch.java               |arrayLists                       |flyweight TODO: comment   |
+|Factorial.java                  |binTree                          |strategy                  |
+|Fibonacci.java                  |binarySearchTree                 |visitor                   |
+|Sorting.java                    |hashTable TODO: finish           |TODO: composite           |
 |TowerOfHanoi.java               |interfaces                       |
                                  |linkedList                       |
                                  |polynomialInC                    |                              |queue                            | 
