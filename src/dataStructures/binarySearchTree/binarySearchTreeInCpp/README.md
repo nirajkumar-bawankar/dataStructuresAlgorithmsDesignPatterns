@@ -1,0 +1,11 @@
+Binary Search Tree in C++
+=========================
+Well hello there! Here are instructions for running the tests for the implemented BinTree class in this folder:
+
+1. Get the files in this repo into your local machine with ```git clone```
+
+2. ```# open up a terminal and navigate to the folder containing the current files```
+
+3. type to the command line ```make```
+
+4. type to the command line ```./run # to run the generated executable``` 
