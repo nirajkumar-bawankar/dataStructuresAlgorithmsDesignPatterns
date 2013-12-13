@@ -47,4 +47,64 @@ public class TwoThreeTree<K extends Comparable<? super K>, E> {
 	this.centerChild = centerChild;
 	this.rightChild = rightChild;
     }
+
+    public boolean isLeaf() {
+	return this.leftChild == null;
+    }
+
+    public K getLeftKey() {
+	return this.leftKey;
+    }
+
+    public void setLeftKey(K leftKey) {
+	this.leftKey = leftKey;
+    }
+
+    public E getLeftValue() {
+	return this.leftValue;
+    }
+
+    public void setLeftValue(E leftValue) {
+	this.leftValue = leftValue;
+    }
+
+    public K getRightKey() {
+	return this.rightKey;
+    }
+
+    public void setRightKey(K rightKey) {
+	this.rightKey = rightKey;
+    }
+
+    public E getRightValue() {
+	return this.rightValue;
+    }
+
+    public void setRightValue(E rightValue) {
+	this.rightValue = rightValue;
+    }
+
+    public TwoThreeTree<K, E> getLeftChild() {
+	return this.leftChild;
+    }
+
+    public void setLeftChild(TwoThreeTree<K, E> leftChild) {
+	this.leftChild = leftChild;
+    }
+
+    public TwoThreeTree<K, E> getCenterChild() {
+	return this.centerChild;
+    }
+
+    public void setCenterChild(TwoThreeTree<K, E> centerChild) {
+	this.centerChild = centerChild;
+    }
+
+    public TwoThreeTree<K, E> getRightChild() {
+	return this.rightChild;
+    }
+
+    public void setRightChild(TwoThreeTree<K, E> rightChild) {
+	this.rightChild = rightChild;
+    }
 }
