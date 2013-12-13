@@ -38,5 +38,13 @@ public class TwoThreeTree<K extends Comparable<? super K>, E> {
 	    TwoThreeTree<K, E> leftChild, TwoThreeTree<K, E> centerChild,
 	    TwoThreeTree<K, E> rightChild) {
 	this.leftKey = leftKey;
+	this.leftValue = leftValue;
+
+	this.rightKey = rightKey;
+	this.rightValue = rightValue;
+
+	this.leftChild = leftChild;
+	this.centerChild = centerChild;
+	this.rightChild = rightChild;
     }
 }
