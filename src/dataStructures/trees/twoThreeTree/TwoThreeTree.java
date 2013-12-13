@@ -48,6 +48,29 @@ public class TwoThreeTree<K extends Comparable<? super K>, E> {
 	this.rightChild = rightChild;
     }
 
+    private E findhelp(TwoThreeTree<K, E> root, K k) {
+	if (root == null) {
+	    return null; // value not found
+	}
+	if (k.compareTo(root.getLeftKey()) == 0) {
+	    return root.getLeftValue();
+	}
+	if ((root.getRightKey() != null)
+		&& (k.compareTo(root.getRightKey()) == 0)) {
+	    return root.getRightValue();
+	}
+
+	if (k.compareTo(root.getLeftKey()) < 0) {// search left
+	    return findhelp(root.getLeftChild(), k);
+	} else if (root.getRightKey() == null) { // search center
+	    return findhelp(root.getCenterChild(), k);
+	} else if (k.compareTo(root.getRightKey()) < 0) { // search center
+	    return findhelp(root.getCenterChild(), k);
+	} else {
+	    return findhelp(root.getRightChild(), k); // search right
+	}
+    }
+
     public boolean isLeaf() {
 	return this.leftChild == null;
     }
