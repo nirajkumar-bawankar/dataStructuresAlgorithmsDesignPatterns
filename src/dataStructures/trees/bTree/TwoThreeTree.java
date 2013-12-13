@@ -1,4 +1,4 @@
-package dataStructures.trees.twoThreeTree;
+package dataStructures.trees.bTree;
 
 /**
  * A 2-3 Tree has the following properties: 1) A node contains 1 or 2 keys. 2)
@@ -46,6 +46,19 @@ public class TwoThreeTree<K extends Comparable<? super K>, E> {
 	this.leftChild = leftChild;
 	this.centerChild = centerChild;
 	this.rightChild = rightChild;
+    }
+
+    // TODO: insert(), remove()
+
+    public E remove() {
+	// TODO:
+	// Case 1) remove a record from a leaf node, just remove the record
+	// 	   and no other nodes are affected
+
+	// Case 2) when the only record in a leaf node is to be removed
+
+	// Case 3) when a record is to be removed from an internal node
+	return null;
     }
 
     private E findhelp(TwoThreeTree<K, E> root, K k) {
