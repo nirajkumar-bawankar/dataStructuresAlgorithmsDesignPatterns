@@ -1,4 +1,4 @@
-package dataStructures.binTree;
+package dataStructures.trees.binTree;
 /**
  * The internal nodes of a bin tree only store references to it's left and right
  * child.

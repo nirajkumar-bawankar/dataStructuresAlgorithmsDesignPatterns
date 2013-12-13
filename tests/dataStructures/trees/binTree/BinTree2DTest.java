@@ -1,4 +1,4 @@
-package dataStructures.binTree;
+package dataStructures.trees.binTree;
 import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
 

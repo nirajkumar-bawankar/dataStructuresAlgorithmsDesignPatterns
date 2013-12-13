@@ -1,4 +1,4 @@
-package dataStructures.binarySearchTree;
+package dataStructures.trees.binarySearchTree;
 import dataStructures.interfaces.DictionaryInterface;
 
 import java.lang.Comparable;

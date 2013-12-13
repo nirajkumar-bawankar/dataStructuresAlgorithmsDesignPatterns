@@ -1,4 +1,4 @@
-package dataStructures.binTree;
+package dataStructures.trees.binTree;
 
 /**
  * The bin tree is a spatial data structure that can be used to unify search

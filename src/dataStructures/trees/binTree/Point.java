@@ -1,4 +1,4 @@
-package dataStructures.binTree;
+package dataStructures.trees.binTree;
 /**
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Oct 12, 2013

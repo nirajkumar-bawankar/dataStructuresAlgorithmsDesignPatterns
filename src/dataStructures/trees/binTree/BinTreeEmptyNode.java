@@ -1,4 +1,4 @@
-package dataStructures.binTree;
+package dataStructures.trees.binTree;
 /**
  * The class is the singleton design pattern of empty bin tree node using the
  * eager initialization strategy.

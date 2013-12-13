@@ -1,4 +1,4 @@
-package dataStructures.binTree;
+package dataStructures.trees.binTree;
 /**
  * This class tests all logic within class BinTreeInternalNode.
  *

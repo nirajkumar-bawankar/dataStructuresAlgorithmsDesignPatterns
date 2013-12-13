@@ -1,4 +1,4 @@
-package dataStructures.binarySearchTree;
+package dataStructures.trees.binarySearchTree;
 /**
  * This class tests all logic within class BinarySearchTree.
  *
