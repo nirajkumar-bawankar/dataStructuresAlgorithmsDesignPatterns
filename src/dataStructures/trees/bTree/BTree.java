@@ -6,6 +6,8 @@ package dataStructures.trees.bTree;
  * modern file systems.
  *
  * A B tree has the following properties:
+ * 0) Only stores records at the leaf nodes. Internal nodes only store key
+ * values to guide the search.
  * 1) B trees are always height balanced, with all leaf nodes at the same level.
  * 2) Update and search operations affect only a few disk blocks. The fewer
  * the # of disk blocks affected, the less disk I/O is required.
