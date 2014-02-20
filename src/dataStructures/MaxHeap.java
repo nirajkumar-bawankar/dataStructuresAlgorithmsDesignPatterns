@@ -17,6 +17,10 @@ import java.lang.Comparable;
  * To develop a deep understanding of max and min heaps please visit:
  * http://algoviz.org/OpenDSA/Books/CS3114PM/html/Heaps.html
  *
+ * TODO: consider this code review @
+ * http://codereview.stackexchange.com/questions
+ * /32269/maxheap-implementation/42020#42020
+ *
  * @author Quinn Liu (quinnliu@vt.edu)
  * @version Sept 8, 2013
  * @param <E>
