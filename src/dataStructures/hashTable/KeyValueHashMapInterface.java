@@ -35,7 +35,7 @@ public interface KeyValueHashMapInterface<Key, Value> {
      * @return The previous value associated with the specified key, or null if
      *         there was no previous mapping.
      */
-    public abstract void remove(Object key);
+    public abstract Value remove(Object key);
 
     /**
      * @return The size & not the capacity of this hashtable.
