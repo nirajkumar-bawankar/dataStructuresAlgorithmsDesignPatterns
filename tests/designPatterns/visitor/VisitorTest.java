@@ -1,4 +1,4 @@
-package dataStructures.visitor;
+package designPatterns.visitor;
 
 import designPatterns.visitor.Liquor;
 import designPatterns.visitor.Necessity;
