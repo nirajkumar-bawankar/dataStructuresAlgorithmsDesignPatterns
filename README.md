@@ -1,47 +1,43 @@
-DataStructuresAlgorithmsDesignPatterns
-======================================
+# DataStructures Algorithms & DesignPatterns
 
-This repository hold common data structures and algorithms I have implemented. Enjoy!   
+This repository hold common & custom data structures and algorithms I have implemented. Enjoy!   
 
-- src/algorithms
-  + fibonacciInC
-  + overlapDetection
-  + BinarySearch.java
-  + Factorial.java
-  + Fibonacci.java
-  + Sorting.java
-  + TowerOfHanoi.java
-  + TODO: Dijkstra's Algorithm
-  + TODO: BreathFirstSearch
-  + TODO: DepthFirstSearch
+## File tree
+- src/
+  + [algorithms/](./src/algorithms)
+    - fibonacciInC/
+    - overlapDetection/
+    - BinarySearch.java
+    - Factorial.java
+    - Fibonacci.java
+    - Sorting.java
+    - TowerOfHanoi.java
 
-- src/dataStructures
-  + arrayLists
-  + TODO: finish and test hashTable
-  + interfaces
-  + linkedList
-  + polynomialInC
-  + queue
-  + rationalInC
-  + stacks
-  + string
-  + trees
-  + Bag.java
-  + KeyValuePair.java
-  + LinkedQueue.java
-  + MaxHeap.java
-  + ParentPointerTree.java
-  + PeekingIterator.java
-  + TODO: CircularLinkedQueue
-  + TODO: Treap
+- src/
+  + [dataStructures/](./src/dataStructures)
+    - arrayLists/
+    - hashTable/
+    - interfaces/
+    - linkedList/
+    - polynomialInC/ 
+    - queue/
+    - rationalInC/
+    - stacks/
+    - string/
+    - trees/
+    - Bag.java
+    - KeyValuePair.java
+    - LinkedQueue.java
+    - MaxHeap.java
+    - ParentPointerTree.java
+    - PeekingIterator.java
     
-- src/designPatterns
-  + flyweight
-  + strategy
-  + visitor
-  + TODO: composite
-  + TODO: singleton
-
+- src/
+  + [designPatterns/](./src/designPatterns)
+    - flyweight/
+    - observer/
+    - strategy/
+    - visitor/
 
 ===============================================
 e-mail me at quinnliu@vt.edu for any questions!
